@@ -1,1 +1,387 @@
-[]
+# Notifications
+- id: HomeAssistantStartup
+  alias: HomeAssistantStartup
+  trigger:
+  - event: start
+    platform: homeassistant
+  action:
+  - data:
+      message: PandaPadMain is starting
+      target: '353719692298289162'
+    service: notify.discord_notify
+  - service: frontend.set_theme
+    data:
+      name: dark_theme
+
+- id: HomeAssistantShutdown
+  alias: HomeAssistantShutdown
+  trigger:
+  - event: shutdown
+    platform: homeassistant
+  action:
+  - data:
+      message: PandaPadMain is shutting down
+      target: '353719692298289162'
+    service: notify.discord_notify
+
+- id: FrontDoorOpen
+  alias: "Front Door Open"
+  trigger:
+  - platform: state
+    entity_id: sensor.front_door_sensor
+    to: open
+    for:
+      minutes: 2
+  action:
+  - service: notify.discord_notify  
+    data:
+      message: "The front door was left open!"
+      target: '353719692298289162'
+  - service: tts.google_say
+    entity_id:
+      - media_player.kitchen_speaker
+      - media_player.master_bedroom_speaker
+      - media_player.dakotas_bedroom_speaker
+    data:
+      message: 'The front door was left open!'
+    
+- id: FrontDoorOpened
+  alias: "Front Door Opened"
+  trigger:
+  - platform: state
+    entity_id: sensor.front_door_sensor
+    to: open
+  action:
+  - data:
+      message: "The front door opened."
+      target: '353719692298289162'
+    service: notify.discord_notify
+  - service: tts.google_say
+    entity_id:
+      - media_player.kitchen_speaker
+      - media_player.master_bedroom_speaker
+      - media_player.dakotas_bedroom_speaker
+    data:
+      message: 'The front door opened.'
+    
+- id: FrontDoorClosed
+  alias: "Front Door Closed"
+  trigger:
+  - platform: state
+    entity_id: sensor.front_door_sensor
+    to: closed
+  action:
+  - data:
+      message: "The front door closed."
+      target: '353719692298289162'
+    service: notify.discord_notify
+  - service: tts.google_say
+    entity_id:
+      - media_player.kitchen_speaker
+      - media_player.master_bedroom_speaker
+      - media_player.dakotas_bedroom_speaker
+    data:
+      message: 'The front door closed.'
+
+# Entry Automations
+- id: LightOnEntry
+  alias: "Turn On Light On Entry"
+  trigger:
+  - platform: state
+    entity_id: sensor.motion_sensor_downstairs
+    to: active
+  - platform: state
+    entity_id: sensor.front_door_sensor
+    to: open
+  action:
+    service: homeassistant.turn_on
+    entity_id: light.bottom_stairs
+    
+- id: LightOffEntryMotion
+  alias: "Turn Off Light After Entry - Motion"
+  trigger:
+  - platform: state
+    entity_id: sensor.motion_sensor_downstairs
+    to: inactive
+    for:
+      minutes: 3
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.bottom_stairs
+    
+- id: LightOffEntryDoor
+  alias: "Turn Off Light After Entry - Door"
+  trigger:
+  - platform: state
+    entity_id: sensor.front_door_sensor
+    to: closed
+    for:
+      minutes: 3
+  action:
+    service: homeassistant.turn_off
+    entity_id: light.bottom_stairs
+    
+#Daily light automations
+- id: MorningLightSchoolDay
+  alias: "Turn On Lights Daily - Morning School Day"
+  trigger:
+  - platform: time
+    at: '05:00:00'
+  condition:
+    condition: state
+    entity_id: sensor.school_day
+    state: 'true'
+  action:
+    - service: light.turn_on
+      entity_id: 
+        - light.lamp
+        
+- id: MorningLightSchoolDayMQTT
+  alias: "Turn On Lights Daily - Morning School Day - MQTT"
+  trigger:
+  - platform: time
+    at: '05:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.school_day
+        state: 'true'
+      - condition: state
+        entity_id: light.top_stairs
+        state: 'off'
+  action:
+    - service: mqtt.publish
+      data:
+        payload: 'on'
+        topic: 'node-red/lights/top_stairs'
+        qos: 0
+
+- id: MorningLightNonSchoolDay
+  alias: "Turn On Lights Daily - Morning Non School Day"
+  trigger:
+  - platform: time
+    at: '07:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sensor.school_day
+        state: 'false'
+      - condition: state
+        entity_id: light.top_stairs
+        state: 'off'
+  action:
+    - service: mqtt.publish
+      data:
+        payload: 'on'
+        topic: 'node-red/lights/top_stairs'
+        qos: 0
+
+        
+- id: MorningLightOff
+  alias: "Turn Off Lights Daily - Morning"
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: '00:45:00'
+  action:
+    - service: mqtt.publish
+      data:
+        payload: 'off'
+        topic: 'node-red/lights/top_stairs'
+        qos: 0
+        
+- id: EveningLightOn
+  alias: "Turn On Lights Daily - Evening"
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '-00:45:00'
+  action:
+    - service: mqtt.publish
+      data:
+        payload: 'on'
+        topic: 'node-red/lights/top_stairs'
+        qos: 0      
+
+- id: EveningLightOffWeekday
+  alias: "Turn Off Lights Daily - Weekday Evening"
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+    condition: template
+    value_template: '{{ now().weekday() < 5 }}'
+  action:
+    - service: mqtt.publish
+      data:
+        payload: 'off'
+        topic: 'node-red/lights/top_stairs'
+        qos: 0
+    
+- id: EveningLightOffWeekend
+  alias: "Turn Off Lights Daily - Weekend Evening"
+  trigger:
+  - platform: time
+    at: '23:00:00'
+  condition:
+    condition: template
+    value_template: '{{ now().weekday() == 0 or now().weekday() >= 5 }}'
+  action:
+    - service: mqtt.publish
+      data:
+        payload: 'off'
+        topic: 'node-red/lights/top_stairs'
+        qos: 0
+
+        
+# Presence automations
+- id: ToggleErinAway
+  alias: Toggle Erin Away
+  trigger:
+  - platform: state
+    entity_id: group.erin
+    to: 'not_home'
+    for:
+      minutes: 5
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.erin_away
+
+- id: ToggleNathanAway
+  alias: Toggle Nathan Away
+  trigger:
+  - platform: state
+    entity_id: device_tracker.nathan
+    to: 'not_home'
+    for:
+      minutes: 5
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.nathan_away
+      
+- id: ErinReturnHomeNotification
+  alias: "Erin Arrives - Notification"
+  trigger:
+  - platform: state
+    entity_id: group.erin
+    to: home
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.erin_away
+      state: 'on'
+    - condition: time
+      before: '22:00:00'
+      after: '08:00:00'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.kitchen_speaker
+    data:
+      message: 'Erin is arriving home.'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.erin_away
+      
+- id: NathanReturnHomeNotification
+  alias: "Nathan Arrives - Notification"
+  trigger:
+  - platform: state
+    entity_id: device_tracker.nathan
+    to: home
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.nathan_away
+      state: 'on'
+    - condition: time
+      before: '22:00:00'
+      after: '08:00:00'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.kitchen_speaker
+    data:
+      message: 'Nathan is arriving home.'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.nathan_away
+      
+- alias: Smartthings Presence Detection
+  trigger:
+    platform: mqtt
+    topic: 'smartthings/+/presence/state'
+  action:
+    - service: mqtt.publish
+      data_template:
+        topic: >
+          location/{{ trigger.topic.split('/')[1] }}
+        payload: >
+          {% if trigger.payload == "present" %}home{% else %}not_home{% endif %}
+          
+- alias: Arrive Home Late
+  trigger: 
+    - platform: state
+      entity_id: group.family
+      to: home
+  condition:
+    - condition: time
+      after: '23:00:00'
+      before: '03:00:00'
+  action:
+    - service: homeassistant.turn_on
+      entity_id: 
+        - light.her_light
+        - light.his_light
+        - light.bedroom_left
+        - light.bedroom_right
+      data:
+        brightness_pct: 25
+    - service: homeassistant.turn_on
+      entity_id: group.entry
+    - delay:
+        minutes: 5
+    - service: homeassistant.turn_off
+      entity_id: group.bedroom
+    - service: homeassistant.turn_off
+      entity_id: group.entry
+ 
+# LED effects
+- alias: LED Effects
+  trigger:
+    - platform: state
+      entity_id: input_select.led_effects
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.flux_main_balcony
+        effect: '{{ states.input_select.led_effects.state }}'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.current_led_effect
+        option: '{{ states.input_select.led_effects.state }}'
+        
+- id: EveningLightOnBalcony
+  alias: "Turn On Lights Daily - Balcony"
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '-00:45:00'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.flux_main_balcony
+        effect: '{{ states.input_select.current_led_effect.state }}'
+        
+- id: EveningLightOffBalcony
+  alias: "Turn Off Balcony Lights Daily"
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.flux_main_balcony

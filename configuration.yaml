@@ -1,32 +1,35 @@
 homeassistant:
   # Name of the location where Home Assistant is running
-  name: Home
+  name: PandaPad
   # Location required to calculate the time the sun rises and sets
-  latitude: 28.1511
-  longitude: -82.4615
+  latitude: 28.185187
+  longitude: -82.467655
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 22
+  elevation: 85
   # metric for Metric, imperial for Imperial
   unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/New_York
-  # Customization file
+  # customizations
   customize: !include customize.yaml
 
-# Show links to resources in log and frontend
-introduction:
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+light: !include lights.yaml
 
 # Enables the frontend
-frontend:
+frontend: !include frontend.yaml
 
 # Enables configuration UI
 config:
 
 http:
-  # Secrets are defined in the file secrets.yaml
-  # api_password: !secret http_password
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  # base_url: example.duckdns.org:8123
+  base_url: panda-home.duckdns.org
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -37,9 +40,6 @@ updater:
   # Optional, allows Home Assistant developers to focus on popular components.
   # include_used_components: true
 
-# Discover some devices automatically
-discovery:
-
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
@@ -49,23 +49,105 @@ history:
 # View all events in a logbook
 logbook:
 
-# Enables a map showing the location of tracked devices
-map:
-
 # Track the sun
-sun:
-
-# Weather prediction
-sensor:
-  - platform: yr
+sun: 
 
 # Text to speech
 tts:
   - platform: google
 
-# Cloud
-cloud:
+mqtt:
+  broker: 192.168.1.65
+  port: 1883
+  client_id: PandaPad_Main
+  username: !secret mqtt_user
+  password: !secret mqtt_password
 
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
+notify:
+  - name: Discord_Notify
+    platform: discord
+    token: !secret discord_token
+
+device_tracker:
+  - platform: mqtt
+    devices:
+      Nathan: "location/Nathan"
+      Nathan_Phone: "location/Nathan's Phone"
+      Erin: "location/Erin"
+      Erin_Phone: "location/Erin's Phone"
+  - platform: gpslogger
+
+recorder:
+  purge_interval: 1
+  purge_keep_days: 14
+
+discovery:
+
+media_player:
+  - platform: cast
+    host: 192.168.1.158
+  - platform: cast
+    host: 192.168.1.163
+  - platform: cast
+    host: 192.168.1.164
+
+input_boolean:
+  erin_away:
+    name: Erin is Away
+    initial: off
+  nathan_away:
+    name: Nathan is Away
+    initial: off
+  toggle_school_day:
+    name: Turn off school day
+    initial: on
+    
+input_select:
+  led_effects:
+    name: Led Effects
+    options:
+      - colorloop
+      - colorjump
+      - colorstrobe
+      - random
+      - red_fade
+      - green_fade
+      - blue_fade
+      - yellow_fade
+      - cyan_fade
+      - purple_fade
+      - white_fade
+      - rg_cross_fade
+      - rb_cross_fade
+      - gb_cross_fade
+      - red_strobe
+      - green_strobe
+      - blue_strobe
+      - yellow_strobe
+      - cyan_strobe
+      - purple_strobe
+      - white_strobe
+  current_led_effect:
+    name: Current Led Effect
+    options:
+      - colorloop
+      - colorjump
+      - colorstrobe
+      - random
+      - red_fade
+      - green_fade
+      - blue_fade
+      - yellow_fade
+      - cyan_fade
+      - purple_fade
+      - white_fade
+      - rg_cross_fade
+      - rb_cross_fade
+      - gb_cross_fade
+      - red_strobe
+      - green_strobe
+      - blue_strobe
+      - yellow_strobe
+      - cyan_strobe
+      - purple_strobe
+      - white_strobe

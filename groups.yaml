@@ -1,0 +1,115 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  name: Panda Pad
+  entities:
+    - group.family
+    - group.bedroom
+    - group.dakotas_room
+    - group.entry
+    - group.entry_sensors
+    - group.balcony
+    
+automations:
+  view: yes
+  icon: mdi:settings
+  name: Automations
+  entities:
+    - group.all_automations
+
+
+bedroom:
+  name: Bedroom
+  view: no
+  entities:
+    - light.her_light
+    - light.his_light
+    - light.bedroom_left
+    - light.bedroom_right
+    
+entry:
+  name: Entry
+  view: no
+  entities:
+    - light.bottom_stairs
+    - light.top_stairs
+    
+entry_sensors:
+  name: Entry Sensors
+  view: no
+  entities:
+    - sensor.front_door_sensor
+    - sensor.front_door_sensor_battery
+    - sensor.motion_sensor_downstairs
+    - sensor.downstairs_temperature
+    - sensor.motion_sensor_downstairs_battery
+    
+family:
+  name: Pandas
+  view: no
+  entities:
+    - group.erin
+    - group.nathan
+
+sensor_page:
+  name: Sensors
+  view: yes
+  icon: mdi:gauge
+  entities:
+    - group.other_sensors
+    - group.weather
+
+other_sensors:
+  name: Other Sensors
+  entities:
+    - sensor.uptime
+    - sensor.school_day
+    - input_boolean.toggle_school_day
+    - sensor.tower
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    
+weather:
+  name: Weather
+  view: no
+  entities:
+    - sensor.dark_sky_apparent_temperature
+    - sensor.dark_sky_humidity
+    - sensor.dark_sky_icon
+    - sensor.dark_sky_precip
+    - sensor.dark_sky_precip_intensity
+    - sensor.dark_sky_precip_probability
+    - sensor.dark_sky_pressure
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_wind_bearing
+    - sensor.dark_sky_wind_speed
+    
+nathan:
+  name: Nathan
+  view: no
+  entities:
+    - device_tracker.nathan
+    - device_tracker.nathan_phone
+    
+erin:
+  name: Erin
+  view: no
+  entities:
+    - device_tracker.erin
+    - device_tracker.erin_phone
+    
+dakotas_room:
+  name: Dakota's Room
+  view: no
+  entities:
+    - light.lamp
+    
+balcony:
+  name: Balcony
+  view: no
+  entities:
+    - light.flux_main_balcony
+    - input_select.led_effects
+    - input_select.current_led_effect

@@ -1,0 +1,101 @@
+- platform: mqtt
+  name: "Top Stairs"
+  command_topic: "smartthings/Top Stairs/switch/cmd"
+  state_topic: "smartthings/Top Stairs/switch/state"
+  brightness_command_topic: "smartthings/Top Stairs/level/cmd"
+  brightness_state_topic: "smartthings/Top Stairs/level/state"
+  brightness_scale: 100
+  color_temp_command_topic: "smartthings/Top Stairs/colorTemperature/cmd"
+  color_temp_state_topic: "smartthings/Top Stairs/colorTemperature/state"
+  payload_on: "on"
+  payload_off: "off"
+  
+- platform: mqtt
+  name: "Bottom Stairs"
+  command_topic: "smartthings/Bottom Stairs/switch/cmd"
+  state_topic: "smartthings/Bottom Stairs/switch/state"
+  brightness_command_topic: "smartthings/Bottom Stairs/level/cmd"
+  brightness_state_topic: "smartthings/Bottom Stairs/level/state"
+  brightness_scale: 100
+  color_temp_command_topic: "smartthings/Bottom Stairs/colorTemperature/cmd"
+  color_temp_state_topic: "smartthings/Bottom Stairs/colorTemperature/state"
+  payload_on: "on"
+  payload_off: "off"
+  
+- platform: mqtt
+  name: "Bedroom Left"
+  command_topic: "smartthings/Bedroom Left/switch/cmd"
+  state_topic: "smartthings/Bedroom Left/switch/state"
+  brightness_command_topic: "smartthings/Bedroom Left/level/cmd"
+  brightness_state_topic: "smartthings/Bedroom Left/level/state"
+  brightness_scale: 100
+  payload_on: "on"
+  payload_off: "off"
+  
+- platform: mqtt
+  name: "Bedroom Right"
+  command_topic: "smartthings/Bedroom Right/switch/cmd"
+  state_topic: "smartthings/Bedroom Right/switch/state"
+  brightness_command_topic: "smartthings/Bedroom Right/level/cmd"
+  brightness_state_topic: "smartthings/Bedroom Right/level/state"
+  brightness_scale: 100
+  payload_on: "on"
+  payload_off: "off"
+  
+- platform: mqtt
+  name: "His Light"
+  command_topic: "smartthings/His Light/switch/cmd"
+  state_topic: "smartthings/His Light/switch/state"
+  brightness_command_topic: "smartthings/His Light/level/cmd"
+  brightness_state_topic: "smartthings/His Light/level/state"
+  brightness_scale: 100
+  payload_on: "on"
+  payload_off: "off"
+  
+- platform: mqtt
+  name: "Her Light"
+  command_topic: "smartthings/Her Light/switch/cmd"
+  state_topic: "smartthings/Her Light/switch/state"
+  brightness_command_topic: "smartthings/Her Light/level/cmd"
+  brightness_state_topic: "smartthings/Her Light/level/state"
+  brightness_scale: 100
+  payload_on: "on"
+  payload_off: "off"
+  
+- platform: mqtt
+  name: "Lamp"
+  command_topic: "smartthings/Lamp/switch/cmd"
+  state_topic: "smartthings/Lamp/switch/state"
+  brightness_command_topic: "smartthings/Lamp/level/cmd"
+  brightness_state_topic: "smartthings/Lamp/level/state"
+  brightness_scale: 100
+  payload_on: "on"
+  payload_off: "off"
+  
+- platform: flux_led
+  devices:
+    192.168.1.168:
+      name: Flux Main Balcony
+  effect: true
+  effect_list:
+    - colorloop
+    - colorjump
+    - colorstrobe
+    - random
+    - red_fade
+    - green_fade
+    - blue_fade
+    - yellow_fade
+    - cyan_fade
+    - purple_fade
+    - white_fade
+    - rg_cross_fade
+    - rb_cross_fade
+    - gb_cross_fade
+    - red_strobe
+    - green_strobe
+    - blue_strobe
+    - yellow_strobe
+    - cyan_strobe
+    - purple_strobe
+    - white_strobe
