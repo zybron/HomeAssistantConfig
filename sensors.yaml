@@ -59,7 +59,8 @@
     - download
     - upload
     
-- platform: fail2ban
-  jails:
-    - ssh
-    - hass-iptables
+# Failing due to issue with scan interval
+#- platform: fail2ban
+#  jails:
+#    - ssh
+#    - hass-iptables
