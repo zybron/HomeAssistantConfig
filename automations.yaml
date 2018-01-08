@@ -385,3 +385,15 @@
   action:
     - service: light.turn_off
       entity_id: light.flux_main_balcony
+      
+# Updater Notification
+- id: UpdateAvailable
+  alias: "Update Notification"
+  trigger:
+  - platform: state
+    entity_id: updater.updater
+  action:
+  - service: notify.discord_notify
+    data:
+      message: 'There is an update available for Home Assistant.'
+      target: '353719692298289162'
