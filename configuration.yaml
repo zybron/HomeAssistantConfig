@@ -1,38 +1,38 @@
 homeassistant:
   # Name of the location where Home Assistant is running
-  name: PandaPad
+  name:                     PandaPad
   # Location required to calculate the time the sun rises and sets
-  latitude: !secret latitude
-  longitude: !secret longitude
+  latitude:                 !secret latitude
+  longitude:                !secret longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 85
+  elevation:                85
   # metric for Metric, imperial for Imperial
-  unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: America/New_York
+  unit_system:              imperial
+  # Pick yours from here:   http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone:                America/New_York
   # customizations
-  customize: !include customize.yaml
+  customize:                !include customize.yaml
 
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-sensor: !include sensors.yaml
-light: !include lights.yaml
+group:                      !include groups.yaml
+automation:                 !include automations.yaml
+script:                     !include scripts.yaml
+sensor:                     !include sensors.yaml
+light:                      !include lights.yaml
 
 # Enables the frontend
-frontend: !include frontend.yaml
+frontend:                   !include frontend.yaml
 
 # Enables configuration UI
 config:
 
 http:
   # Uncomment this to add a password (recommended!)
-  api_password: !secret http_password
+  api_password:             !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  base_url: panda-home.duckdns.org
+  base_url:                 panda-home.duckdns.org
 
 # Checks for available updates
-# Note: This component will send some information about your system to
+# Note:                     This component will send some information about your system to
 # the developers to assist with development of Home Assistant.
 # For more information, please see:
 # https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
@@ -50,62 +50,62 @@ history:
 logbook:
 
 # Track the sun
-sun: 
+sun:
 
 # Text to speech
 tts:
-  - platform: google
+  - platform:               google
 
 mqtt:
-  broker: 192.168.1.65
-  port: 1883
-  client_id: PandaPad_Main
-  username: !secret mqtt_user
-  password: !secret mqtt_password
+  broker:                   192.168.1.65
+  port:                     1883
+  client_id:                PandaPad_Main
+  username:                 !secret mqtt_user
+  password:                 !secret mqtt_password
 
 notify:
-  - name: Discord_Notify
-    platform: discord
-    token: !secret discord_token
+  - name:                   Discord_Notify
+    platform:               discord
+    token:                  !secret discord_token
 
 device_tracker:
-  - platform: mqtt
+  - platform:               mqtt
     devices:
-      Nathan: "location/Nathan"
-      Nathan_Phone: "location/Nathan's Phone"
-      Erin: "location/Erin"
-      Erin_Phone: "location/Erin's Phone"
-  - platform: gpslogger
-  - platform: bluetooth_tracker
+      Nathan:               "location/Nathan"
+      Nathan_Phone:         "location/Nathan's Phone"
+      Erin:                 "location/Erin"
+      Erin_Phone:           "location/Erin's Phone"
+  - platform:               gpslogger
+  - platform:               bluetooth_tracker
 
 recorder:
-  purge_interval: 1
-  purge_keep_days: 14
+  purge_interval:           1
+  purge_keep_days:          14
 
 discovery:
 
 media_player:
-  - platform: cast
-    host: 192.168.1.158
-  - platform: cast
-    host: 192.168.1.163
-  - platform: cast
-    host: 192.168.1.164
+  - platform:               cast
+    host:                   192.168.1.158
+  - platform:               cast
+    host:                   192.168.1.163
+  - platform:               cast
+    host:                   192.168.1.164
 
 input_boolean:
   erin_away:
-    name: Erin is Away
-    initial: off
+    name:                   Erin is Away
+    initial:                off
   nathan_away:
-    name: Nathan is Away
-    initial: off
+    name:                   Nathan is Away
+    initial:                off
   toggle_school_day:
-    name: Turn off school day
-    initial: on
-    
+    name:                   Turn off school day
+    initial:                on
+
 input_select:
   led_effects:
-    name: Led Effects
+    name:                   Led Effects
     options:
       - colorloop
       - colorjump
@@ -129,7 +129,7 @@ input_select:
       - purple_strobe
       - white_strobe
   current_led_effect:
-    name: Current Led Effect
+    name:                   Current Led Effect
     options:
       - colorloop
       - colorjump
@@ -154,43 +154,49 @@ input_select:
       - white_strobe
 
 binary_sensor:
-  - platform: bayesian
-    prior: 0.5
-    probability_threshold: 0.6
-    name: nathan_home_bayesian
+  - platform:               bayesian
+    prior:                  0.5
+    probability_threshold:  0.6
+    name:                   nathan_home_bayesian
     observations:
-      - entity_id: sensor.nathan_life360
-        platform: 'state'
-        to_state: 'home'
-        prob_given_true: 0.8
-        prob_given_false: 0.2
-      - entity_id: sensor.nathan_smartthings
-        platform: 'state'
-        to_state: 'home'
-        prob_given_true: 0.6
-        prob_given_false: 0.3
-      - entity_id: device_tracker.oneplus_one
-        platform: 'state'
-        to_state: 'home'
-        prob_given_true: 0.9
-        prob_given_false: 0.2
-  - platform: bayesian
-    prior: 0.5
-    probability_threshold: 0.6
-    name: erin_home_bayesian
+      - entity_id:          sensor.nathan_life360
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.8
+        prob_given_false:   0.2
+      - entity_id:          sensor.nathan_smartthings
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.6
+        prob_given_false:   0.3
+      - entity_id:          device_tracker.oneplus_one
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.9
+        prob_given_false:   0.2
+  - platform:               bayesian
+    prior:                  0.5
+    probability_threshold:  0.6
+    name:                   erin_home_bayesian
     observations:
-      - entity_id: sensor.erin_life360
-        platform: 'state'
-        to_state: 'home'
-        prob_given_true: 0.8
-        prob_given_false: 0.2
-      - entity_id: sensor.erin_smartthings
-        platform: 'state'
-        to_state: 'home'
-        prob_given_true: 0.6
-        prob_given_false: 0.3
-      - entity_id: device_tracker.samsung_galaxy_s5
-        platform: 'state'
-        to_state: 'home'
-        prob_given_true: 0.9
-        prob_given_false: 0.2
+      - entity_id:          sensor.erin_life360
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.8
+        prob_given_false:   0.2
+      - entity_id:          sensor.erin_smartthings
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.6
+        prob_given_false:   0.3
+      - entity_id:          device_tracker.samsung_galaxy_s5
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.9
+        prob_given_false:   0.2
+
+google_assistant:
+  project_id:               panda-pad-home
+  client_id:                !secret google_client_id
+  access_token:             !secret google_access_token
+  api_key:                  !secret google_api_key
