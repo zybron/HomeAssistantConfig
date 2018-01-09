@@ -322,6 +322,8 @@
           location/{{ trigger.topic.split('/')[1] }}
         payload: >
           {% if trigger.payload == "present" %}home{% else %}not_home{% endif %}
+        qos: 1
+        retain: true
           
 - alias: Arrive Home Late
   trigger: 

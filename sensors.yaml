@@ -16,6 +16,13 @@
   state_topic: "smartthings/Front Door Sensor/battery/state"
   name: "Front Door Sensor Battery"
   unit_of_measurement: "%"
+- platform: mqtt
+  state_topic: "location/Nathan"
+  name: "Nathan Life360"
+- platform: mqtt
+  state_topic: "location/Nathan's Phone"
+  name: "Nathan Smartthings"
+  
   
 - platform: template
   sensors:
@@ -31,11 +38,11 @@
   host: 192.168.1.65
   port: 32400
   name: Tower
-  username: zybron
-  password: Zybron2000_ple
+  username: !secret plex_username
+  password: !secret plex_password
   
 - platform: darksky
-  api_key: c92e8e98d7153b94db7bb134685dee7e
+  api_key: !secret darksky_api_key
   monitored_conditions:
     - summary
     - precip_probability
@@ -64,3 +71,11 @@
 #  jails:
 #    - ssh
 #    - hass-iptables
+
+# - platform: bayesian
+  # prior: 0.1
+  # probability_threshold: 0.9
+  # name: nathan_home_bayesian
+  # observations:
+    # - entity_id: device_tracker.nathan
+      # prop_given_true

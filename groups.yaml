@@ -92,6 +92,7 @@ nathan:
   entities:
     - device_tracker.nathan
     - device_tracker.nathan_phone
+    - device_tracker.oneplus_one
     
 erin:
   name: Erin
