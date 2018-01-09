@@ -152,3 +152,45 @@ input_select:
       - cyan_strobe
       - purple_strobe
       - white_strobe
+
+binary_sensor:
+  - platform: bayesian
+    prior: 0.1
+    probability_threshold: 0.9
+    name: nathan_home_bayesian
+    observations:
+      - entity_id: sensor.nathan_life360
+        platform: 'state'
+        to_state: 'home'
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+      - entity_id: sensor.nathan_smartthings
+        platform: 'state'
+        to_state: 'home'
+        prob_given_true: 0.6
+        prob_given_false: 0.3
+      - entity_id: device_tracker.oneplus_one
+        platform: 'state'
+        to_state: 'home'
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+  - platform: bayesian
+    prior: 0.1
+    probability_threshold: 0.9
+    name: erin_home_bayesian
+    observations:
+      - entity_id: sensor.erin_life360
+        platform: 'state'
+        to_state: 'home'
+        prob_given_true: 0.8
+        prob_given_false: 0.2
+      - entity_id: sensor.erin_smartthings
+        platform: 'state'
+        to_state: 'home'
+        prob_given_true: 0.6
+        prob_given_false: 0.3
+      - entity_id: device_tracker.samsung_galaxy_s5
+        platform: 'state'
+        to_state: 'home'
+        prob_given_true: 0.9
+        prob_given_false: 0.2
