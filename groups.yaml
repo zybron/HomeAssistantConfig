@@ -1,7 +1,7 @@
 default_view:
-  view: yes
-  icon: mdi:home
-  name: Panda Pad
+  view:           yes
+  icon:           mdi:home
+  name:           Panda Pad
   entities:
     - group.family
     - group.bedroom
@@ -9,58 +9,58 @@ default_view:
     - group.entry
     - group.entry_sensors
     - group.balcony
-    
+
 automations:
-  view: yes
-  icon: mdi:settings
-  name: Automations
+  view:           yes
+  icon:           mdi:settings
+  name:           Automations
   entities:
     - group.all_automations
 
 
 bedroom:
-  name: Bedroom
-  view: no
+  name:           Bedroom
+  view:           no
   entities:
     - light.her_light
     - light.his_light
     - light.bedroom_left
     - light.bedroom_right
-    
+
 entry:
-  name: Entry
-  view: no
+  name:           Entry
+  view:           no
   entities:
     - light.bottom_stairs
     - light.top_stairs
-    
+
 entry_sensors:
-  name: Entry Sensors
-  view: no
+  name:           Entry Sensors
+  view:           no
   entities:
     - sensor.front_door_sensor
     - sensor.front_door_sensor_battery
     - sensor.motion_sensor_downstairs
     - sensor.downstairs_temperature
     - sensor.motion_sensor_downstairs_battery
-    
+
 family:
-  name: Pandas
-  view: no
+  name:           Pandas
+  view:           no
   entities:
     - group.erin
     - group.nathan
 
 sensor_page:
-  name: Sensors
-  view: yes
-  icon: mdi:gauge
+  name:           Sensors
+  view:           yes
+  icon:           mdi:gauge
   entities:
     - group.other_sensors
     - group.weather
 
 other_sensors:
-  name: Other Sensors
+  name:           Other Sensors
   entities:
     - sensor.uptime
     - sensor.school_day
@@ -69,10 +69,10 @@ other_sensors:
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
-    
+
 weather:
-  name: Weather
-  view: no
+  name:           Weather
+  view:           no
   entities:
     - sensor.dark_sky_apparent_temperature
     - sensor.dark_sky_humidity
@@ -85,29 +85,29 @@ weather:
     - sensor.dark_sky_temperature
     - sensor.dark_sky_wind_bearing
     - sensor.dark_sky_wind_speed
-    
+
 nathan:
-  name: Nathan
-  view: no
+  name:           Nathan
+  view:           no
   entities:
     - sensor.nathan_home
-    
+
 erin:
-  name: Erin
-  view: no
+  name:           Erin
+  view:           no
   entities:
     - sensor.erin_home
-    
+
 dakotas_room:
-  name: Dakota's Room
-  view: no
+  name:           Dakota's Room
+  view:           no
   entities:
     - light.lamp
-    
+
 balcony:
-  name: Balcony
-  view: no
+  name:           Balcony
+  view:           no
   entities:
-    - light.flux_main_balcony
+    - light.main_balcony
     - input_select.led_effects
     - input_select.current_led_effect
