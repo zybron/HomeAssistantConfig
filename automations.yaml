@@ -241,7 +241,7 @@
   alias: Toggle Erin Away
   trigger:
   - platform: state
-    entity_id: group.erin
+    entity_id: sensor.erin_home
     to: 'not_home'
     for:
       minutes: 5
@@ -254,7 +254,7 @@
   alias: Toggle Nathan Away
   trigger:
   - platform: state
-    entity_id: device_tracker.nathan
+    entity_id: sensor.nathan_home
     to: 'not_home'
     for:
       minutes: 5
@@ -267,7 +267,7 @@
   alias: "Erin Arrives - Notification"
   trigger:
   - platform: state
-    entity_id: group.erin
+    entity_id: sensor.erin_home
     to: home
   condition:
     condition: and
@@ -291,7 +291,7 @@
   alias: "Nathan Arrives - Notification"
   trigger:
   - platform: state
-    entity_id: device_tracker.nathan
+    entity_id: sensor.nathan_home
     to: home
   condition:
     condition: and

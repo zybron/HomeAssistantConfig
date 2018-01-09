@@ -90,16 +90,13 @@ nathan:
   name: Nathan
   view: no
   entities:
-    - device_tracker.nathan
-    - device_tracker.nathan_phone
-    - device_tracker.oneplus_one
+    - sensor.nathan_home
     
 erin:
   name: Erin
   view: no
   entities:
-    - device_tracker.erin
-    - device_tracker.erin_phone
+    - sensor.nathan_home
     
 dakotas_room:
   name: Dakota's Room
