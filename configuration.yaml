@@ -156,7 +156,7 @@ input_select:
 binary_sensor:
   - platform: bayesian
     prior: 0.1
-    probability_threshold: 0.9
+    probability_threshold: 0.6
     name: nathan_home_bayesian
     observations:
       - entity_id: sensor.nathan_life360
@@ -176,7 +176,7 @@ binary_sensor:
         prob_given_false: 0.2
   - platform: bayesian
     prior: 0.1
-    probability_threshold: 0.9
+    probability_threshold: 0.6
     name: erin_home_bayesian
     observations:
       - entity_id: sensor.erin_life360

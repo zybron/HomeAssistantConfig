@@ -96,7 +96,7 @@ erin:
   name: Erin
   view: no
   entities:
-    - sensor.nathan_home
+    - sensor.erin_home
     
 dakotas_room:
   name: Dakota's Room
