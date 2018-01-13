@@ -82,8 +82,6 @@ recorder:
   purge_interval:           1
   purge_keep_days:          14
 
-discovery:
-
 media_player:
   - platform:               cast
     host:                   192.168.1.158
