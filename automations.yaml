@@ -401,7 +401,8 @@
       target:                 '353719692298289162'
 
 # Grandfather clock
-- alias:                      Grandfather Clock
+- id:                         GrandfatherClock
+  alias:                      Grandfather Clock
     trigger:
       - platform:             time
         minutes:              00
