@@ -425,7 +425,7 @@
       entity_id:
         - media_player.kitchen_speaker
       data:
-        volume_level:       0.20
+        volume_level:       0.75
     - service:              media_player.play_media
       data_template:
         entity_id:
