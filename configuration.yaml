@@ -78,6 +78,8 @@ device_tracker:
   - platform:               gpslogger
   - platform:               bluetooth_tracker
 
+discovery:
+
 recorder:
   purge_interval:           1
   purge_keep_days:          14
