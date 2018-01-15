@@ -10,6 +10,12 @@ default_view:
     - group.entry_sensors
     - group.balcony
     - media_player.kitchen_speaker
+
+weather:
+  view:              yes
+  icon:              mdi:weather
+  name:              Weather
+  entities:
     - group.weather_overview
     - group.daily_forecast
 
@@ -19,7 +25,6 @@ automations:
   name:              Automations
   entities:
     - group.all_automations
-
 
 bedroom:
   name:              Bedroom
