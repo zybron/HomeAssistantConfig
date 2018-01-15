@@ -104,7 +104,7 @@
     - weather_3d
     - weather_3n
     - weather_4d
-    _ weather_4n
+    - weather_4n
     - weather_1h
     - wind_degrees
     - wind_dir
