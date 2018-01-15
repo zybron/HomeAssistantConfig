@@ -65,7 +65,6 @@ sensor_page:
   icon:              mdi:gauge
   entities:
     - group.other_sensors
-    - group.weather
 
 other_sensors:
   name:              Other Sensors
@@ -77,22 +76,6 @@ other_sensors:
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
-
-weather:
-  name:              Weather
-  view:              no
-  entities:
-    - sensor.dark_sky_apparent_temperature
-    - sensor.dark_sky_humidity
-    - sensor.dark_sky_icon
-    - sensor.dark_sky_precip
-    - sensor.dark_sky_precip_intensity
-    - sensor.dark_sky_precip_probability
-    - sensor.dark_sky_pressure
-    - sensor.dark_sky_summary
-    - sensor.dark_sky_temperature
-    - sensor.dark_sky_wind_bearing
-    - sensor.dark_sky_wind_speed
 
 nathan:
   name:              Nathan
