@@ -333,7 +333,7 @@
   condition:
     - condition:            time
       after:                '23:00:00'
-      before:               '03:00:00'
+      before:               '05:00:00'
   action:
     - service:              homeassistant.turn_on
       entity_id:
