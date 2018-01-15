@@ -13,7 +13,7 @@ default_view:
 
 weather:
   view:              yes
-  icon:              mdi:weather
+  icon:              mdi:weather_partlycloudy
   name:              Weather
   entities:
     - group.weather_overview
