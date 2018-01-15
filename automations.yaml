@@ -136,8 +136,8 @@
       entity_id:
         - light.lamp
 
-- id:                       MorningLightSchoolDayMQTT
-  alias:                    "Turn On Lights Daily - Morning School Day - MQTT"
+- id:                       MorningLightSchoolDay
+  alias:                    "Turn On Lights Daily - Morning School Day"
   trigger:
   - platform:               time
     at:                     '05:00:00'
@@ -151,11 +151,8 @@
         entity_id:          light.top_stairs
         state:              'off'
   action:
-    - service:              mqtt.publish
-      data:
-        payload:            'on'
-        topic:              'node-red/lights/top_stairs'
-        qos:                0
+    - service:              lights.turn_on
+      entity_id:            light.top_stairs
 
 - id:                       MorningLightNonSchoolDay
   alias:                    "Turn On Lights Daily - Morning Non School Day"
@@ -172,11 +169,8 @@
         entity_id:          light.top_stairs
         state:              'off'
   action:
-    - service:              mqtt.publish
-      data:
-        payload:            'on'
-        topic:              'node-red/lights/top_stairs'
-        qos:                0
+    - service:              lights.turn_on
+      entity_id:            light.top_stairs
 
 
 - id:                       MorningLightOff
@@ -186,11 +180,8 @@
     event:                  sunrise
     offset:                 '00:45:00'
   action:
-    - service:              mqtt.publish
-      data:
-        payload:            'off'
-        topic:              'node-red/lights/top_stairs'
-        qos:                0
+    - service:              lights.turn_off
+      entity_id:            light.top_stairs
 
 - id:                       EveningLightOn
   alias:                    "Turn On Lights Daily - Evening"
@@ -199,11 +190,8 @@
     event:                  sunset
     offset:                 '-00:45:00'
   action:
-    - service:              mqtt.publish
-      data:
-        payload:            'on'
-        topic:              'node-red/lights/top_stairs'
-        qos:                0
+    - service:              lights.turn_on
+      entity_id:            light.top_stairs
 
 - id:                       EveningLightOffWeekday
   alias:                    "Turn Off Lights Daily - Weekday Evening"
@@ -214,11 +202,8 @@
     condition:              template
     value_template:         '{{ now().weekday() < 5 }}'
   action:
-    - service:              mqtt.publish
-      data:
-        payload:            'off'
-        topic:              'node-red/lights/top_stairs'
-        qos:                0
+    - service:              lights.turn_off
+      entity_id:            light.top_stairs
 
 - id:                       EveningLightOffWeekend
   alias:                    "Turn Off Lights Daily - Weekend Evening"
@@ -229,11 +214,8 @@
     condition:              template
     value_template:         '{{ now().weekday() == 0 or now().weekday() >= 5 }}'
   action:
-    - service:              mqtt.publish
-      data:
-        payload:            'off'
-        topic:              'node-red/lights/top_stairs'
-        qos:                0
+    - service:              lights.turn_off
+      entity_id:            light.top_stairs
 
 
 # Presence automations
