@@ -130,12 +130,10 @@ daily_forecast:
 weather_overview:
   name:              Weather overview
   entities:
-    - sensor.pws_weather_1d
-    - sensor.pws_temp_high_record_f
-    - sensor.pws_temp_high_1d_f
+    - sensor.pws_weather
     - sensor.pws_temp_f
     - sensor.pws_feelslike_f
-    - sensor.pws_temp_low_1d_f
+    - sensor.pws_temp_high_record_f
     - sensor.pws_temp_low_record_f
     - sensor.pws_precip_1d
     - sensor.pws_precip_1d_in
