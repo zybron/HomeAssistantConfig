@@ -141,7 +141,8 @@
   trigger:
   - platform:               time
     at:                     '05:00:00'
-  condition:                state
+  condition:
+    condition:              state
     entity_id:              sensor.school_day
     state:                  'true'
   action:
@@ -153,7 +154,8 @@
   trigger:
   - platform:               time
     at:                     '07:00:00'
-  condition:                state
+  condition:
+    condition:              state
     entity_id:              sensor.school_day
     state:                  'false'
   action:
