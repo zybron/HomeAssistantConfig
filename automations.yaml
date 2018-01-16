@@ -141,15 +141,9 @@
   trigger:
   - platform:               time
     at:                     '05:00:00'
-  condition:
-    condition:              and
-    conditions:
-      - condition:          state
-        entity_id:          sensor.school_day
-        state:              'true'
-      - condition:          state
-        entity_id:          light.top_stairs
-        state:              'off'
+  condition:                state
+    entity_id:              sensor.school_day
+    state:                  'true'
   action:
     - service:              lights.turn_on
       entity_id:            light.top_stairs
@@ -159,15 +153,9 @@
   trigger:
   - platform:               time
     at:                     '07:00:00'
-  condition:
-    condition:              and
-    conditions:
-      - condition:          state
-        entity_id:          sensor.school_day
-        state:              'false'
-      - condition:          state
-        entity_id:          light.top_stairs
-        state:              'off'
+  condition:                state
+    entity_id:              sensor.school_day
+    state:                  'false'
   action:
     - service:              lights.turn_on
       entity_id:            light.top_stairs
