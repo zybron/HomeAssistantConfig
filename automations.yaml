@@ -371,6 +371,11 @@
     data:
       message:              'There is an update available for Home Assistant.'
       target:               '353719692298289162'
+  - service:                persistent_notification.create
+    data:
+      message:              'There is an update available for Home Assistant.'
+      title:                'Home Assistant Update'
+      notification_id:      'Update'
 
 # Grandfather clock
 - id:                       GrandfatherClock
