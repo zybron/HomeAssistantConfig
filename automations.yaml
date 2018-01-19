@@ -241,7 +241,7 @@
   trigger:
   - platform:               state
     entity_id:              sensor.erin_home
-    to:                     home
+    to:                     'home'
   condition:
     condition:              and
     conditions:
@@ -265,7 +265,7 @@
   trigger:
   - platform:               state
     entity_id:              sensor.nathan_home
-    to:                     home
+    to:                     'home'
   condition:
     condition:              and
     conditions:
@@ -302,7 +302,7 @@
   trigger:
     - platform:             state
       entity_id:            group.family
-      to:                   home
+      to:                   'home'
   condition:
     - condition:            time
       after:                '23:00:00'
