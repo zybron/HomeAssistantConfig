@@ -1,11 +1,11 @@
 - platform:                  mqtt
   name:                      "Top Stairs"
-  command_topic:             "smartthings/Top Stairs/switch/cmd"
+  command_topic:             "smartthings/Top Stairs/switch/set_state"
   state_topic:               "smartthings/Top Stairs/switch/state"
-  brightness_command_topic:  "smartthings/Top Stairs/level/cmd"
+  brightness_command_topic:  "smartthings/Top Stairs/level/set_state"
   brightness_state_topic:    "smartthings/Top Stairs/level/state"
   brightness_scale:          100
-  color_temp_command_topic:  "smartthings/Top Stairs/colorTemperature/cmd"
+  color_temp_command_topic:  "smartthings/Top Stairs/colorTemperature/set_state"
   color_temp_state_topic:    "smartthings/Top Stairs/colorTemperature/state"
   payload_on:                "on"
   payload_off:               "off"
