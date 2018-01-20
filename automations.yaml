@@ -149,6 +149,8 @@
   action:
     - service:              lights.turn_on
       entity_id:            light.top_stairs
+      data:
+        brightness_pct:     100
 
 - id:                       MorningLightNonSchoolDay
   alias:                    "Turn On Lights Daily - Morning Non School Day"
@@ -162,6 +164,8 @@
   action:
     - service:              lights.turn_on
       entity_id:            light.top_stairs
+      data:
+        brightness_pct:     100
 
 
 - id:                       MorningLightOff
@@ -173,6 +177,8 @@
   action:
     - service:              lights.turn_off
       entity_id:            light.top_stairs
+      data:
+        brightness_pct:     0
 
 - id:                       EveningLightOn
   alias:                    "Turn On Lights Daily - Evening"
@@ -183,6 +189,8 @@
   action:
     - service:              lights.turn_on
       entity_id:            light.top_stairs
+      data:
+        brightness_pct:     100
 
 - id:                       EveningLightOffWeekday
   alias:                    "Turn Off Lights Daily - Weekday Evening"
@@ -195,6 +203,8 @@
   action:
     - service:              lights.turn_off
       entity_id:            light.top_stairs
+      data:
+        brightness_pct:     0
 
 - id:                       EveningLightOffWeekend
   alias:                    "Turn Off Lights Daily - Weekend Evening"
@@ -207,6 +217,8 @@
   action:
     - service:              lights.turn_off
       entity_id:            light.top_stairs
+      data:
+        brightness_pct:     0
 
 
 # Presence automations
