@@ -97,8 +97,6 @@
   action:
     service:                homeassistant.turn_on
     entity_id:              light.bottom_stairs
-    data:
-      brightness_pct:       100
 
 - id:                       LightOffEntryMotion
   alias:                    "Turn Off Light After Entry - Motion"
@@ -111,8 +109,6 @@
   action:
     service:                homeassistant.turn_off
     entity_id:              light.bottom_stairs
-    data:
-      brightness_pct:       0
 
 - id:                       LightOffEntryDoor
   alias:                    "Turn Off Light After Entry - Door"
@@ -125,8 +121,6 @@
   action:
     service:                homeassistant.turn_off
     entity_id:              light.bottom_stairs
-    data:
-      brightness_pct:       0
 
 #Daily light automations
 - id:                       MorningLightSchoolDay
@@ -155,8 +149,6 @@
   action:
     - service:              light.turn_on
       entity_id:            light.top_stairs
-      data:
-        brightness_pct:     100
 
 - id:                       MorningLightNonSchoolDay
   alias:                    "Turn On Lights Daily - Morning Non School Day"
@@ -170,8 +162,6 @@
   action:
     - service:              light.turn_on
       entity_id:            light.top_stairs
-      data:
-        brightness_pct:     100
 
 
 - id:                       MorningLightOff
@@ -183,8 +173,6 @@
   action:
     - service:              light.turn_off
       entity_id:            light.top_stairs
-      data:
-        brightness_pct:     0
 
 - id:                       EveningLightOn
   alias:                    "Turn On Lights Daily - Evening"
@@ -195,8 +183,6 @@
   action:
     - service:              light.turn_on
       entity_id:            light.top_stairs
-      data:
-        brightness_pct:     100
 
 - id:                       EveningLightOffWeekday
   alias:                    "Turn Off Lights Daily - Weekday Evening"
@@ -209,8 +195,6 @@
   action:
     - service:              light.turn_off
       entity_id:            light.top_stairs
-      data:
-        brightness_pct:     0
 
 - id:                       EveningLightOffWeekend
   alias:                    "Turn Off Lights Daily - Weekend Evening"
@@ -223,8 +207,6 @@
   action:
     - service:              light.turn_off
       entity_id:            light.top_stairs
-      data:
-        brightness_pct:     0
 
 
 # Presence automations
