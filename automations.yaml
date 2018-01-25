@@ -1,4 +1,4 @@
-# TODO:                     Split into separate files - see https://home-assistant.io/docs/configuration/splitting_configuration/#example-include_dir_merge_list
+light.# TODO:               Split into separate files - see https://home-assistant.io/docs/configuration/splitting_configuration/#example-include_dir_merge_list
 # Notifications
 - id:                       HomeAssistantStartup
   alias:                    HomeAssistantStartup
@@ -153,7 +153,7 @@
     entity_id:              sensor.school_day
     state:                  'true'
   action:
-    - service:              lights.turn_on
+    - service:              light.turn_on
       entity_id:            light.top_stairs
       data:
         brightness_pct:     100
@@ -168,7 +168,7 @@
     entity_id:              sensor.school_day
     state:                  'false'
   action:
-    - service:              lights.turn_on
+    - service:              light.turn_on
       entity_id:            light.top_stairs
       data:
         brightness_pct:     100
@@ -181,7 +181,7 @@
     event:                  sunrise
     offset:                 '00:45:00'
   action:
-    - service:              lights.turn_off
+    - service:              light.turn_off
       entity_id:            light.top_stairs
       data:
         brightness_pct:     0
@@ -193,7 +193,7 @@
     event:                  sunset
     offset:                 '-00:45:00'
   action:
-    - service:              lights.turn_on
+    - service:              light.turn_on
       entity_id:            light.top_stairs
       data:
         brightness_pct:     100
@@ -207,7 +207,7 @@
     condition:              template
     value_template:         '{{ now().weekday() < 5 }}'
   action:
-    - service:              lights.turn_off
+    - service:              light.turn_off
       entity_id:            light.top_stairs
       data:
         brightness_pct:     0
@@ -221,7 +221,7 @@
     condition:              template
     value_template:         '{{ now().weekday() == 0 or now().weekday() >= 5 }}'
   action:
-    - service:              lights.turn_off
+    - service:              light.turn_off
       entity_id:            light.top_stairs
       data:
         brightness_pct:     0
