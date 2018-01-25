@@ -1,4 +1,4 @@
-light.# TODO:               Split into separate files - see https://home-assistant.io/docs/configuration/splitting_configuration/#example-include_dir_merge_list
+# TODO:                     Split into separate files - see https://home-assistant.io/docs/configuration/splitting_configuration/#example-include_dir_merge_list
 # Notifications
 - id:                       HomeAssistantStartup
   alias:                    HomeAssistantStartup
