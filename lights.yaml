@@ -9,7 +9,6 @@
   color_temp_state_topic:    "smartthings/Top Stairs/colorTemperature/state"
   payload_on:                "on"
   payload_off:               "off"
-  retain:                    true
 
 - platform:                  mqtt
   name:                      "Bottom Stairs"
@@ -22,7 +21,6 @@
   color_temp_state_topic:    "smartthings/Bottom Stairs/colorTemperature/state"
   payload_on:                "on"
   payload_off:               "off"
-  retain:                    true
 
 - platform:                  mqtt
   name:                      "Bedroom Left"
@@ -33,7 +31,6 @@
   brightness_scale:          100
   payload_on:                "on"
   payload_off:               "off"
-  retain:                    true
 
 - platform:                  mqtt
   name:                      "Bedroom Right"
@@ -44,7 +41,6 @@
   brightness_scale:          100
   payload_on:                "on"
   payload_off:               "off"
-  retain:                    true
 
 - platform:                  mqtt
   name:                      "His Light"
@@ -55,7 +51,6 @@
   brightness_scale:          100
   payload_on:                "on"
   payload_off:               "off"
-  retain:                    true
 
 - platform:                  mqtt
   name:                      "Her Light"
@@ -66,7 +61,6 @@
   brightness_scale:          100
   payload_on:                "on"
   payload_off:               "off"
-  retain:                    true
 
 - platform:                  mqtt
   name:                      "Lamp"
@@ -77,7 +71,6 @@
   brightness_scale:          100
   payload_on:                "on"
   payload_off:               "off"
-  retain:                    true
 
 - platform:                  flux_led
   devices:
