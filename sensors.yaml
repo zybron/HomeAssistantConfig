@@ -1,5 +1,5 @@
 - platform:             mqtt
-  state_topic:          "smartthings/Motion Sensor Downstairs/temparature/state"
+  state_topic:          "smartthings/Motion Sensor Downstairs/temperature/state"
   name:                 "Downstairs Temperature"
   unit_of_measurement:  "F"
 - platform:             mqtt
