@@ -24,4 +24,4 @@
     state:      'open'
   action:
   - service:    cover.close_cover
-entity_id:      'cover.garage_door'
+    entity_id:  'cover.garage_door'
