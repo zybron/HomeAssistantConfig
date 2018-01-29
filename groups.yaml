@@ -10,7 +10,7 @@ default_view:
     - group.entry_sensors
     - group.balcony
     - media_player.kitchen_speaker
-    - binary_sensor.carpresence
+    - group.car_presence
 
 weather:
   view:              yes
@@ -130,3 +130,10 @@ weather_overview:
     - sensor.pws_wind_1d_mph
     - sensor.pws_uv
     - sensor.pws_alerts
+
+car_sensors:
+  name:              Car sensors
+  entities:
+    - binary_sensor.carpresence
+    - sensor.carpresnencesignal
+    - sensor.carpresenceuptime
