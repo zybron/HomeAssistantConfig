@@ -135,5 +135,5 @@ car_sensors:
   name:              Car sensors
   entities:
     - binary_sensor.carpresence
-    - sensor.carpresnencesignal
+    - sensor.carpresencesignal
     - sensor.carpresenceuptime
