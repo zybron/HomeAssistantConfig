@@ -1,0 +1,115 @@
+# Presence automations
+- id:                    ToggleErinAway
+  alias:                 Toggle Erin Away
+  trigger:
+  - platform:            state
+    entity_id:           sensor.erin_home
+    to:                  'not_home'
+    for:
+      minutes:           5
+  action:
+  - service:             input_boolean.turn_on
+    data:
+      entity_id:         input_boolean.erin_away
+
+- id:                    ToggleNathanAway
+  alias:                 Toggle Nathan Away
+  trigger:
+  - platform:            state
+    entity_id:           sensor.nathan_home
+    to:                  'not_home'
+    for:
+      minutes:           5
+  action:
+  - service:             input_boolean.turn_on
+    data:
+      entity_id:         input_boolean.nathan_away
+
+- id:                    ErinReturnHomeNotification
+  alias:                 "Erin Arrives - Notification"
+  trigger:
+  - platform:            state
+    entity_id:           sensor.erin_home
+    to:                  'home'
+  condition:
+    condition:           and
+    conditions:
+    - condition:         state
+      entity_id:         input_boolean.erin_away
+      state:             'on'
+    - condition:         time
+      before:            '22:00:00'
+      after:             '08:00:00'
+  action:
+  - service:             tts.google_say
+    entity_id:           media_player.kitchen_speaker
+    data:
+      message:           'Erin is arriving home.'
+  - service:             input_boolean.turn_off
+    data:
+      entity_id:         input_boolean.erin_away
+
+- id:                    NathanReturnHomeNotification
+  alias:                 "Nathan Arrives - Notification"
+  trigger:
+  - platform:            state
+    entity_id:           sensor.nathan_home
+    to:                  'home'
+  condition:
+    condition:           and
+    conditions:
+    - condition:         state
+      entity_id:         input_boolean.nathan_away
+      state:             'on'
+    - condition:         time
+      before:            '22:00:00'
+      after:             '08:00:00'
+  action:
+  - service:             tts.google_say
+    entity_id:           media_player.kitchen_speaker
+    data:
+      message:           'Nathan is arriving home.'
+  - service:             input_boolean.turn_off
+    data:
+      entity_id:         input_boolean.nathan_away
+
+- alias:                 Smartthings Presence Detection
+  trigger:
+    platform:            mqtt
+    topic:               'smartthings/+/presence/state'
+  action:
+    - service:           mqtt.publish
+      data_template:
+        topic:           >
+          location/{{ trigger.topic.split('/')[1] }}
+        payload:         >
+          {% if trigger.payload == "present" %}home{% else %}not_home{% endif %}
+        qos:             1
+        retain:          true
+
+- alias:                 Arrive Home Late
+  trigger:
+    - platform:          state
+      entity_id:         group.family
+      to:                'home'
+  condition:
+    - condition:         time
+      after:             '23:00:00'
+      before:            '05:00:00'
+  action:
+    - service:           homeassistant.turn_on
+      entity_id:
+        - light.her_light
+        - light.his_light
+        - light.bedroom_left
+        - light.bedroom_right
+      data:
+        brightness_pct:  25
+    - service:           homeassistant.turn_on
+      entity_id:         group.entry
+    - delay:
+        minutes:         5
+    - service:           homeassistant.turn_off
+      entity_id:         group.bedroom
+    - service:           homeassistant.turn_off
+      entity_id:         group.entry

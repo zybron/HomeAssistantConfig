@@ -4,6 +4,7 @@
 !*.wav
 !scenes
 !assets
+!automations
 !.gitignore
 secrets.yaml
 known_devices.yaml

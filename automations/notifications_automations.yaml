@@ -1,0 +1,101 @@
+# Notifications
+- id:                   HomeAssistantStartup
+  alias:                HomeAssistantStartup
+  trigger:
+  - event:              start
+    platform:           homeassistant
+  action:
+  - data:
+      message:          PandaPadMain is starting
+      target:           '353719692298289162'
+    service:            notify.discord_notify
+  - service:            frontend.set_theme
+    data:
+      name:             dark_theme
+
+- id:                   HomeAssistantShutdown
+  alias:                HomeAssistantShutdown
+  trigger:
+  - event:              shutdown
+    platform:           homeassistant
+  action:
+  - data:
+      message:          PandaPadMain is shutting down
+      target:           '353719692298289162'
+    service:            notify.discord_notify
+
+- id:                   FrontDoorOpen
+  alias:                "Front Door Open"
+  trigger:
+  - platform:           state
+    entity_id:          sensor.front_door_sensor
+    to:                 open
+    for:
+      minutes:          2
+  action:
+  - service:            notify.discord_notify
+    data:
+      message:          "The front door was left open!"
+      target:           '353719692298289162'
+  - service:            tts.google_say
+    entity_id:
+      - media_player.kitchen_speaker
+      - media_player.master_bedroom_speaker
+      - media_player.dakotas_bedroom_speaker
+    data:
+      message:          'The front door was left open!'
+
+- id:                   FrontDoorOpened
+  alias:                "Front Door Opened"
+  trigger:
+  - platform:           state
+    entity_id:          sensor.front_door_sensor
+    to:                 open
+  action:
+  - data:
+      message:          "The front door opened."
+      target:           '353719692298289162'
+    service:            notify.discord_notify
+  - service:            tts.google_say
+    entity_id:
+      - media_player.kitchen_speaker
+      - media_player.master_bedroom_speaker
+      - media_player.dakotas_bedroom_speaker
+    data:
+      message:          'The front door opened.'
+
+- id:                   FrontDoorClosed
+  alias:                "Front Door Closed"
+  trigger:
+  - platform:           state
+    entity_id:          sensor.front_door_sensor
+    to:                 closed
+  action:
+  - data:
+      message:          "The front door closed."
+      target:           '353719692298289162'
+    service:            notify.discord_notify
+  - service:            tts.google_say
+    entity_id:
+      - media_player.kitchen_speaker
+      - media_player.master_bedroom_speaker
+      - media_player.dakotas_bedroom_speaker
+    data:
+      message:          'The front door closed.'
+
+# Updater Notification
+- id:                   UpdateAvailable
+  alias:                "Update Notification"
+  trigger:
+  - platform:           state
+    entity_id:          updater.updater
+  action:
+  - service:            notify.discord_notify
+    data:
+      message:          'There is an update available for Home Assistant.'
+      target:           '353719692298289162'
+  - service:            persistent_notification.create
+    data:
+      message:          'There is an update available for Home Assistant.'
+      title:            'Home Assistant Update'
+      notification_id:  'Update'
