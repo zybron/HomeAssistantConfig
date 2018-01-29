@@ -10,6 +10,7 @@ default_view:
     - group.entry_sensors
     - group.balcony
     - media_player.kitchen_speaker
+    - binary_sensor.carpresence
 
 weather:
   view:              yes
