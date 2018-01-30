@@ -133,6 +133,12 @@
   unit_of_measurement:  '%'
   value_template:       '{{ value_json.sensor }}'
 
+- platform:             mqtt
+  name:                 'Garagdet Connection'
+  state_topic:          'garadget/garage/status'
+  unit_of_measurement:  '%'
+  value_template:       '{{ value_json.signal }}'
+
 # Failing due to issue with scan interval
 #- platform:            fail2ban
 #  jails:
