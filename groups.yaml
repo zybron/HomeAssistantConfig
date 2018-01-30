@@ -10,6 +10,7 @@ default_view:
     - group.entry_sensors
     - group.balcony
     - media_player.kitchen_speaker
+    - group.garage
     - group.car_sensors
 
 weather:
@@ -137,3 +138,10 @@ car_sensors:
     - binary_sensor.carpresence
     - sensor.carpresencesignal
     - sensor.carpresenceuptime
+
+garage:
+  name:              Garage
+  entities:
+    - cover.garage_door
+    - sensor.garage_door
+    - sensor.garage_brightness

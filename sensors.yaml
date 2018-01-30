@@ -116,6 +116,17 @@
 
 - platform:             uptime
 
+- platform:             mqtt
+  name:                 'Garage Door'
+  state_topic:          'garadget/garage/status'
+  value_template:       '{{ value_json.status }}'
+
+- platform:             mqtt
+  name:                 'Garage Brightness'
+  state_topic:          'garadget/garage/status'
+  unit_of_measurement:  '%'
+  value_template:       '{{ value_json.bright }}'
+
 # Failing due to issue with scan interval
 #- platform:            fail2ban
 #  jails:

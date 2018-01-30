@@ -25,3 +25,14 @@
   action:
   - service:    cover.close_cover
     entity_id:  'cover.garage_door'
+
+- alias:        'Update Garage Brightness'
+  trigger:
+    platform:   time
+    minutes:    '/2'
+    seconds:    00
+  action:
+    service:    mqtt.publish
+    data:
+      topic:    "garadget/garage/command"
+      payload:  "get-status"
