@@ -145,3 +145,4 @@ garage:
     - cover.garage_door
     - sensor.garage_door
     - sensor.garage_brightness
+    - sensor.garage_sensor
