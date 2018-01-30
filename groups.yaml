@@ -146,4 +146,4 @@ garage:
     - sensor.garage_door
     - sensor.garage_brightness
     - sensor.garage_door_sensor
-    - sensor.garadget_connection
+    - sensor.garagdet_connection
