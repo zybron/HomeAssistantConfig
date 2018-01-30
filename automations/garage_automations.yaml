@@ -2,7 +2,7 @@
 - alias:        CarPresence_ON
   trigger:
     platform:   state
-    entity_id:  binary_sensor.CarPresence
+    entity_id:  binary_sensor.carpresence
     to:         'on'
   condition:
   - condition:  state
@@ -16,7 +16,7 @@
 - alias:        CarPresence_OFF
   trigger:
     platform:   state
-    entity_id:  binary_sensor.CarPresence
+    entity_id:  binary_sensor.carpresence
     to:         'off'
   condition:
   - condition:  state
