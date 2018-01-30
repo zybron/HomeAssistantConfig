@@ -118,12 +118,12 @@
 
 - platform:             mqtt
   name:                 'Garage Door'
-  state_topic:          'garadget/garage/status'
+  state_topic:          'garadget/4c003e000451353432383931/status'
   value_template:       '{{ value_json.status }}'
 
 - platform:             mqtt
   name:                 'Garage Brightness'
-  state_topic:          'garadget/garage/status'
+  state_topic:          'garadget/4c003e000451353432383931/status'
   unit_of_measurement:  '%'
   value_template:       '{{ value_json.bright }}'
 

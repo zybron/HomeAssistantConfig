@@ -206,7 +206,7 @@ google_assistant:
 cover:
   - platform:               mqtt
     name:                   "Garage Door"
-    command_topic:          "garadget/garage/command"
-    state_topic:            "garadget/garage/status"
+    command_topic:          "garadget/4c003e000451353432383931/command"
+    state_topic:            "garadget/4c003e000451353432383931/status"
     payload_open:           "open"
     payload_close:          "close"
