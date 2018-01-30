@@ -6,7 +6,7 @@
     to:         'on'
   condition:
   - condition:  state
-    entity_id:  'cover.garage_door'
+    entity_id:  'sensor.garage_door'
     state:      'closed'
   action:
   - service:    cover.open_cover
@@ -20,7 +20,7 @@
     to:         'off'
   condition:
   - condition:  state
-    entity_id:  'cover.garage_door'
+    entity_id:  'sensor.garage_door'
     state:      'open'
   action:
   - service:    cover.close_cover
