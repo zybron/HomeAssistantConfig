@@ -41,6 +41,7 @@ entry:
   name:              Entry
   view:              no
   entities:
+    - light.stairway
     - light.bottom_stairs
     - light.top_stairs
 
