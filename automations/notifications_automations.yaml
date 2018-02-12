@@ -99,3 +99,24 @@
       message:          'There is an update available for Home Assistant.'
       title:            'Home Assistant Update'
       notification_id:  'Update'
+
+- id:                   GarageDoorOpen
+  alias:                "Garage Door Open"
+  trigger:
+  - platform:           state
+    entity_id:          sensor.garage_door
+    to:                 open
+    for:
+      minutes:          5
+  action:
+  - service:            notify.discord_notify
+    data:
+      message:          "The garage door is open."
+      target:           '353719692298289162'
+  - service:            tts.google_say
+    entity_id:
+      - media_player.kitchen_speaker
+      - media_player.master_bedroom_speaker
+      - media_player.dakotas_bedroom_speaker
+    data:
+      message:          'The garage door is open.'

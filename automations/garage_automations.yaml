@@ -36,3 +36,14 @@
     data:
       topic:    "garadget/garage/command"
       payload:  "get-status"
+
+- alias:        'Auto Close Garage Door'
+  trigger:
+    platform:   state
+    entity_id:  sensor.garage_door
+    to:         'open'
+    for:
+      minutes:  7
+  action:
+  - service:    cover.close_cover
+    entity_id:  'cover.garage_door'
