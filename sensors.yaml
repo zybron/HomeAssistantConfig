@@ -58,7 +58,7 @@
         {% endif %}
     garage_door_changed:
       friendly_name:      "Garage Door Changed"
-      value_template:     '{{sensor.garage_door.last_updated}}'
+      value_template:     '{{states.sensor.garage_door.last_updated}}'
 
 - platform:               plex
   host:                   192.168.1.65
