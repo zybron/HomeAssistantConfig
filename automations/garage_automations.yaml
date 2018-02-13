@@ -57,7 +57,6 @@
   - service:        input_datetime.set_datetime
     data_template:
       entity_id:    input_datetime.garage_door_opened
-      value:        '{{trigger.to_state.last_updated}}'
 
 - alias:            'Garage Door Closed'
   trigger:
@@ -68,4 +67,3 @@
   - service:        input_datetime.set_datetime
     data_template:
       entity_id:    input_datetime.garage_door_closed
-      value:        '{{trigger.to_state.last_updated}}'
