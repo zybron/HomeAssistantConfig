@@ -1,71 +1,74 @@
-- platform:             mqtt
-  state_topic:          "smartthings/Motion Sensor Downstairs/temperature/state"
-  name:                 "Downstairs Temperature"
-  unit_of_measurement:  "F"
-- platform:             mqtt
-  state_topic:          "smartthings/Motion Sensor Downstairs/motion/state"
-  name:                 "Motion Sensor Downstairs"
-- platform:             mqtt
-  state_topic:          "smartthings/Motion Sensor Downstairs/battery/state"
-  name:                 "Motion Sensor Downstairs Battery"
-  unit_of_measurement:  "%"
-- platform:             mqtt
-  state_topic:          "smartthings/Front Door Sensor/contact/state"
-  name:                 "Front Door Sensor"
-- platform:             mqtt
-  state_topic:          "smartthings/Front Door Sensor/battery/state"
-  name:                 "Front Door Sensor Battery"
-  unit_of_measurement:  "%"
-- platform:             mqtt
-  state_topic:          "location/Nathan"
-  name:                 "Nathan Life360"
-- platform:             mqtt
-  state_topic:          "location/Nathan's Phone"
-  name:                 "Nathan Smartthings"
-- platform:             mqtt
-  state_topic:          "location/Erin"
-  name:                 "Erin Life360"
-- platform:             mqtt
-  state_topic:          "location/Erin's Phone"
-  name:                 "Erin Smartthings"
+- platform:               mqtt
+  state_topic:            "smartthings/Motion Sensor Downstairs/temperature/state"
+  name:                   "Downstairs Temperature"
+  unit_of_measurement:    "F"
+- platform:               mqtt
+  state_topic:            "smartthings/Motion Sensor Downstairs/motion/state"
+  name:                   "Motion Sensor Downstairs"
+- platform:               mqtt
+  state_topic:            "smartthings/Motion Sensor Downstairs/battery/state"
+  name:                   "Motion Sensor Downstairs Battery"
+  unit_of_measurement:    "%"
+- platform:               mqtt
+  state_topic:            "smartthings/Front Door Sensor/contact/state"
+  name:                   "Front Door Sensor"
+- platform:               mqtt
+  state_topic:            "smartthings/Front Door Sensor/battery/state"
+  name:                   "Front Door Sensor Battery"
+  unit_of_measurement:    "%"
+- platform:               mqtt
+  state_topic:            "location/Nathan"
+  name:                   "Nathan Life360"
+- platform:               mqtt
+  state_topic:            "location/Nathan's Phone"
+  name:                   "Nathan Smartthings"
+- platform:               mqtt
+  state_topic:            "location/Erin"
+  name:                   "Erin Life360"
+- platform:               mqtt
+  state_topic:            "location/Erin's Phone"
+  name:                   "Erin Smartthings"
 
 
-- platform:             template
+- platform:               template
   sensors:
     school_day:
-      friendly_name:    "School Day"
-      value_template:   >-
+      friendly_name:      "School Day"
+      value_template:     >-
         {% if now().weekday() < 5 and ( now().month <= 5 or now().month >= 9 ) and is_state('input_boolean.toggle_school_day','on') %}
           true
         {% else %}
           false
         {% endif %}
     nathan_home:
-      friendly_name:    "Nathan Home"
-      value_template:   >-
+      friendly_name:      "Nathan Home"
+      value_template:     >-
         {% if is_state('binary_sensor.nathan_home_bayesian','on') %}
           home
         {% else %}
           not_home
         {% endif %}
     erin_home:
-      friendly_name:    "Erin Home"
-      value_template:   >-
+      friendly_name:      "Erin Home"
+      value_template:     >-
         {% if is_state('binary_sensor.erin_home_bayesian','on') %}
           home
         {% else %}
           not_home
         {% endif %}
+    garage_door_changed:
+      friendly_name:      "Garage Door Changed"
+      value_template:     '{{sensor.garage_door.last_updated}}'
 
-- platform:             plex
-  host:                 192.168.1.65
-  port:                 32400
-  name:                 Tower
-  username:             !secret plex_username
-  password:             !secret plex_password
+- platform:               plex
+  host:                   192.168.1.65
+  port:                   32400
+  name:                   Tower
+  username:               !secret plex_username
+  password:               !secret plex_password
 
-- platform:             wunderground
-  api_key:              !secret weather_underground_api_key
+- platform:               wunderground
+  api_key:                !secret weather_underground_api_key
   monitored_conditions:
     - alerts
     - dewpoint_f
@@ -114,33 +117,33 @@
     - wind_1d_mph
     - wind_string
 
-- platform:             uptime
+- platform:               uptime
 
-- platform:             mqtt
-  name:                 'Garage Door'
-  state_topic:          'garadget/garage/status'
-  value_template:       '{{ value_json.status }}'
+- platform:               mqtt
+  name:                   'Garage Door'
+  state_topic:            'garadget/garage/status'
+  value_template:         '{{ value_json.status }}'
 
-- platform:             mqtt
-  name:                 'Garage Brightness'
-  state_topic:          'garadget/garage/status'
-  unit_of_measurement:  '%'
-  value_template:       '{{ value_json.bright }}'
+- platform:               mqtt
+  name:                   'Garage Brightness'
+  state_topic:            'garadget/garage/status'
+  unit_of_measurement:    '%'
+  value_template:         '{{ value_json.bright }}'
 
-- platform:             mqtt
-  name:                 'Garage Door Sensor'
-  state_topic:          'garadget/garage/status'
-  unit_of_measurement:  '%'
-  value_template:       '{{ value_json.sensor }}'
+- platform:               mqtt
+  name:                   'Garage Door Sensor'
+  state_topic:            'garadget/garage/status'
+  unit_of_measurement:    '%'
+  value_template:         '{{ value_json.sensor }}'
 
-- platform:             mqtt
-  name:                 'Garagdet Connection'
-  state_topic:          'garadget/garage/status'
-  unit_of_measurement:  'dB'
-  value_template:       '{{ value_json.signal }}'
+- platform:               mqtt
+  name:                   'Garagdet Connection'
+  state_topic:            'garadget/garage/status'
+  unit_of_measurement:    'dB'
+  value_template:         '{{ value_json.signal }}'
 
 # Failing due to issue with scan interval
-#- platform:            fail2ban
+#- platform:              fail2ban
 #  jails:
 #    - ssh
 #    - hass-iptables
