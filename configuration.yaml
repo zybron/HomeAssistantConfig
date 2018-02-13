@@ -105,6 +105,17 @@ input_boolean:
     name:                   Turn off school day
     initial:                on
 
+input_datetime:
+  garage_door_opened:
+    name:                   'Garage Last Opened'
+    has_date:               true
+    has_time:               true
+  garage_door_closed:
+    name:                   'Garage Last Closed'                  
+    has_date:               true
+    has_time:               true
+
+
 input_select:
   led_effects:
     name:                   Led Effects
