@@ -145,6 +145,8 @@ garage:
   entities:
     - cover.garage_door
     - sensor.garage_door
+    - input_datetime.garage_door_opened
+    - input_datetime.garage_door_closed
     - sensor.garage_brightness
     - sensor.garage_door_sensor
     - sensor.garagdet_connection
