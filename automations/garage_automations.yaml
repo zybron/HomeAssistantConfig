@@ -50,7 +50,7 @@
 
 - alias:            'Garage Door Opened'
   trigger:
-    plateform:      state
+    platform:       state
     entity_id:      sensor.garage_door
     to:             'open'
   action:
@@ -61,7 +61,7 @@
 
 - alias:            'Garage Door Closed'
   trigger:
-    plateform:      state
+    platform:       state
     entity_id:      sensor.garage_door
     to:             'closed'
   action:
