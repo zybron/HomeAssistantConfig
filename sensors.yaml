@@ -58,7 +58,7 @@
         {% endif %}
     garage_door_changed:
       friendly_name:      "Garage Door Changed"
-      value_template:     '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %I:%M:%S", true) }}'
+      value_template:     '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
 
 - platform:               plex
   host:                   192.168.1.65
