@@ -211,3 +211,4 @@ cover:
     payload_open:           "open"
     payload_close:          "close"
     payload_stop:           "stop"
+    value_template:         "{{ value_json.status }}"        
