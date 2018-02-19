@@ -125,10 +125,13 @@
   value_template:         '{{ value_json.status }}'
 
 - platform:               mqtt
-  name:                   'Garage Brightness'
+  name:                   'Garage Door Status'
   state_topic:            'garadget/garage/status'
-  unit_of_measurement:    '%'
-  value_template:         '{{ value_json.bright }}'
+  json_attributes:
+    - time:               "Last Change"
+    - sensor:             "Sensor"
+    - bright:             "Garage Brightness"
+    - signal:             "Connection Level"
 
 - platform:               mqtt
   name:                   'Garage Door Sensor'
