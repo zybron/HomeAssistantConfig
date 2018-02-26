@@ -142,6 +142,36 @@
   unit_of_measurement:    'dB'
   value_template:         '{{ value_json.signal }}'
 
+- platform:               systemmonitor
+  resources:
+    - type:               disk_use_percent
+      arg:                /
+    - type:               disk_use
+      arg:                /
+    - type:               disk_free
+      arg:                /
+    - type:               memory_use_percent
+    - type:               memory_use
+    - type:               memory_free
+    - type:               swap_use_percent
+    - type:               swap_use
+    - type:               swap_free
+    - type:               load_1m
+    - type:               load_5m
+    - type:               load_15m
+    - type:               network_in
+      arg:                wlan0
+    - type:               network_out
+      arg:                wlan0
+    - type:               ipv4_address
+      arg:                wlan0
+    - type:               processor_use
+    - type:               process
+      arg:                hass
+    - type:               process
+      arg:                mosquitto
+    -type:                last_boot
+    -type:                since_last_boot
 # Failing due to issue with scan interval
 #- platform:              fail2ban
 #  jails:

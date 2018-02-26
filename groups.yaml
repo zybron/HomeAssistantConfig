@@ -79,6 +79,7 @@ other_sensors:
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
+    - sensor.systemmonitor
 
 nathan:
   name:              Nathan
