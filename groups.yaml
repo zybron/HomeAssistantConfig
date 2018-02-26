@@ -68,20 +68,17 @@ sensor_page:
   icon:              mdi:gauge
   entities:
     - group.other_sensors
+    - group.system_monitor
 
-other_sensors:
-  name:              Other Sensors
+system_monitor:
+  name:              System Monitor
   entities:
-    - sensor.uptime
-    - sensor.school_day
-    - input_boolean.toggle_school_day
-    - sensor.tower
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
-    - sensor.disk_use_percent
-    - sensor.disk_use
-    - sensor.disk_free
+    - sensor.disk_use_percent_
+    - sensor.disk_use_
+    - sensor.disk_free_
     - sensor.memory_use_percent
     - sensor.memory_use
     - sensor.memory_free
@@ -99,6 +96,14 @@ other_sensors:
     - sensor.process_mosquitto
     - sensor.last_boot
     - sensor.since_last_boot
+
+other_sensors:
+  name:              Other Sensors
+  entities:
+    - sensor.uptime
+    - sensor.school_day
+    - input_boolean.toggle_school_day
+    - sensor.tower
 
 nathan:
   name:              Nathan
