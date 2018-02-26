@@ -79,7 +79,26 @@ other_sensors:
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
-    - sensor.systemmonitor
+    - sensor.disk_use_percent
+    - sensor.disk_use
+    - sensor.disk_free
+    - sensor.memory_use_percent
+    - sensor.memory_use
+    - sensor.memory_free
+    - sensor.swap_use_percent
+    - sensor.swap_use
+    - sensor.swap_free
+    - sensor.load_1m
+    - sensor.load_5m
+    - sensor.load_15m
+    - sensor.network_in_wlan0
+    - sensor.network_out_wlan0
+    - sensor.ipv4_address_wlan0
+    - sensor.processor_use
+    - sensor.process_hass
+    - sensor.process_mosquitto
+    - sensor.last_boot
+    - sensor.since_last_boot
 
 nathan:
   name:              Nathan
