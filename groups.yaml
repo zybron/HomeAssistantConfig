@@ -28,6 +28,43 @@ automations:
   entities:
     - group.all_automations
 
+all_automations:
+  name:              All Automations
+  view:              no
+  entities:
+    - automation.arrive_home_late
+    - automation.auto_close_garage_door
+    - automation.carpresence_off
+    - automation.carpresence_on
+    - automation.erin_arrives__notification
+    - automation.front_door_closed
+    - automation.front_door_open
+    - automation.front_door_opened
+    - automation.garage_door_closed
+    - automation.garage_door_open
+    - automation.garage_door_opened
+    - automation.grandfather_clock
+    - automation.homeassistantshutdown
+    - automation.homeassistantstartup
+    - automation.led_effects
+    - automation.nathan_arrives__notification
+    - automation.smartthings_presence_detection
+    - automation.toggle_erin_away
+    - automation.toggle_nathan_away
+    - automation.turn_off_balcony_lights_daily
+    - automation.turn_off_light_after_entry__door
+    - automation.turn_off_light_after_entry__motion
+    - automation.turn_off_lights_daily__morning
+    - automation.turn_off_lights_daily__weekday_evening
+    - automation.turn_off_lights_daily__weekend_evening
+    - automation.turn_on_light_on_entry
+    - automation.turn_on_lights_daily__balcony
+    - automation.turn_on_lights_daily__evening
+    - automation.turn_on_lights_daily__morning_non_school_day
+    - automation.turn_on_lights_daily__morning_school_day
+    - automation.update_garage_brightness
+    - automation.update_notification
+
 bedroom:
   name:              Bedroom
   view:              no
