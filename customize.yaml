@@ -5,5 +5,3 @@ device_tracker.nathan:
 group.all_automations:
   hidden:               false
   friendly_name:        Automations
-sensor.cpu_temp:
-  unit_of_measurement:  "°C" 
