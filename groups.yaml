@@ -110,6 +110,7 @@ sensor_page:
 system_monitor:
   name:              System Monitor
   entities:
+    - sensor.cpu_temp
     - sensor.speedtest_ping
     - sensor.speedtest_download
     - sensor.speedtest_upload
