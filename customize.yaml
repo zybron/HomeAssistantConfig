@@ -1,7 +1,9 @@
 device_tracker.erin:
-  friendly_name: Erin
+  friendly_name:        Erin
 device_tracker.nathan:
-  friendly_name: Nathan
+  friendly_name:        Nathan
 group.all_automations:
-  hidden: false
-  friendly_name: Automations
+  hidden:               false
+  friendly_name:        Automations
+sensor.cpu_temp:
+  unit_of_measurement:  "°C" 
