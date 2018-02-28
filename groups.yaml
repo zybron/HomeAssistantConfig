@@ -6,6 +6,7 @@ default_view:
     - group.family
     - group.bedroom
     - group.dakotas_room
+    - group.kitchen
     - group.entry
     - group.entry_sensors
     - group.balcony
@@ -73,6 +74,12 @@ bedroom:
     - light.his_light
     - light.bedroom_left
     - light.bedroom_right
+
+kitchen:
+  name:              Kitchen
+  view:              no
+  entities:
+    - light.cabinets
 
 entry:
   name:              Entry
