@@ -23,7 +23,7 @@
     - service:      light.turn_on
       data:
         entity_id:  light.cabinets
-        rgb_color:  0,255,255
+        rgb_color:  [0,255,255]
 
 - id:               EveningLightOffCabinets
   alias:            "Turn Off Lights Daily - Cabinets"
