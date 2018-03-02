@@ -24,7 +24,7 @@
       data:
         entity_id:   light.cabinets
         rgb_color:   [0,255,255]
-        transition:  60 
+        transition:  60
 
 - id:                EveningLightOffCabinets
   alias:             "Turn Off Lights Daily - Cabinets"
@@ -43,8 +43,9 @@
     offset:          '01:00:00'
   action:
     - service:       light.turn_off
-      entity_id:     light.cabinets
-      transition:    60
+      data:
+        entity_id:   light.cabinets
+        transition:  60
 
 - id:                MorningLightNonSchoolDayCabinets
   alias:             "Turn On Lights Daily Morning - Cabinets"
