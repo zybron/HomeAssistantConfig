@@ -90,8 +90,10 @@
 - alias:                 Arrive Home Late
   trigger:
     - platform:          state
-      entity_id:         group.family
-      to:                'home'
+      entity_id:         binary_sensor.carpresence
+      to:                'off'
+      for:
+        minues:          1
   condition:
     - condition:         time
       after:             '23:00:00'
