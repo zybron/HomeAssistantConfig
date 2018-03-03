@@ -93,7 +93,7 @@
       entity_id:         binary_sensor.carpresence
       to:                'off'
       for:
-        minues:          1
+        minutes:         1
   condition:
     - condition:         time
       after:             '23:00:00'
