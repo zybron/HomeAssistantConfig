@@ -137,7 +137,7 @@
       - media_player.kitchen_speaker
       - media_player.master_bedroom_speaker
     data:
-      message:          'The garage door is open.'
+      message:          '{{ states.sensor.time.state }}: The garage door is open.'
 
 - id:                   GarageDoorClosed
   alias:                "Garage Door Closed"
@@ -155,4 +155,4 @@
       - media_player.kitchen_speaker
       - media_player.master_bedroom_speaker
     data:
-      message:          'The garage door is closed.'
+      message:          '{{ states.sensor.time.state }}: The garage door is closed.'
