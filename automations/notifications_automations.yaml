@@ -6,7 +6,7 @@
     platform:           homeassistant
   action:
   - data:
-      message:          PandaPadMain is starting
+      message:          '{{ states.sensor.time.state }}: PandaPadMain is starting'
       target:           '353719692298289162'
     service:            notify.discord_notify
   - service:            frontend.set_theme
@@ -20,7 +20,7 @@
     platform:           homeassistant
   action:
   - data:
-      message:          PandaPadMain is shutting down
+      message:          '{{ states.sensor.time.state }}: PandaPadMain is shutting down'
       target:           '353719692298289162'
     service:            notify.discord_notify
 
