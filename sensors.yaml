@@ -178,6 +178,12 @@
   command:                "cat /sys/class/thermal/thermal_zone0/temp"
   unit_of_measurement:    "°C"
   value_template:         '{{ value | multiply(0.001) }}'
+  
+- platform: time_date
+  display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
 
 # Failing due to issue with scan interval
 #- platform:              fail2ban
