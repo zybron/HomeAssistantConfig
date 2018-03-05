@@ -6,7 +6,7 @@
     platform:           homeassistant
   action:
   - data:
-      message:          '{{ states.sensor.time.state }}: PandaPadMain is starting'
+      message:          '{{ states.sensor.date__time.state }}: PandaPadMain is starting'
       target:           '353719692298289162'
     service:            notify.discord_notify
   - service:            frontend.set_theme
@@ -20,7 +20,7 @@
     platform:           homeassistant
   action:
   - data:
-      message:          '{{ states.sensor.time.state }}: PandaPadMain is shutting down'
+      message:          '{{ states.sensor.date__time.state }}: PandaPadMain is shutting down'
       target:           '353719692298289162'
     service:            notify.discord_notify
 
@@ -35,7 +35,7 @@
   action:
   - service:            notify.discord_notify
     data:
-      message:          "The front door was left open!"
+      message:          '{{ states.sensor.date__time.state }}: The front door was left open!'
       target:           '353719692298289162'
   - service:            tts.google_say
     entity_id:
@@ -53,7 +53,7 @@
     to:                 open
   action:
   - data:
-      message:          "The front door opened."
+      message:          '{{ states.sensor.date__time.state }}: The front door opened.'
       target:           '353719692298289162'
     service:            notify.discord_notify
   - service:            tts.google_say
@@ -72,7 +72,7 @@
     to:                 closed
   action:
   - data:
-      message:          "The front door closed."
+      message:          '{{ states.sensor.date__time.state }}: The front door closed.'
       target:           '353719692298289162'
     service:            notify.discord_notify
   - service:            tts.google_say
@@ -92,7 +92,7 @@
   action:
   - service:            notify.discord_notify
     data:
-      message:          'There is an update available for Home Assistant.'
+      message:          '{{ states.sensor.date__time.state }}: There is an update available for Home Assistant.'
       target:           '353719692298289162'
   - service:            persistent_notification.create
     data:
@@ -111,7 +111,7 @@
   action:
   - service:            notify.discord_notify
     data:
-      message:          "The garage door was left open."
+      message:          '{{ states.sensor.date__time.state }}: The garage door was left open.'
       target:           '353719692298289162'
   - service:            tts.google_say
     entity_id:
@@ -130,14 +130,14 @@
   action:
   - service:            notify.discord_notify
     data:
-      message:          "The garage door is open."
+      message:          '{{ states.sensor.date__time.state }}: The garage door is open.'
       target:           '353719692298289162'
   - service:            tts.google_say
     entity_id:
       - media_player.kitchen_speaker
       - media_player.master_bedroom_speaker
     data:
-      message:          '{{ states.sensor.time.state }}: The garage door is open.'
+      message:          'The garage door is open.'
 
 - id:                   GarageDoorClosed
   alias:                "Garage Door Closed"
@@ -148,11 +148,11 @@
   action:
   - service:            notify.discord_notify
     data:
-      message:          "The garage door is closed."
+      message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'
       target:           '353719692298289162'
   - service:            tts.google_say
     entity_id:
       - media_player.kitchen_speaker
       - media_player.master_bedroom_speaker
     data:
-      message:          '{{ states.sensor.time.state }}: The garage door is closed.'
+      message:          'The garage door is closed.'
