@@ -1,37 +1,37 @@
 # Entry Automations
-- id:                       LightOnEntry
-  alias:                    "Turn On Light On Entry"
+- id:           LightOnEntry
+  alias:        "Turn On Light On Entry"
   trigger:
-  - platform:               state
-    entity_id:              sensor.motion_sensor_downstairs
-    to:                     active
-  - platform:               state
-    entity_id:              sensor.front_door_sensor
-    to:                     open
+  - platform:   state
+    entity_id:  sensor.motion_sensor_downstairs
+    to:         active
+  - platform:   state
+    entity_id:  binary_sensor.front_door_sensor_sensor
+    to:         on
   action:
-    service:                homeassistant.turn_on
-    entity_id:              light.bottom_stairs
+    service:    homeassistant.turn_on
+    entity_id:  light.bottom_stairs
 
-- id:                       LightOffEntryMotion
-  alias:                    "Turn Off Light After Entry - Motion"
+- id:           LightOffEntryMotion
+  alias:        "Turn Off Light After Entry - Motion"
   trigger:
-  - platform:               state
-    entity_id:              sensor.motion_sensor_downstairs
-    to:                     inactive
+  - platform:   state
+    entity_id:  sensor.motion_sensor_downstairs
+    to:         inactive
     for:
-      minutes:              3
+      minutes:  3
   action:
-    service:                homeassistant.turn_off
-    entity_id:              light.bottom_stairs
+    service:    homeassistant.turn_off
+    entity_id:  light.bottom_stairs
 
-- id:                       LightOffEntryDoor
-  alias:                    "Turn Off Light After Entry - Door"
+- id:           LightOffEntryDoor
+  alias:        "Turn Off Light After Entry - Door"
   trigger:
-  - platform:               state
-    entity_id:              sensor.front_door_sensor
-    to:                     closed
+  - platform:   state
+    entity_id:  binary_sensor.front_door_sensor_sensor
+    to:         off
     for:
-      minutes:              3
+      minutes:  3
   action:
-    service:                homeassistant.turn_off
-    entity_id:              light.bottom_stairs
+    service:    homeassistant.turn_off
+    entity_id:  light.bottom_stairs
