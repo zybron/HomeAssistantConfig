@@ -6,8 +6,8 @@
     entity_id:  sensor.motion_sensor_downstairs
     to:         active
   - platform:   state
-    entity_id:  binary_sensor.front_door_sensor_sensor
-    to:         'on'
+    entity_id:  sensor.front_door_sensor
+    to:         'open'
   action:
     service:    homeassistant.turn_on
     entity_id:  light.bottom_stairs
@@ -28,8 +28,8 @@
   alias:        "Turn Off Light After Entry - Door"
   trigger:
   - platform:   state
-    entity_id:  binary_sensor.front_door_sensor_sensor
-    to:         'off'
+    entity_id:  sensor.front_door_sensor
+    to:         'closed'
     for:
       minutes:  3
   action:

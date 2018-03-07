@@ -57,7 +57,8 @@ entry_sensors:
   view:              no
   entities:
     - zwave.front_door_sensor
-    - binary_sensor.sensor
+    - sensor.front_door_sensor
+    - sensor.front_door_sensor_battery
     - sensor.motion_sensor_downstairs
     - sensor.downstairs_temperature
     - sensor.motion_sensor_downstairs_battery
