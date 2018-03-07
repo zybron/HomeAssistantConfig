@@ -63,8 +63,8 @@
         {% endif %}
     motion_sensor_downstairs_temperature:
       friendly_name:                       'Downstairs Temperature'
-      value_template:                      '{{ states.sensor.vision_zp3102_pir_motion_sensor_temperature }}'
-      unit_of_measurement:                 '°C'
+      value_template:                      '{{ states.sensor.vision_zp3102_pir_motion_sensor_temperature.state }}'
+      unit_of_measurement:                 '°F'
     motion_sensor_downstairs_battery:
       friendly_name:                       'Motion Sensor Downstairs Battery'
       value_template:                      '{{ states.zwave.motion_sensor_downstairs.attributes.battery_level }}'
