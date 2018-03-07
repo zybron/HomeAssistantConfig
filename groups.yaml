@@ -61,7 +61,7 @@ entry_sensors:
     - sensor.front_door_sensor_battery
     - zwave.motion_sensor_downstairs
     - sensor.motion_sensor_downstairs
-    - sensor.downstairs_temperature
+    - sensor.motion_sensor_downstairs_temperature
     - sensor.motion_sensor_downstairs_battery
 
 family:
