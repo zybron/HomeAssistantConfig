@@ -51,7 +51,7 @@
         {% endif %}
     front_door_sensor_battery:
       friendly_name:                       'Front Door Sensor Battery'
-      value_template:                      '{{ states.zwave.front_door_sensor.battery_level }}'
+      value_template:                      '{{ states.zwave.front_door_sensor.attributes.battery_level }}'
       unit_of_measurement:                 '%'
     motion_sensor_downstairs:
       friendly_name:                       'Motion Sensor Downstairs'
@@ -67,7 +67,7 @@
       unit_of_measurement:                 '°C'
     motion_sensor_downstairs_battery:
       friendly_name:                       'Motion Sensor Downstairs Battery'
-      value_template:                      '{{ states.zwave.motion_sensor_downstairs.battery_level }}'
+      value_template:                      '{{ states.zwave.motion_sensor_downstairs.attributes.battery_level }}'
       unit_of_measurement:                 '%'
 
 - platform:                                plex
