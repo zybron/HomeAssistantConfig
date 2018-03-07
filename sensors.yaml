@@ -63,7 +63,7 @@
     front_door_sensor_batter:
       friendly_name:          'Front Door Sensor Battery'
       value_template:         '{{ states.zwave.front_door_sensor.battery_level }}'
-      unit_of_measurement:    %
+      unit_of_measurement:    '%'
 
 - platform:                   plex
   host:                       192.168.1.65
