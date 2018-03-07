@@ -202,3 +202,8 @@ cover:
     value_template:         "{{ value_json.status }}"
 zwave:
   usb_path:                 /dev/ttyACM0
+
+# commands from HA to turn on/off disco lights
+shell_command:
+  disco_off:                echo -e -n "\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51" > /dev/ttyACM0
+  disco_on:                 echo -e -n "\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50" > /dev/ttyACM0
