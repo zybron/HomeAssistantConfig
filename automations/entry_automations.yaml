@@ -4,7 +4,7 @@
   trigger:
   - platform:   state
     entity_id:  sensor.motion_sensor_downstairs
-    to:         active
+    to:         'active'
   - platform:   state
     entity_id:  sensor.front_door_sensor
     to:         'open'
@@ -17,7 +17,7 @@
   trigger:
   - platform:   state
     entity_id:  sensor.motion_sensor_downstairs
-    to:         inactive
+    to:         'inactive'
     for:
       minutes:  3
   action:

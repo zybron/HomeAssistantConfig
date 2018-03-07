@@ -1,15 +1,4 @@
 - platform:                                mqtt
-  state_topic:                             "smartthings/Motion Sensor Downstairs/temperature/state"
-  name:                                    "Downstairs Temperature"
-  unit_of_measurement:                     "F"
-- platform:                                mqtt
-  state_topic:                             "smartthings/Motion Sensor Downstairs/motion/state"
-  name:                                    "Motion Sensor Downstairs"
-- platform:                                mqtt
-  state_topic:                             "smartthings/Motion Sensor Downstairs/battery/state"
-  name:                                    "Motion Sensor Downstairs Battery"
-  unit_of_measurement:                     "%"
-- platform:                                mqtt
   state_topic:                             "location/Nathan"
   name:                                    "Nathan Life360"
 - platform:                                mqtt
