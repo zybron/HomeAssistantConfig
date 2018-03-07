@@ -56,8 +56,7 @@ entry_sensors:
   name:              Entry Sensors
   view:              no
   entities:
-    - binary_sensor.front_door_sensor_sensor
-    - zwave.front_door_sensor.battery_level
+    - zwave.front_door_sensor
     - sensor.motion_sensor_downstairs
     - sensor.downstairs_temperature
     - sensor.motion_sensor_downstairs_battery
