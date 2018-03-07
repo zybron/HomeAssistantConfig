@@ -200,3 +200,5 @@ cover:
     payload_close:          "close"
     payload_stop:           "stop"
     value_template:         "{{ value_json.status }}"
+zwave:
+  usb_path:                 /dev/ttyACM0
