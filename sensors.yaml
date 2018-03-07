@@ -60,7 +60,7 @@
         {% else %}
           closed
         {% endif %}
-    front_door_sensor_batter:
+    front_door_sensor_battery:
       friendly_name:          'Front Door Sensor Battery'
       value_template:         '{{ states.zwave.front_door_sensor.battery_level }}'
       unit_of_measurement:    '%'
