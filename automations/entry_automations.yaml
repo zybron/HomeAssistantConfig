@@ -7,7 +7,7 @@
     to:         active
   - platform:   state
     entity_id:  binary_sensor.front_door_sensor_sensor
-    to:         on
+    to:         'on'
   action:
     service:    homeassistant.turn_on
     entity_id:  light.bottom_stairs
@@ -29,7 +29,7 @@
   trigger:
   - platform:   state
     entity_id:  binary_sensor.front_door_sensor_sensor
-    to:         off
+    to:         'off'
     for:
       minutes:  3
   action:
