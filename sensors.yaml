@@ -56,7 +56,7 @@
     motion_sensor_downstairs:
       friendly_name:                       'Motion Sensor Downstairs'
       value_template:                      >-
-        {% if is_state('binary_sensor.vision_zp3102_pir_motion_sensor_sensor','on') %}
+        {% if state.sensor.alarm_level_2 | float > 20 %}
           active
         {% else %}
           inactive
