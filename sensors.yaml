@@ -195,12 +195,11 @@
       - 'date'
       - 'date_time'
 
-sensor:
-  - platform:                              life360
-    username:                              !secret life360_username
-    password:                              !secret life360_password
-    mqtt_topic:                            "/life360/data"
-    scan_interval:                         60
+- platform:                                life360
+  username:                                !secret life360_username
+  password:                                !secret life360_password
+  mqtt_topic:                              '/life360/data'
+  scan_interval:                           60
 
 # Failing due to issue with scan interval
 #- platform:                               fail2ban
