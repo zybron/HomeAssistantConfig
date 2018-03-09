@@ -263,4 +263,4 @@ class StringBuilder:
          self._file_str.write(str)
 
      def __str__(self):
-     return self._file_str.getvalue()
+         return self._file_str.getvalue()
