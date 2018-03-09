@@ -71,7 +71,7 @@ family:
   entities:
     - group.erin
     - group.nathan
-    - sensor.life360
+    - sensor.life360_sensor
 
 sensor_page:
   name:              Sensors
