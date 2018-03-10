@@ -100,9 +100,6 @@ input_boolean:
   nathan_away:
     name:                   Nathan is Away
     initial:                off
-  toggle_school_day:
-    name:                   Turn off school day
-    initial:                on
 
 input_select:
   led_effects:

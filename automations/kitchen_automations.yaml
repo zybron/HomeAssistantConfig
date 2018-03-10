@@ -47,7 +47,7 @@
         entity_id:   light.cabinets
         transition:  60
 
-- id:                MorningLightNonSchoolDayCabinets
+- id:                MorningLightOnCabinets
   alias:             "Turn On Lights Daily Morning - Cabinets"
   trigger:
   - platform:        time

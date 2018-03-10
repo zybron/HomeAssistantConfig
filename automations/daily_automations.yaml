@@ -1,44 +1,12 @@
 #Daily light automations
-- id:                MorningLightSchoolDay
-  alias:             "Turn On Lights Daily - Morning School Day"
-  trigger:
-  - platform:        time
-    at:              '05:00:00'
-  condition:
-    condition:       state
-    entity_id:       sensor.school_day
-    state:           'true'
-  action:
-    - service:       light.turn_on
-      entity_id:
-        - light.lamp
-
-- id:                MorningLightSchoolDay
-  alias:             "Turn On Lights Daily - Morning School Day"
-  trigger:
-  - platform:        time
-    at:              '05:00:00'
-  condition:
-    condition:       state
-    entity_id:       sensor.school_day
-    state:           'true'
-  action:
-    - service:       light.turn_on
-      entity_id:     light.top_stairs
-
-- id:                MorningLightNonSchoolDay
-  alias:             "Turn On Lights Daily - Morning Non School Day"
+- id:                MorningLightOn
+  alias:             "Turn On Lights Daily - Morning"
   trigger:
   - platform:        time
     at:              '07:00:00'
-  condition:
-    condition:       state
-    entity_id:       sensor.school_day
-    state:           'false'
   action:
     - service:       light.turn_on
       entity_id:     light.top_stairs
-
 
 - id:                MorningLightOff
   alias:             "Turn Off Lights Daily - Morning"

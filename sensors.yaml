@@ -14,14 +14,6 @@
 
 - platform:                                template
   sensors:
-    school_day:
-      friendly_name:                       "School Day"
-      value_template:                      >-
-        {% if now().weekday() < 5 and ( now().month <= 5 or now().month >= 9 ) and is_state('input_boolean.toggle_school_day','on') %}
-          true
-        {% else %}
-          false
-        {% endif %}
     nathan_home:
       friendly_name:                       "Nathan Home"
       value_template:                      >-
