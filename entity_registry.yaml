@@ -1,81 +1,124 @@
 media_player.kitchen_speaker:
+  name:
   platform: cast
   unique_id: 10df5abf-df15-f503-822b-bf5a842cd9ae
 media_player.dakotas_bedroom_speaker:
+  name:
   platform: cast
   unique_id: 83b2226b-7572-4e5a-3ca1-5aa069695d3e
 media_player.master_bedroom_speaker:
+  name:
   platform: cast
   unique_id: 6e5a9385-a280-93c5-7810-78edfdf8150b
 media_player.all_speakers:
+  name:
   platform: cast
   unique_id: 27f34546-2a31-414e-9d8d-2adccfde61a5
 media_player.plex_web_firefox:
+  name:
   platform: plex
   unique_id: afmaqerjqr7ubdw1orbnul31
 media_player.tclroku_tv__2n008t166798:
+  name:
   platform: plex
   unique_id: a31e26f124f371b995b7659c186c69df
 media_player.fire_hd_6:
+  name:
   platform: plex
   unique_id: 4917491f75300e0a-com-plexapp-android
 media_player.oneplus_one:
+  name:
   platform: plex
   unique_id: 85f1dcd763adcd2c-com-plexapp-android
 media_player.bedroom_2:
+  name:
   platform: plex
   unique_id: 0f9f2b8bef2e7247c6f4933e0b837a4c
 media_player.galaxy_s5:
+  name:
   platform: plex
   unique_id: 6f83c5de28e37223-com-plexapp-android
 media_player.roku_stick__2l649c198656:
+  name:
   platform: plex
   unique_id: b6372f055a2978601c1ef083e7e68105
 sensor.alarm_type:
+  name:
   platform: zwave
   unique_id: 2-72057594077528065
 sensor.alarm_level:
+  name:
   platform: zwave
   unique_id: 2-72057594077528081
 binary_sensor.sensor:
+  name:
   platform: zwave
   unique_id: 2-72057594076463104
 sensor.ecolink_doorwindow_sensor_sourcenodeid:
+  name:
   platform: zwave
   unique_id: 2-72057594077528097
 sensor.ecolink_doorwindow_sensor_access_control:
+  name:
   platform: zwave
   unique_id: 2-72057594077528209
 sensor.ecolink_doorwindow_sensor_burglar:
+  name:
   platform: zwave
   unique_id: 2-72057594077528225
 sensor.ecolink_doorwindow_sensor_power_management:
+  name:
   platform: zwave
   unique_id: 2-72057594077528241
 sensor.alarm_type_2:
+  name:
   platform: zwave
   unique_id: 3-72057594094305281
 sensor.alarm_level_2:
+  name:
   platform: zwave
   unique_id: 3-72057594094305297
 binary_sensor.vision_zp3102_pir_motion_sensor_sensor:
+  name:
   platform: zwave
   unique_id: 3-72057594093240320
 sensor.vision_zp3102_pir_motion_sensor_temperature:
+  name:
   platform: zwave
   unique_id: 3-72057594093256722
 sensor.vision_zp3102_pir_motion_sensor_sourcenodeid:
+  name:
   platform: zwave
   unique_id: 3-72057594094305313
 sensor.vision_zp3102_pir_motion_sensor_burglar:
+  name:
   platform: zwave
   unique_id: 3-72057594094305441
 sensor.vision_zp3102_pir_motion_sensor_system:
+  name:
   platform: zwave
   unique_id: 3-72057594094305473
 sensor.vision_zp3102_pir_motion_sensor_emergency:
+  name:
   platform: zwave
   unique_id: 3-72057594094305489
 sensor.vision_zp3102_pir_motion_sensor_clock:
+  name:
   platform: zwave
   unique_id: 3-72057594094305505
+media_player.chrome:
+  name:
+  platform: plex
+  unique_id: mrafp6opaqiqp83k50v6d9hz
+media_player.chrome_2:
+  name:
+  platform: plex
+  unique_id: sxmk0t2ay93dz2877vc8cnuk
+media_player.firefox:
+  name:
+  platform: plex
+  unique_id: 9736keh51np6ejg04yaj16wd
+media_player.chrome_3:
+  name:
+  platform: plex
+  unique_id: l1xgolygvmlbwvyd1r8emisi
