@@ -144,6 +144,17 @@
   unit_of_measurement:                     'dB'
   value_template:                          '{{ value_json.signal }}'
 
+- platform:                                mqtt
+  name:                                    'Living Room TV'
+  state_topic:                             'plex/'
+  value_template:                          >-
+  {% if (value_json.player == "TCLRoku TV - 2N008T166798") %}
+    {{value_json.state}}
+  {% endif %}
+  json_attributes:
+    - user
+    - full_title
+
 - platform:                                systemmonitor
   resources:
     - type:                                disk_use_percent
