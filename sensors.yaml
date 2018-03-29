@@ -154,6 +154,31 @@
   json_attributes:
     - user
     - full_title
+    - library_name
+
+- platform:                                mqtt
+  name:                                    'Master Bedroom TV'
+  state_topic:                             'plex/'
+  value_template:                          >-
+    {% if (value_json.player == "Roku 2N008T166798") %}
+      {{value_json.state}}
+    {% endif %}
+  json_attributes:
+    - user
+    - full_title
+    - library_name
+
+- platform:                                mqtt
+  name:                                    'Dakota Bedroom TV'
+  state_topic:                             'plex/'
+  value_template:                          >-
+    {% if (value_json.player == "Roku 2L649C198656") %}
+      {{value_json.state}}
+    {% endif %}
+  json_attributes:
+    - user
+    - full_title
+    - library_name
 
 - platform:                                systemmonitor
   resources:
