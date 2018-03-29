@@ -155,7 +155,7 @@
 
 - platform:                                mqtt
   name:                                    'Master Bedroom TV'
-  state_topic:                             'plex/Roku 2N008T166798'
+  state_topic:                             'plex/Bedroom'
   value_template:                          '{{value_json.state}}'
   json_attributes:
     - user
