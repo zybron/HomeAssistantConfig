@@ -1,44 +1,44 @@
-- id:               ClearLastPlayedLivingRoom
-  alias:            Clear Last Played - Living Room TV
+- id:                ClearLastPlayedLivingRoom
+  alias:             Clear Last Played - Living Room TV
   trigger:
-  - platform:       state
-    entity_id:      sensor.living_room_tv
-    to:             'playing'
+  - platform:        state
+    entity_id:       sensor.living_room_tv
+    to:              'playing'
   condition:
-    condition:      template
-    alue_template:  '{{ (as_timestamp(now())-as_timestamp(states.sensor.living_room_tv.last_updated)) > 300 }}'
+    condition:       template
+    value_template:  '{{ (as_timestamp(now())-as_timestamp(states.sensor.living_room_tv.last_updated)) > 300 }}'
   action:
-  - service:        mqtt.pubish
+  - service:         mqtt.pubish
     data:
-      topic:        'plex/TCLRoku TV - 2N008T166798'
+      topic:         'plex/TCLRoku TV - 2N008T166798'
       payload:      '{"state": "stopped", "user":"", "full_title": "", "library_name": ""}'
 
-- id:               ClearLastPlayedMasterBedroom
-  alias:            Clear Last Played - Master Bedroom TV
+- id:                ClearLastPlayedMasterBedroom
+  alias:             Clear Last Played - Master Bedroom TV
   trigger:
-  - platform:       state
-    entity_id:      sensor.master_bedroom_tv
-    to:             'playing'
+  - platform:        state
+    entity_id:       sensor.master_bedroom_tv
+    to:              'playing'
   condition:
-    condition:      template
-    alue_template:  '{{ (as_timestamp(now())-as_timestamp(states.sensor.master_bedroom_tv.last_updated)) > 300 }}'
+    condition:       template
+    value_template:  '{{ (as_timestamp(now())-as_timestamp(states.sensor.master_bedroom_tv.last_updated)) > 300 }}'
   action:
-  - service:        mqtt.pubish
+  - service:         mqtt.pubish
     data:
-      topic:        'plex/Bedroom'
+      topic:         'plex/Bedroom'
       payload:      '{"state": "stopped", "user":"", "full_title": "", "library_name": ""}'
 
-- id:               ClearLastPlayedDakotaBedroom
-  alias:            Clear Last Played - Dakota's Bedroom TV
+- id:                ClearLastPlayedDakotaBedroom
+  alias:             Clear Last Played - Dakota's Bedroom TV
   trigger:
-  - platform:       state
-    entity_id:      sensor.dakota_bedroom_tv
-    to:             'playing'
+  - platform:        state
+    entity_id:       sensor.dakota_bedroom_tv
+    to:              'playing'
   condition:
-    condition:      template
-    alue_template:  '{{ (as_timestamp(now())-as_timestamp(states.sensor.dakota_bedroom_tv.last_updated)) > 300 }}'
+    condition:       template
+    value_template:  '{{ (as_timestamp(now())-as_timestamp(states.sensor.dakota_bedroom_tv.last_updated)) > 300 }}'
   action:
-  - service:        mqtt.pubish
+  - service:         mqtt.pubish
     data:
-      topic:        'plex/plex/Roku 2L649C198656'
+      topic:         'plex/plex/Roku 2L649C198656'
       payload:      '{"state": "stopped", "user":"", "full_title": "", "library_name": ""}'
