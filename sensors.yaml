@@ -146,7 +146,7 @@
 
 - platform:                                mqtt
   name:                                    'Living Room TV'
-  state_topic:                             'plex/TCLRoku TV - 2N008T166798'
+  state_topic:                             'plex/Living Room'
   value_template:                          '{{value_json.state}}'
   json_attributes:
     - user
