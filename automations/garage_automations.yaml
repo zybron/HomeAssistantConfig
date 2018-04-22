@@ -48,7 +48,7 @@
   - service:        cover.close_cover
     entity_id:      'cover.garage_door'
 
-- alias:            'Garage Door Opened'
+- alias:            'Update Garage Door DateTime Opened'
   trigger:
     platform:       state
     entity_id:      sensor.garage_door
@@ -58,7 +58,7 @@
     data_template:
       entity_id:    input_datetime.garage_door_opened
 
-- alias:            'Garage Door Closed'
+- alias:            'Update Garage Door DateTime Closed'
   trigger:
     platform:       state
     entity_id:      sensor.garage_door
