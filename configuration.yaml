@@ -19,6 +19,8 @@ script:                     !include scripts.yaml
 sensor:                     !include sensors.yaml
 light:                      !include lights.yaml
 
+cloud:
+
 # Enables the frontend
 frontend:                   !include frontend.yaml
 
