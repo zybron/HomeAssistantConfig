@@ -201,7 +201,7 @@ cover:
     payload_stop:           "stop"
     value_template:         "{{ value_json.status }}"
 zwave:
-  usb_path:                 /dev/ttyACM0
+  usb_path:                 /dev/Z-Wave
 
 # commands from HA to turn on/off disco lights
 shell_command:
