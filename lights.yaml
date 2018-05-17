@@ -1,28 +1,4 @@
 - platform:                  mqtt
-  name:                      "Top Stairs"
-  command_topic:             "smartthings/Top Stairs/switch/cmd"
-  state_topic:               "smartthings/Top Stairs/switch/state"
-  brightness_command_topic:  "smartthings/Top Stairs/level/cmd"
-  brightness_state_topic:    "smartthings/Top Stairs/level/state"
-  brightness_scale:          100
-  color_temp_command_topic:  "smartthings/Top Stairs/colorTemperature/cmd"
-  color_temp_state_topic:    "smartthings/Top Stairs/colorTemperature/state"
-  payload_on:                "on"
-  payload_off:               "off"
-
-- platform:                  mqtt
-  name:                      "Bottom Stairs"
-  command_topic:             "smartthings/Bottom Stairs/switch/cmd"
-  state_topic:               "smartthings/Bottom Stairs/switch/state"
-  brightness_command_topic:  "smartthings/Bottom Stairs/level/cmd"
-  brightness_state_topic:    "smartthings/Bottom Stairs/level/state"
-  brightness_scale:          100
-  color_temp_command_topic:  "smartthings/Bottom Stairs/colorTemperature/cmd"
-  color_temp_state_topic:    "smartthings/Bottom Stairs/colorTemperature/state"
-  payload_on:                "on"
-  payload_off:               "off"
-
-- platform:                  mqtt
   name:                      "Bedroom Left"
   command_topic:             "smartthings/Bedroom Left/switch/cmd"
   state_topic:               "smartthings/Bedroom Left/switch/state"
