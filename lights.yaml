@@ -1,20 +1,10 @@
-- platform:                  mqtt
-  name:                      "Lamp"
-  command_topic:             "smartthings/Lamp/switch/cmd"
-  state_topic:               "smartthings/Lamp/switch/state"
-  brightness_command_topic:  "smartthings/Lamp/level/cmd"
-  brightness_state_topic:    "smartthings/Lamp/level/state"
-  brightness_scale:          100
-  payload_on:                "on"
-  payload_off:               "off"
-
-- platform:                  flux_led
+- platform:         flux_led
   devices:
     192.168.1.168:
-      name:                  Main Balcony
+      name:         Main Balcony
     192.168.1.171:
-      name:                  Cabinets
-  effect:                    true
+      name:         Cabinets
+  effect:           true
   effect_list:
     - colorloop
     - colorjump
