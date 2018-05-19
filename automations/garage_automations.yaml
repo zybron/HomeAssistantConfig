@@ -44,6 +44,10 @@
     to:             'open'
     for:
       minutes:      7
+  condition:
+  - condition:      state
+    entity_id:      'binary_sensor.carpresence'
+    state:          'off'
   action:
   - service:        cover.close_cover
     entity_id:      'cover.garage_door'
