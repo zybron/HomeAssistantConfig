@@ -71,6 +71,10 @@ notify:
   - name:                   Discord_Notify
     platform:               discord
     token:                  !secret discord_token
+  - name:                   HTML5_Notify
+    platform:               html5
+    gcm_api_key:            !secret gcm_api_key
+    gcm_sender_id:          !secret gcm_sender_id
 
 device_tracker:
   - platform:               mqtt
