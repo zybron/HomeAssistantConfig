@@ -12,6 +12,9 @@
   - service:            frontend.set_theme
     data:
       name:             dark_theme
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: PandaPadMain is starting'
 
 - id:                   HomeAssistantShutdown
   alias:                HomeAssistantShutdown
@@ -23,6 +26,9 @@
       message:          '{{ states.sensor.date__time.state }}: PandaPadMain is shutting down'
       target:           '353719692298289162'
     service:            notify.discord_notify
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: PandaPadMain is shutting down'
 
 - id:                   FrontDoorOpen
   alias:                "Front Door Open"
@@ -44,6 +50,9 @@
       - media_player.dakotas_bedroom_speaker
     data:
       message:          'The front door was left open!'
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: The front door was left open!'
 
 - id:                   FrontDoorOpened
   alias:                "Front Door Opened"
@@ -63,6 +72,9 @@
       - media_player.dakotas_bedroom_speaker
     data:
       message:          'The front door opened.'
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: The front door opened.'
 
 - id:                   FrontDoorClosed
   alias:                "Front Door Closed"
@@ -82,6 +94,9 @@
       - media_player.dakotas_bedroom_speaker
     data:
       message:          'The front door closed.'
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: The front door closed.'
 
 # Updater Notification
 - id:                   UpdateAvailable
@@ -99,6 +114,9 @@
       message:          'There is an update available for Home Assistant.'
       title:            'Home Assistant Update'
       notification_id:  'Update'
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: There is an update available for Home Assistant'
 
 - id:                   GarageDoorLeftOpen
   alias:                "Garage Door Left Open"
@@ -120,6 +138,9 @@
       - media_player.dakotas_bedroom_speaker
     data:
       message:          'The garage door was left open.'
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: The garage door was left open.'
       
 - id:                   GarageDoorOpen
   alias:                "Garage Door Open"
@@ -138,6 +159,9 @@
       - media_player.master_bedroom_speaker
     data:
       message:          'The garage door is open.'
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: The garage door is open.'
 
 - id:                   GarageDoorClosed
   alias:                "Garage Door Closed"
@@ -156,3 +180,6 @@
       - media_player.master_bedroom_speaker
     data:
       message:          'The garage door is closed.'
+  - service:            notify.html5_notify
+    data_template:
+      message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'
