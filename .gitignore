@@ -5,6 +5,7 @@
 !scenes
 !assets
 !automations
+!www
 !.gitignore
 secrets.yaml
 known_devices.yaml
