@@ -1,6 +1,8 @@
 *
+!*.conf
 !*.yaml
 !*.yml
+!*.xml
 !*.wav
 !scenes
 !assets
