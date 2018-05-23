@@ -15,6 +15,8 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: PandaPadMain is starting'
+    data:
+      tag:              home_assistant_notification
 
 - id:                   HomeAssistantShutdown
   alias:                HomeAssistantShutdown
@@ -29,6 +31,8 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: PandaPadMain is shutting down'
+    data:
+      tag:              home_assistant_notification
 
 - id:                   FrontDoorOpen
   alias:                "Front Door Open"
@@ -53,6 +57,8 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door was left open!'
+    data:
+      tag:              front_door_notification
 
 - id:                   FrontDoorOpened
   alias:                "Front Door Opened"
@@ -75,6 +81,8 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door opened.'
+    data:
+      tag:              front_door_notification
 
 - id:                   FrontDoorClosed
   alias:                "Front Door Closed"
@@ -97,6 +105,8 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door closed.'
+    data:
+      tag:              front_door_notification
 
 # Updater Notification
 - id:                   UpdateAvailable
@@ -117,6 +127,8 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: There is an update available for Home Assistant'
+    data:
+      tag:              home_asssitant_update_notification
 
 - id:                   GarageDoorLeftOpen
   alias:                "Garage Door Left Open"
@@ -146,6 +158,7 @@
         actions:
           - action:     "close_garage_door"
             title:      "Close Garage Door"
+        tag:            garage_door_notification
 
 - id:                   GarageDoorOpen
   alias:                "Garage Door Open"
@@ -172,6 +185,7 @@
         actions:
           - action:     "close_garage_door"
             title:      "Close Garage Door"
+        tag:            garage_door_notification
 
 - id:                   GarageDoorClosed
   alias:                "Garage Door Closed"
@@ -193,6 +207,8 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'
+    data:
+      tag:              garage_door_notification
 
 - id:                   CloseGarageDoorClicked
   alias:                "Close Garage Door Clicked"
