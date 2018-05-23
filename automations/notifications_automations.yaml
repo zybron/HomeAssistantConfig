@@ -145,7 +145,7 @@
       data:
         actions:
           - action:     "close_garage_door"
-          title:        "Close Garage Door"
+            title:      "Close Garage Door"
 
 - id:                   GarageDoorOpen
   alias:                "Garage Door Open"
