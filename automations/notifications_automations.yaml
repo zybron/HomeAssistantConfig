@@ -141,7 +141,11 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door was left open.'
-      
+    data:
+      actions:
+        - action:       "close_garage_door"
+          title:        "Close Garage Door"
+
 - id:                   GarageDoorOpen
   alias:                "Garage Door Open"
   trigger:
@@ -162,6 +166,10 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door is open.'
+    data:
+      actions:
+        - action:       "close_garage_door"
+          title:        "Close Garage Door"
 
 - id:                   GarageDoorClosed
   alias:                "Garage Door Closed"
@@ -183,3 +191,14 @@
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'
+
+- id:                   CloseGarageDoorClicked
+  alias:                "Close Garage Door Clicked"
+  trigger:
+  - platform:           event
+    event_type:         html5_notification.clicked
+    event_data:
+      action:           close_garage_door
+  action:
+  - service:            cover.close_cover
+    entity_id:          'cover.garage_door'
