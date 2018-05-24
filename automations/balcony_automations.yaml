@@ -1,5 +1,6 @@
 # LED effects
 - alias:              LED Effects
+  initial_state:      on
   trigger:
     - platform:       state
       entity_id:      input_select.led_effects
@@ -15,6 +16,7 @@
 
 - id:                 EveningLightOnBalcony
   alias:              "Turn On Lights Daily - Balcony"
+  initial_state:      on
   trigger:
   - platform:         sun
     event:            sunset
@@ -27,6 +29,7 @@
 
 - id:                 EveningLightOffBalcony
   alias:              "Turn Off Balcony Lights Daily"
+  initial_state:      on
   trigger:
   - platform:         time
     at:               '22:00:00'

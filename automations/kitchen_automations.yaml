@@ -15,6 +15,7 @@
 
 - id:                EveningLightOnCabinets
   alias:             "Turn On Lights Daily - Cabinets"
+  initial_state:     on
   trigger:
   - platform:        sun
     event:           sunset
@@ -28,6 +29,7 @@
 
 - id:                EveningLightOffCabinets
   alias:             "Turn Off Lights Daily - Cabinets"
+  initial_state:     on
   trigger:
   - platform:        time
     at:              '22:00:00'
@@ -37,6 +39,7 @@
 
 - id:                MorningLightOffCabinets
   alias:             "Turn Off Lights Daily Morning - Cabinets"
+  initial_state:     on
   trigger:
   - platform:        sun
     event:           sunrise
@@ -49,6 +52,7 @@
 
 - id:                MorningLightOnCabinets
   alias:             "Turn On Lights Daily Morning - Cabinets"
+  initial_state:     on
   trigger:
   - platform:        time
     at:              '07:00:00'

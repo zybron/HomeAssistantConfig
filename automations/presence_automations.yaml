@@ -1,6 +1,7 @@
 # Presence automations
 - id:                    ToggleErinAway
   alias:                 Toggle Erin Away
+  initial_state:         on
   trigger:
   - platform:            state
     entity_id:           sensor.erin_home
@@ -14,6 +15,7 @@
 
 - id:                    ToggleNathanAway
   alias:                 Toggle Nathan Away
+  initial_state:         on
   trigger:
   - platform:            state
     entity_id:           sensor.nathan_home
@@ -27,6 +29,7 @@
 
 - id:                    ErinReturnHomeNotification
   alias:                 "Erin Arrives - Notification"
+  initial_state:         on
   trigger:
   - platform:            state
     entity_id:           sensor.erin_home
@@ -51,6 +54,7 @@
 
 - id:                    NathanReturnHomeNotification
   alias:                 "Nathan Arrives - Notification"
+  initial_state:         on
   trigger:
   - platform:            state
     entity_id:           sensor.nathan_home
@@ -73,27 +77,12 @@
     data:
       entity_id:         input_boolean.nathan_away
 
-- alias:                 Smartthings Presence Detection
-  trigger:
-    platform:            mqtt
-    topic:               'smartthings/+/presence/state'
-  action:
-    - service:           mqtt.publish
-      data_template:
-        topic:           >
-          location/{{ trigger.topic.split('/')[1] }}
-        payload:         >
-          {% if trigger.payload == "present" %}home{% else %}not_home{% endif %}
-        qos:             1
-        retain:          true
-
 - alias:                 Arrive Home Late
+  initial_state:         on
   trigger:
     - platform:          state
       entity_id:         binary_sensor.carpresence
       to:                'off'
-      for:
-        minutes:         1
   condition:
     - condition:         time
       after:             '23:00:00'
@@ -108,10 +97,18 @@
     - service:           light.turn_on
       entity_id:         light.cabinets
     - delay:
-        minutes:         5
+        minutes:         10
     - service:           light.turn_off
       entity_id:
         - light.her_light
         - light.his_light
     - service:           light.turn_off
       entity_id:         light.cabinets
+    - service:           notify.html5_notify
+      data:
+        message:         'Welcome home'
+        data:
+          actions:
+            - action:    "turn_off_lights"
+              title:     "Turn Off Lights"
+          tag:           late_arrival_notification

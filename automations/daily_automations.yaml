@@ -1,6 +1,7 @@
 #Daily light automations
 - id:                MorningLightOn
   alias:             "Turn On Lights Daily - Morning"
+  initial_state:     on
   trigger:
   - platform:        time
     at:              '07:00:00'
@@ -10,6 +11,7 @@
 
 - id:                MorningLightOff
   alias:             "Turn Off Lights Daily - Morning"
+  initial_state:     on
   trigger:
   - platform:        sun
     event:           sunrise
@@ -20,6 +22,7 @@
 
 - id:                EveningLightOn
   alias:             "Turn On Lights Daily - Evening"
+  initial_state:     on
   trigger:
   - platform:        sun
     event:           sunset
@@ -30,6 +33,7 @@
 
 - id:                EveningLightOffWeekday
   alias:             "Turn Off Lights Daily - Weekday Evening"
+  initial_state:     on
   trigger:
   - platform:        time
     at:              '22:00:00'
@@ -42,6 +46,7 @@
 
 - id:                EveningLightOffWeekend
   alias:             "Turn Off Lights Daily - Weekend Evening"
+  initial_state:     on
   trigger:
   - platform:        time
     at:              '23:00:00'

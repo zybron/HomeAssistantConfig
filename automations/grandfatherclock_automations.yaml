@@ -1,6 +1,7 @@
 # Grandfather clock
 - id:                        GrandfatherClock
   alias:                     Grandfather Clock
+  initial_state:             on
   trigger:
     - platform:              time
       minutes:               00

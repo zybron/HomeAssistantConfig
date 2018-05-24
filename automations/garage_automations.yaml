@@ -1,5 +1,6 @@
 # car sensor is connected and the garage door is closed
 - alias:            CarPresence_ON
+  initial_state:    on
   trigger:
     platform:       state
     entity_id:      binary_sensor.carpresence
@@ -14,6 +15,7 @@
 
 # car sensor is disconnected for and the garage door is open
 - alias:            CarPresence_OFF
+  initial_state:    on
   trigger:
     platform:       state
     entity_id:      binary_sensor.carpresence
@@ -27,6 +29,7 @@
     entity_id:      'cover.garage_door'
 
 - alias:            'Update Garage Brightness'
+  initial_state:    on
   trigger:
     platform:       time
     minutes:        '/2'
@@ -38,6 +41,7 @@
       payload:      "get-status"
 
 - alias:            'Auto Close Garage Door'
+  initial_state:    on
   trigger:
     platform:       state
     entity_id:      sensor.garage_door
@@ -53,6 +57,7 @@
     entity_id:      'cover.garage_door'
 
 - alias:            'Update Garage Door DateTime Opened'
+  initial_state:    on
   trigger:
     platform:       state
     entity_id:      sensor.garage_door
@@ -63,6 +68,7 @@
       entity_id:    input_datetime.garage_door_opened
 
 - alias:            'Update Garage Door DateTime Closed'
+  initial_state:    on
   trigger:
     platform:       state
     entity_id:      sensor.garage_door
