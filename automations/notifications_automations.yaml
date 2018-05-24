@@ -210,9 +210,10 @@
     event_type:         html5_notification.clicked
     event_data:
       action:           turn_off_lights
-    - service:          light.turn_off
-      entity_id:
-        - light.her_light
-        - light.his_light
-    - service:          light.turn_off
-      entity_id:        light.cabinets
+  action:
+  - service:            light.turn_off
+    entity_id:
+      - light.her_light
+      - light.his_light
+  - service:            light.turn_off
+    entity_id:          light.cabinets
