@@ -83,7 +83,7 @@ device_tracker:
       Nathan_Phone:         "location/Nathan's Phone"
       Erin:                 "location/Erin"
       Erin_Phone:           "location/Erin's Phone"
-  - platform:               owntracks
+  - platform:               owntracks_http
 
 discovery:
 
