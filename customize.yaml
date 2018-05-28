@@ -4,3 +4,15 @@ device_tracker.nathan:
   friendly_name:        Nathan
 group.all_automations:
   hidden:               false
+light.her_light:
+  friendly_name:        'Her Light'
+light.his_light:
+  friendly_name:        'His Light'
+light.bedroom_left:
+  friendly_name:        'Bedroom Left'
+light.bedroom_right:
+  friendly_name:        'Bedroom Right'
+light.bottom_stairs:
+  friendly_name:        'Bottom Stairs'
+light.top_stairs:
+  friendly_name:        'Top Stairs'
