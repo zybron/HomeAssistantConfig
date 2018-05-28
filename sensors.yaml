@@ -1,17 +1,3 @@
-- platform:                                mqtt
-  state_topic:                             "location/Nathan"
-  name:                                    "Nathan Life360"
-- platform:                                mqtt
-  state_topic:                             "location/Nathan's Phone"
-  name:                                    "Nathan Smartthings"
-- platform:                                mqtt
-  state_topic:                             "location/Erin"
-  name:                                    "Erin Life360"
-- platform:                                mqtt
-  state_topic:                             "location/Erin's Phone"
-  name:                                    "Erin Smartthings"
-
-
 - platform:                                template
   sensors:
     nathan_home:
@@ -212,12 +198,6 @@
       - 'time'
       - 'date'
       - 'date_time'
-
-- platform:                                life360
-  username:                                !secret life360_username
-  password:                                !secret life360_password
-  mqtt_topic:                              '/life360/data'
-  scan_interval:                           60
 
 # Failing due to issue with scan interval
 #- platform:                               fail2ban
