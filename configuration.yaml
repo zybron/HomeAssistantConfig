@@ -179,6 +179,11 @@ binary_sensor:
         to_state:           'home'
         prob_given_true:    0.8
         prob_given_false:   0.2
+      - entity_id:          device_tracker.google_maps_108648636233625132646
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.8
+        prob_given_false:   0.0
   - platform:               bayesian
     prior:                  0.5
     probability_threshold:  0.6
@@ -194,6 +199,11 @@ binary_sensor:
         to_state:           'home'
         prob_given_true:    0.8
         prob_given_false:   0.2
+      - entity_id:          device_tracker.google_maps_111510462305838841156
+        platform:           'state'
+        to_state:           'home'
+        prob_given_true:    0.8
+        prob_given_false:   0.0
 
 google_assistant:
   project_id:               panda-pad-home
