@@ -330,3 +330,15 @@ zwave.motion_sensor_downstairs:
   name:
   platform: zwave
   unique_id: node-3
+media_player.roku_2l649c198656:
+  name:
+  platform: roku
+  unique_id: 2L649C198656
+media_player.living_room:
+  name:
+  platform: roku
+  unique_id: 2N008T166798
+media_player.bedroom:
+  name:
+  platform: roku
+  unique_id: 1GH31D006760
