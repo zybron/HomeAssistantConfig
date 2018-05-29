@@ -77,12 +77,6 @@ notify:
     gcm_sender_id:          !secret gcm_sender_id
 
 device_tracker:
-  - platform:               mqtt
-    devices:
-      Nathan:               "location/Nathan"
-      Nathan_Phone:         "location/Nathan's Phone"
-      Erin:                 "location/Erin"
-      Erin_Phone:           "location/Erin's Phone"
   - platform:               owntracks_http
   - platform:               nmap_tracker
     hosts:                  192.168.1.0/24
