@@ -30,4 +30,4 @@
         entity_id:
           - media_player.kitchen_speaker
         media_content_id:    https://panda-home.duckdns.org/local/grandfather-clock-chime-{{now().strftime("%I")}}.mp3
-        media_content_type:  audio/mp4
+        media_content_type:  music
