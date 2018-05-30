@@ -4,6 +4,7 @@
 !*.yml
 !*.xml
 !*.wav
+!*.mp3
 !scenes
 !assets
 !automations
