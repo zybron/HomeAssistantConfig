@@ -29,5 +29,5 @@
       data_template:
         entity_id:
           - media_player.kitchen_speaker
-        media_content_id:    https://raw.githubusercontent.com/zybron/HomeAssistantConfig/master/assets/grandfather-clock-chime-{{now().strftime("%I")}}.wav
+        media_content_id:    https://panda-home.duckdns.org/local/grandfather-clock-chime-{{now().strftime("%I")}}.wav
         media_content_type:  audio/mp4
