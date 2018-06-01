@@ -51,6 +51,8 @@ history:
 # View all events in a logbook
 logbook:
 
+map:
+
 # Track the sun
 sun:
 
