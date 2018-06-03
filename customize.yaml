@@ -4,6 +4,8 @@ device_tracker.nathan:
   friendly_name:        Nathan
 group.all_automations:
   hidden:               false
+group.all_scripts:
+  hidden:               false
 light.her_light:
   friendly_name:        'Her Light'
 light.his_light:
