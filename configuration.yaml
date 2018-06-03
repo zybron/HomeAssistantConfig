@@ -68,6 +68,7 @@ mqtt:
   password:                 !secret mqtt_password
   discovery:                true
   discovery_prefix:         homeassistant
+  qos:                      2
 
 notify:
   - name:                   Discord_Notify

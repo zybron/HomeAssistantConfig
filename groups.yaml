@@ -29,6 +29,7 @@ automations:
   name:              Automations
   entities:
     - group.all_automations
+    - group.all_scripts
 
 bedroom:
   name:              Bedroom
