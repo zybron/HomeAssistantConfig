@@ -1,46 +1,46 @@
 homeassistant:
   # Name of the location where Home Assistant is running
-  name:                     PandaPad
+  name:                             PandaPad
   # Location required to calculate the time the sun rises and sets
-  latitude:                 !secret latitude
-  longitude:                !secret longitude
+  latitude:                         !secret latitude
+  longitude:                        !secret longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation:                85
+  elevation:                        85
   # metric for Metric, imperial for Imperial
-  unit_system:              imperial
-  # Pick yours from here:   http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone:                America/New_York
+  unit_system:                      imperial
+  # Pick yours from here:           http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone:                        America/New_York
   # customizations
-  customize:                !include customize.yaml
+  customize:                        !include customize.yaml
 
-group:                      !include groups.yaml
-automation:                 !include_dir_merge_list automations/
-script:                     !include scripts.yaml
-sensor:                     !include sensors.yaml
-light:                      !include lights.yaml
+group:                              !include groups.yaml
+automation:                         !include_dir_merge_list automations/
+script:                             !include scripts.yaml
+sensor:                             !include sensors.yaml
+light:                              !include lights.yaml
 
 cloud:
 
 # Enables the frontend
-frontend:                   !include frontend.yaml
+frontend:                           !include frontend.yaml
 
 # Enables configuration UI
 config:
 
 http:
   # Uncomment this to add a password (recommended!)
-  api_password:             !secret http_password
+  api_password:                     !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  base_url:                 panda-home.duckdns.org
+  base_url:                         panda-home.duckdns.org
 
 # Checks for available updates
-# Note:                     This component will send some information about your system to
+# Note:                             This component will send some information about your system to
 # the developers to assist with development of Home Assistant.
 # For more information, please see:
 # https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 updater:
   # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
+  # include_used_components:        true
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -51,6 +51,11 @@ history:
 # View all events in a logbook
 logbook:
 
+logger:
+  default:                          info
+  logs:
+    homeassistant.components.mqtt:  debug
+
 map:
 
 # Track the sun
@@ -58,64 +63,63 @@ sun:
 
 # Text to speech
 tts:
-  - platform:               google
+  - platform:                       google
 
 mqtt:
-  broker:                   192.168.1.200
-  port:                     1883
-  client_id:                PandaPad_Main
-  username:                 !secret mqtt_user
-  password:                 !secret mqtt_password
-  discovery:                true
-  discovery_prefix:         homeassistant
-  qos:                      2
+  broker:                           192.168.1.200
+  port:                             1883
+  client_id:                        PandaPad_Main
+  username:                         !secret mqtt_user
+  password:                         !secret mqtt_password
+  discovery:                        true
+  discovery_prefix:                 homeassistant
 
 notify:
-  - name:                   Discord_Notify
-    platform:               discord
-    token:                  !secret discord_token
-  - name:                   HTML5_Notify
-    platform:               html5
-    gcm_api_key:            !secret gcm_api_key
-    gcm_sender_id:          !secret gcm_sender_id
+  - name:                           Discord_Notify
+    platform:                       discord
+    token:                          !secret discord_token
+  - name:                           HTML5_Notify
+    platform:                       html5
+    gcm_api_key:                    !secret gcm_api_key
+    gcm_sender_id:                  !secret gcm_sender_id
 
 device_tracker:
-  - platform:               owntracks_http
-  - platform:               nmap_tracker
-    hosts:                  192.168.1.0/24
-    home_interval:          10
-    interval_seconds:       60
+  - platform:                       owntracks_http
+  - platform:                       nmap_tracker
+    hosts:                          192.168.1.0/24
+    home_interval:                  10
+    interval_seconds:               60
     new_device_defaults:
-      track_new_devices:    False
-  - platform:               google_maps
-    username:               !secret google_maps_username
-    password:               !secret google_maps_password
+      track_new_devices:            False
+  - platform:                       google_maps
+    username:                       !secret google_maps_username
+    password:                       !secret google_maps_password
 
 discovery:
 
 recorder:
-  purge_interval:           1
-  purge_keep_days:          14
+  purge_interval:                   1
+  purge_keep_days:                  14
 
 media_player:
-  - platform:               cast
-    host:                   192.168.1.158
-  - platform:               cast
-    host:                   192.168.1.163
-  - platform:               cast
-    host:                   192.168.1.164
+  - platform:                       cast
+    host:                           192.168.1.158
+  - platform:                       cast
+    host:                           192.168.1.163
+  - platform:                       cast
+    host:                           192.168.1.164
 
 input_boolean:
   erin_away:
-    name:                   Erin is Away
-    initial:                off
+    name:                           Erin is Away
+    initial:                        off
   nathan_away:
-    name:                   Nathan is Away
-    initial:                off
+    name:                           Nathan is Away
+    initial:                        off
 
 input_select:
   led_effects:
-    name:                   Led Effects
+    name:                           Led Effects
     options:
       - colorloop
       - colorjump
@@ -139,7 +143,7 @@ input_select:
       - purple_strobe
       - white_strobe
   current_led_effect:
-    name:                   Current Led Effect
+    name:                           Current Led Effect
     options:
       - colorloop
       - colorjump
@@ -164,66 +168,66 @@ input_select:
       - white_strobe
 
 binary_sensor:
-  - platform:               bayesian
-    prior:                  0.5
-    probability_threshold:  0.6
-    name:                   nathan_home_bayesian
+  - platform:                       bayesian
+    prior:                          0.5
+    probability_threshold:          0.6
+    name:                           nathan_home_bayesian
     observations:
-      - entity_id:          device_tracker.nathan_oneplus
-        platform:           'state'
-        to_state:           'home'
-        prob_given_true:    0.8
-        prob_given_false:   0.3
-      - entity_id:          device_tracker.oneplus_one
-        platform:           'state'
-        to_state:           'home'
-        prob_given_true:    0.8
-        prob_given_false:   0.2
-      - entity_id:          device_tracker.google_maps_108648636233625132646
-        platform:           'state'
-        to_state:           'home'
-        prob_given_true:    0.8
-        prob_given_false:   0.0
-  - platform:               bayesian
-    prior:                  0.5
-    probability_threshold:  0.6
-    name:                   erin_home_bayesian
+      - entity_id:                  device_tracker.nathan_oneplus
+        platform:                   'state'
+        to_state:                   'home'
+        prob_given_true:            0.8
+        prob_given_false:           0.3
+      - entity_id:                  device_tracker.oneplus_one
+        platform:                   'state'
+        to_state:                   'home'
+        prob_given_true:            0.8
+        prob_given_false:           0.2
+      - entity_id:                  device_tracker.google_maps_108648636233625132646
+        platform:                   'state'
+        to_state:                   'home'
+        prob_given_true:            0.8
+        prob_given_false:           0.0
+  - platform:                       bayesian
+    prior:                          0.5
+    probability_threshold:          0.6
+    name:                           erin_home_bayesian
     observations:
-      - entity_id:          device_tracker.erin_galaxys5
-        platform:           'state'
-        to_state:           'home'
-        prob_given_true:    0.8
-        prob_given_false:   0.3
-      - entity_id:          device_tracker.samsung_galaxy_s5
-        platform:           'state'
-        to_state:           'home'
-        prob_given_true:    0.8
-        prob_given_false:   0.2
-      - entity_id:          device_tracker.google_maps_111510462305838841156
-        platform:           'state'
-        to_state:           'home'
-        prob_given_true:    0.8
-        prob_given_false:   0.0
+      - entity_id:                  device_tracker.erin_galaxys5
+        platform:                   'state'
+        to_state:                   'home'
+        prob_given_true:            0.8
+        prob_given_false:           0.3
+      - entity_id:                  device_tracker.samsung_galaxy_s5
+        platform:                   'state'
+        to_state:                   'home'
+        prob_given_true:            0.8
+        prob_given_false:           0.2
+      - entity_id:                  device_tracker.google_maps_111510462305838841156
+        platform:                   'state'
+        to_state:                   'home'
+        prob_given_true:            0.8
+        prob_given_false:           0.0
 
 google_assistant:
-  project_id:               panda-pad-home
-  client_id:                !secret google_client_id
-  access_token:             !secret google_access_token
-  api_key:                  !secret google_api_key
+  project_id:                       panda-pad-home
+  client_id:                        !secret google_client_id
+  access_token:                     !secret google_access_token
+  api_key:                          !secret google_api_key
 
 cover:
-  - platform:               mqtt
-    name:                   "Garage Door"
-    command_topic:          "garadget/garage/command"
-    state_topic:            "garadget/garage/status"
-    payload_open:           "open"
-    payload_close:          "close"
-    payload_stop:           "stop"
-    value_template:         "{{ value_json.status }}"
+  - platform:                       mqtt
+    name:                           "Garage Door"
+    command_topic:                  "garadget/garage/command"
+    state_topic:                    "garadget/garage/status"
+    payload_open:                   "open"
+    payload_close:                  "close"
+    payload_stop:                   "stop"
+    value_template:                 "{{ value_json.status }}"
 zwave:
-  usb_path:                 /dev/Z-Wave
+  usb_path:                         /dev/Z-Wave
 
 # commands from HA to turn on/off disco lights
 shell_command:
-  disco_off:                echo -e -n "\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51" > /dev/ttyACM0
-  disco_on:                 echo -e -n "\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50" > /dev/ttyACM0
+  disco_off:                        echo -e -n "\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51" > /dev/ttyACM0
+  disco_on:                         echo -e -n "\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50" > /dev/ttyACM0
