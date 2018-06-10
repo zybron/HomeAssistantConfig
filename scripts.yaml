@@ -1,13 +1,1 @@
-zigbee_pairing_on:
-  sequence:
-    - service:       mqtt.publish
-      data:
-        topic:       'zigbee2mqtt/bridge/config/permit_join'
-        payload:     'true'
 
-zigbee_pairing_off:
-  sequence:
-    - service:       mqtt.publish
-      data:
-        topic:       'zigbee2mqtt/bridge/config/permit_join'
-        payload:     'false'
