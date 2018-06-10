@@ -199,6 +199,4 @@ plex_sensors:
 switches:
   name:              switches
   entities:
-    - switch.home_assistant_update
-    - switch.restart_home_assistant
-    - switch.restart_zigbee2mqtt
+    - switch.zigbee2mqtt_pairing
