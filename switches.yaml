@@ -1,5 +1,5 @@
-- platform:              mqtt
-    command_topic:       'zigbee2mqtt/bridge/config/permit_join'
-    availability_topic:  'zigbee2mqtt/bridge/state'
-    name:                'Zigbee Pairing'
-    qos:                 2
+- platform:            mqtt
+  command_topic:       'zigbee2mqtt/bridge/config/permit_join'
+  availability_topic:  'zigbee2mqtt/bridge/state'
+  name:                'Zigbee Pairing'
+  qos:                 2
