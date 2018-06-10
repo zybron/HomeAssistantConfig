@@ -6,6 +6,8 @@ group.all_automations:
   hidden:               false
 group.all_scripts:
   hidden:               false
+group.all_switches:
+  hidden:               false
 light.her_light:
   friendly_name:        'Her Light'
 light.his_light:

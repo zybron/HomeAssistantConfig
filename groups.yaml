@@ -30,7 +30,7 @@ automations:
   entities:
     - group.all_automations
     - group.all_scripts
-    - group.switches
+    - group.all_switches
 
 bedroom:
   name:              Bedroom
@@ -195,8 +195,3 @@ plex_sensors:
     - sensor.living_room_tv
     - sensor.master_bedroom_tv
     - sensor.dakota_bedroom_tv
-
-switches:
-  name:              switches
-  entities:
-    - switch.zigbee2mqtt_pairing
