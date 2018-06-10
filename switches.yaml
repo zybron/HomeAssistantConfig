@@ -1,0 +1,11 @@
+- platform:                  command_line
+  switches:
+    home_assistant_update:
+      command_on:            "/home/pi/upgrade_hass.sh"
+      friendly_name:         'Update Home Assistant'
+    restart_home_assistant:
+      command_on:            "pm2 restart hass"
+      friendly_name:         'Restart Home Assistant'
+    restart_zigbee2mqtt:
+      command_on:            "pm2 restart zigbee2mqtt"
+      friendly_name:         'Restart Zigbee2MQTT'
