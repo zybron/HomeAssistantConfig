@@ -7,7 +7,7 @@
     at:              '07:00:00'
   action:
     - service:       light.turn_on
-      entity_id:     light.top_stairs
+      entity_id:     light.ge_14294_inwall_smart_dimmer_level
 
 - id:                MorningLightOff
   alias:             "Turn Off Lights Daily - Morning"
@@ -18,7 +18,7 @@
     offset:          '00:45:00'
   action:
     - service:       light.turn_off
-      entity_id:     light.top_stairs
+      entity_id:     light.ge_14294_inwall_smart_dimmer_level
 
 - id:                EveningLightOn
   alias:             "Turn On Lights Daily - Evening"
@@ -29,7 +29,7 @@
     offset:          '-00:45:00'
   action:
     - service:       light.turn_on
-      entity_id:     light.top_stairs
+      entity_id:     light.ge_14294_inwall_smart_dimmer_level
 
 - id:                EveningLightOffWeekday
   alias:             "Turn Off Lights Daily - Weekday Evening"
@@ -42,7 +42,7 @@
     value_template:  '{{ now().weekday() < 5 }}'
   action:
     - service:       light.turn_off
-      entity_id:     light.top_stairs
+      entity_id:     light.ge_14294_inwall_smart_dimmer_level
 
 - id:                EveningLightOffWeekend
   alias:             "Turn Off Lights Daily - Weekend Evening"
@@ -55,4 +55,4 @@
     value_template:  '{{ now().weekday() == 0 or now().weekday() >= 5 }}'
   action:
     - service:       light.turn_off
-      entity_id:     light.top_stairs
+      entity_id:     light.ge_14294_inwall_smart_dimmer_level
