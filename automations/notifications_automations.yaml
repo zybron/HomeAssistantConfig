@@ -40,13 +40,9 @@
     for:
       minutes:          2
   action:
-  - service:            tts.google_say
-    entity_id:
-      - media_player.kitchen_speaker
-      - media_player.master_bedroom_speaker
-      - media_player.dakotas_bedroom_speaker
-    data:
-      message:          'The front door was left open!'
+  - service:            script.speech_processing
+    data_template:
+      speech_message:   'The front door was left open!'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door was left open!'
@@ -62,13 +58,9 @@
     entity_id:          sensor.front_door_sensor
     to:                 open
   action:
-  - service:            tts.google_say
-    entity_id:
-      - media_player.kitchen_speaker
-      - media_player.master_bedroom_speaker
-      - media_player.dakotas_bedroom_speaker
-    data:
-      message:          'The front door opened.'
+  - service:            script.speech_processing
+    data_template:
+      speech_message:   'The front door opened.'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door opened.'
@@ -84,13 +76,9 @@
     entity_id:          sensor.front_door_sensor
     to:                 closed
   action:
-  - service:            tts.google_say
-    entity_id:
-      - media_player.kitchen_speaker
-      - media_player.master_bedroom_speaker
-      - media_player.dakotas_bedroom_speaker
-    data:
-      message:          'The front door closed.'
+  - service:            script.speech_processing
+    data_template:
+      speech_message:   'The front door closed.'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door closed.'
@@ -128,13 +116,9 @@
     for:
       minutes:          5
   action:
-  - service:            tts.google_say
-    entity_id:
-      - media_player.kitchen_speaker
-      - media_player.master_bedroom_speaker
-      - media_player.dakotas_bedroom_speaker
-    data:
-      message:          'The garage door was left open.'
+  - service:            script.speech_processing
+    data_template:
+      speech_message:   'The garage door was left open.'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door was left open.'
@@ -153,12 +137,9 @@
     entity_id:          sensor.garage_door
     to:                 open
   action:
-  - service:            tts.google_say
-    entity_id:
-      - media_player.kitchen_speaker
-      - media_player.master_bedroom_speaker
-    data:
-      message:          'The garage door is open.'
+  - service:            script.speech_processing
+    data_template:
+      speech_message:   'The garage door is open.'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door is open.'
@@ -177,12 +158,9 @@
     entity_id:          sensor.garage_door
     to:                 closed
   action:
-  - service:            tts.google_say
-    entity_id:
-      - media_player.kitchen_speaker
-      - media_player.master_bedroom_speaker
-    data:
-      message:          'The garage door is closed.'
+  - service:            script.speech_processing
+    data_template:
+      speech_message:   'The garage door is closed.'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'

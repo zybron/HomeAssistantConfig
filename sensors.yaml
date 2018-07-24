@@ -1,7 +1,7 @@
 - platform:                                template
   sensors:
     nathan_home:
-      friendly_name:                       "Nathan Home"
+      friendly_name:                       'Nathan Home'
       value_template:                      >-
         {% if is_state('binary_sensor.nathan_home_bayesian','on') %}
           home
@@ -9,7 +9,7 @@
           not_home
         {% endif %}
     erin_home:
-      friendly_name:                       "Erin Home"
+      friendly_name:                       'Erin Home'
       value_template:                      >-
         {% if is_state('binary_sensor.erin_home_bayesian','on') %}
           home
@@ -17,7 +17,7 @@
           not_home
         {% endif %}
     garage_door_changed:
-      friendly_name:                       "Garage Door Changed"
+      friendly_name:                       'Garage Door Changed'
       value_template:                      '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
     front_door_sensor:
       friendly_name:                       'Front Door Sensor'
@@ -167,6 +167,10 @@
     - full_title
     - library_name
 
+- platform:                                mqtt
+  state_topic:                             'broadcast/lastmsg'
+  name:                                    'Last Message'
+
 - platform:                                systemmonitor
   resources:
     - type:                                disk_use_percent
@@ -200,8 +204,8 @@
 
 - platform:                                command_line
   name:                                    CPU Temp
-  command:                                 "cat /sys/class/thermal/thermal_zone0/temp"
-  unit_of_measurement:                     "°C"
+  command:                                 'cat /sys/class/thermal/thermal_zone0/temp'
+  unit_of_measurement:                     '°C'
   value_template:                          '{{ value | multiply(0.001) }}'
 
 - platform:                                time_date
