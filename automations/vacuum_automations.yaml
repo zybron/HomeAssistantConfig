@@ -1,0 +1,9 @@
+- id:             DailyVacuumStart
+  alias:          "Daily Vacuum Start"
+  initial_state:  on
+  trigger:
+  - platform:     time
+    at:           '11:00:00'
+  action:
+    - service:    vacuum.turn_on
+      entity_id:  vacuum.xiaomi_vacuum_cleaner

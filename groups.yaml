@@ -15,6 +15,7 @@ default_view:
     - media_player.kitchen_speaker
     - group.garage
     - group.car_sensors
+    - vacuum.xiaomi_vacuum_cleaner
 
 weather:
   view:              yes
