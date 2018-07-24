@@ -240,4 +240,4 @@ shell_command:
 vacuum:
   - platform:                                  xiaomi_miio
     host:                                      192.168.1.186
-    token:                                     4d64585961634d4a304a557451486142
+    token:                                     !secret vacuum_token
