@@ -15,7 +15,7 @@ default_view:
     - media_player.kitchen_speaker
     - group.garage
     - group.car_sensors
-    - vacuum.xiaomi_vacuum_cleaner
+    - group.vacuum
 
 weather:
   view:              yes
@@ -203,3 +203,9 @@ living_room:
   entities:
     - light.ge_14294_inwall_smart_dimmer_level
     - zwave.ge_14294_inwall_smart_dimmer
+
+vacuum:
+  name: Mi Mi
+  entities:
+    - vacuum.xiaomi_vacuum_cleaner
+    - sensor.vacuum_cleaner_error_sensor
