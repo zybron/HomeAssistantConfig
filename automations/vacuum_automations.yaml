@@ -18,7 +18,7 @@
   action:
   - service:        notify.html5_notify
     data_template:
-      message:          '{{ states.sensor.date__time.state }}: Mi Mi has started cleaning.'
+      message:      '{{ states.sensor.date__time.state }}: Mi Mi has started cleaning.'
     data:
       data:
         actions:
@@ -48,7 +48,7 @@
   action:
   - service:        notify.html5_notify
     data_template:
-      message:          '{{ states.sensor.date__time.state }}: Mi Mi has stopped cleaning.'
+      message:      '{{ states.sensor.date__time.state }}: Mi Mi has stopped cleaning.'
     data:
       data:
         tag:        vacuum_notification
