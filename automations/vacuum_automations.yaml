@@ -14,7 +14,7 @@
   trigger:
   - platform:       state
     entity_id:      vacuum.xiaomi_vacuum_cleaner
-    to:             on
+    to:             'on'
   action:
   - service:        notify.html5_notify
     data_template:
@@ -44,7 +44,7 @@
   trigger:
   - platform:       state
     entity_id:      vacuum.xiaomi_vacuum_cleaner
-    to:             off
+    to:             'off'
   action:
   - service:        notify.html5_notify
     data_template:
