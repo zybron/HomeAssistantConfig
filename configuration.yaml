@@ -230,9 +230,14 @@ zwave:
   device_config:
     light.ge_14294_inwall_smart_dimmer_level:
       refresh_value:                           true
-      delay:                                   5                                  
+      delay:                                   5
 
 # commands from HA to turn on/off disco lights
 shell_command:
   disco_off:                                   echo -e -n "\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51" > /dev/ttyACM0
   disco_on:                                    echo -e -n "\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50" > /dev/ttyACM0
+
+vacuum:
+  - platform:                                  xiaomi_miio
+    host:                                      192.168.1.186
+    token:                                     4d64585961634d4a304a557451486142
