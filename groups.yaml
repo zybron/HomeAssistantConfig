@@ -205,7 +205,8 @@ living_room:
     - zwave.ge_14294_inwall_smart_dimmer
 
 vacuum:
-  name: Mi Mi
+  name:              Mi Mi
   entities:
     - vacuum.xiaomi_vacuum_cleaner
+    - sensor.vacuum_cleaner_status
     - sensor.vacuum_cleaner_error_sensor
