@@ -93,6 +93,34 @@
             title:   'Locate'
         tag:         vacuum_error_notification
 
+- id:                VacuumRestartAfterCleanBrushError
+  alias:             'Vacuum Restart After Clean Brush Error'
+  initial_state:     on
+  trigger:
+  - platform:        state
+    entity_id:       sensor.vacuum_cleaner_error_sensor
+    to:              Clean main brush
+    for:
+      minutes:       5
+  action:
+  - service:         vacuum.start_pause
+    entity_id:       vacuum.xiaomi_vacuum_cleaner
+  - service:         script.store_message
+    data_template:
+      message:       'Restarting Mi Mi after clean main brush error'
+      topic:         'notification'
+  - service:         notify.html5_notify
+    data_template:
+      message:       'Restarting Mi Mi after clean main brush error'
+    data:
+      data:
+        actions:
+          - action:  'vacuum_resume_cleaning'
+            title:   'Pause Cleaning'
+          - action:  'vacuum_locate'
+            title:   'Locate'
+        tag:         vacuum_restart_notification
+
 - id:                VacuumResumeCleaningActionClicked
   alias:             'Vacuum Resume Cleaning Action Clicked'
   initial_state:     on
@@ -104,7 +132,7 @@
   action:
   - service:         vacuum.start_pause
     entity_id:       vacuum.xiaomi_vacuum_cleaner
-    
+
 - id:                VacuumLocateActionClicked
   alias:             'Vacuum Locate Action Clicked'
   initial_state:     on
