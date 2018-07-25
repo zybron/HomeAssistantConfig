@@ -168,8 +168,18 @@
     - library_name
 
 - platform:                                mqtt
-  state_topic:                             'broadcast/lastmsg'
+  state_topic:                             'message/broadcast'
+  value_template:                          '{{value_json.message}}'
+  json_attributes:
+    - time
   name:                                    'Last Message'
+
+- platform:                                mqtt
+  state_topic:                             'message/notification'
+  value_template:                          '{{value_json.message}}'
+  json_attributes:
+    - time
+  name:                                    'Last Notification'
 
 - platform:                                systemmonitor
   resources:
