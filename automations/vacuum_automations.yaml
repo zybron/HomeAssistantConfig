@@ -16,6 +16,10 @@
     entity_id:       vacuum.xiaomi_vacuum_cleaner
     to:              'on'
   action:
+  - service:         script.store_message
+    data:
+      message:       'Mi Mi has started cleaning.'
+      topic:         'notification'
   - service:         notify.html5_notify
     data_template:
       message:      '{{ states.sensor.date__time.state }}: Mi Mi has started cleaning.'
@@ -24,7 +28,7 @@
         actions:
           - action:  'vacuum_stop_cleaning'
             title:   'Stop Cleaning'
-        tag:         vacuum_notification
+        tag:         vacuum_start_notification
 
 - id:                VacuumStopCleaningActionClicked
   alias:             'Vacuum Stop Cleaning Action Clicked'
@@ -46,12 +50,16 @@
     entity_id:       vacuum.xiaomi_vacuum_cleaner
     to:              'off'
   action:
+  - service:         script.store_message
+    data:
+      message:       'Mi Mi has stopped cleaning.'
+      topic:         'notification'
   - service:         notify.html5_notify
     data_template:
       message:      '{{ states.sensor.date__time.state }}: Mi Mi has stopped cleaning.'
     data:
       data:
-        tag:         vacuum_notification
+        tag:         vacuum__stop_notification
 
 - id:                VacuumErrorNotification
   alias:             'Vacuum Error Notification'
@@ -65,6 +73,12 @@
         true
       {% endif %}
   action:
+  - service:         script.store_message
+    data_template:
+      message:       >-
+        Mi Mi has an error:
+        {{ states.sensor.vacuum_cleaner_error_sensor.state }}
+      topic:         'notification'
   - service:         notify.html5_notify
     data_template:
       message:       >-
@@ -75,9 +89,9 @@
         actions:
           - action:  'vacuum_resume_cleaning'
             title:   'Resume Cleaning'
-          - action:  'vacuum_stop_cleaning'
-            title:   'Stop Cleaning'
-        tag:         vacuum_notification
+          - action:  'vacuum_locate'
+            title:   'Locate'
+        tag:         vacuum_error_notification
 
 - id:                VacuumResumeCleaningActionClicked
   alias:             'Vacuum Resume Cleaning Action Clicked'
@@ -90,3 +104,30 @@
   action:
   - service:         vacuum.start_pause
     entity_id:       vacuum.xiaomi_vacuum_cleaner
+    
+- id:                VacuumLocateActionClicked
+  alias:             'Vacuum Locate Action Clicked'
+  initial_state:     on
+  trigger:
+  - platform:        event
+    event_type:      html5_notification.clicked
+    event_data:
+      action:        vacuum_locate
+  action:
+  - service:         vacuum.locate
+    entity_id:       vacuum.xiaomi_vacuum_cleaner
+  - service:         script.store_message
+    data_template:
+      message:       'Locate Mi Mi triggered'
+      topic:         'notification'
+  - service:         notify.html5_notify
+    data_template:
+      message:       'Locate Mi Mi triggered
+    data:
+      data:
+        actions:
+          - action:  'vacuum_resume_cleaning'
+            title:   'Resume Cleaning'
+          - action:  'vacuum_locate'
+            title:   'Locate'
+        tag:         vacuum_location_notification
