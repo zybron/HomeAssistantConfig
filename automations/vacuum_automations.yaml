@@ -121,9 +121,8 @@
       message:       'Locate Mi Mi triggered'
       topic:         'notification'
   - service:         notify.html5_notify
-    data_template:
-      message:       'Locate Mi Mi triggered
     data:
+      message:       'Locate Mi Mi triggered
       data:
         actions:
           - action:  'vacuum_resume_cleaning'
