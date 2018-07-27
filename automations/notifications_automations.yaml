@@ -9,10 +9,10 @@
   - service:            frontend.set_theme
     data:
       name:             dark_theme
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'PandaPadMain is starting.'
-      topic:         'notification'
+      message:          'PandaPadMain is starting.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: PandaPadMain is starting.'
@@ -27,10 +27,10 @@
   - event:              shutdown
     platform:           homeassistant
   action:
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'PandaPadMain is shutting down.'
-      topic:         'notification'
+      message:          'PandaPadMain is shutting down.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: PandaPadMain is shutting down.'
@@ -51,10 +51,10 @@
   - service:            script.speech_processing
     data_template:
       speech_message:   'The front door was left open!'
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'The front door was left open!'
-      topic:         'notification'
+      message:          'The front door was left open!'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door was left open!'
@@ -73,10 +73,10 @@
   - service:            script.speech_processing
     data_template:
       speech_message:   'The front door opened.'
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'The front door opened.'
-      topic:         'notification'
+      message:          'The front door opened.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door opened.'
@@ -95,10 +95,10 @@
   - service:            script.speech_processing
     data_template:
       speech_message:   'The front door closed.'
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'The front door closed.'
-      topic:         'notification'
+      message:          'The front door closed.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The front door closed.'
@@ -119,10 +119,10 @@
       message:          'There is an update available for Home Assistant.'
       title:            'Home Assistant Update'
       notification_id:  'Update'
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'There is an update available for Home Assistant.'
-      topic:         'notification'
+      message:          'There is an update available for Home Assistant.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: There is an update available for Home Assistant'
@@ -143,10 +143,10 @@
   - service:            script.speech_processing
     data_template:
       speech_message:   'The garage door was left open.'
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'The garage door was left open.'
-      topic:         'notification'
+      message:          'The garage door was left open.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door was left open.'
@@ -168,10 +168,10 @@
   - service:            script.speech_processing
     data_template:
       speech_message:   'The garage door is open.'
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'The garage door is open.'
-      topic:         'notification'
+      message:          'The garage door is open.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door is open.'
@@ -193,10 +193,10 @@
   - service:            script.speech_processing
     data_template:
       speech_message:   'The garage door is closed.'
-  - service:         script.store_message
+  - service:            script.store_message
     data:
-      message:       'The garage door is closed.'
-      topic:         'notification'
+      message:          'The garage door is closed.'
+      topic:            'notification'
   - service:            notify.html5_notify
     data_template:
       message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'
