@@ -1,7 +1,7 @@
 default_view:
-  view:              yes
-  icon:              mdi:home
-  name:              Panda Pad
+  view:                      yes
+  icon:                      mdi:home
+  name:                      Panda Pad
   entities:
     - group.family
     - group.bedroom
@@ -12,32 +12,56 @@ default_view:
     - group.entry_sensors
     - group.plex_sensors
     - group.balcony
-    - media_player.kitchen_speaker
+    - group.kitchen_speaker
+    - group.bedroom_media_player
+    - group.dakotas_bedroom_speaker
+    - group.living_room
+    - group.master_bedroom_speaker
     - group.garage
     - group.car_sensors
     - group.vacuum
     - group.messages
 
+kitchen_speaker:
+  entities:
+    - media_player.kitchen_speaker
+
+bedroom_media_player:
+  entities:
+    - media_player.bedroom
+
+dakotas_bedroom_speaker:
+  entities:
+    - media_player.dakotas_bedroom_speaker
+
+living_room_media_player:
+  entities:
+    - media_player.living_room
+
+master_bedroom_speaker:
+  entities:
+    - media_player.master_bedroom_speaker
+
 weather:
-  view:              yes
-  icon:              mdi:weather-partlycloudy
-  name:              Weather
+  view:                      yes
+  icon:                      mdi:weather-partlycloudy
+  name:                      Weather
   entities:
     - group.weather_overview
     - group.daily_forecast
 
 automations:
-  view:              yes
-  icon:              mdi:settings
-  name:              Automations
+  view:                      yes
+  icon:                      mdi:settings
+  name:                      Automations
   entities:
     - group.all_automations
     - group.all_scripts
     - group.all_switches
 
 bedroom:
-  name:              Bedroom
-  view:              no
+  name:                      Bedroom
+  view:                      no
   entities:
     - light.her_light
     - light.his_light
@@ -45,22 +69,22 @@ bedroom:
     - light.bedroom_right
 
 kitchen:
-  name:              Kitchen
-  view:              no
+  name:                      Kitchen
+  view:                      no
   entities:
     - light.cabinets
 
 entry:
-  name:              Entry
-  view:              no
+  name:                      Entry
+  view:                      no
   entities:
     - light.stairway
     - light.bottom_stairs
     - light.top_stairs
 
 entry_sensors:
-  name:              Entry Sensors
-  view:              no
+  name:                      Entry Sensors
+  view:                      no
   entities:
     - zwave.front_door_sensor
     - sensor.front_door_sensor
@@ -72,22 +96,22 @@ entry_sensors:
     - sensor.motion_sensor_downstairs_battery
 
 family:
-  name:              Pandas
-  view:              no
+  name:                      Pandas
+  view:                      no
   entities:
     - group.erin
     - group.nathan
 
 sensor_page:
-  name:              Sensors
-  view:              yes
-  icon:              mdi:gauge
+  name:                      Sensors
+  view:                      yes
+  icon:                      mdi:gauge
   entities:
     - group.other_sensors
     - group.system_monitor
 
 system_monitor:
-  name:              System Monitor
+  name:                      System Monitor
   entities:
     - sensor.cpu_temp
     - sensor.speedtest_ping
@@ -115,7 +139,7 @@ system_monitor:
     - sensor.since_last_boot
 
 other_sensors:
-  name:              Other Sensors
+  name:                      Other Sensors
   entities:
     - sensor.uptime
     - sensor.school_day
@@ -123,33 +147,33 @@ other_sensors:
     - sensor.tower
 
 nathan:
-  name:              Nathan
-  view:              no
+  name:                      Nathan
+  view:                      no
   entities:
     - sensor.nathan_home
 
 erin:
-  name:              Erin
-  view:              no
+  name:                      Erin
+  view:                      no
   entities:
     - sensor.erin_home
 
 dakotas_room:
-  name:              Dakota's Room
-  view:              no
+  name:                      Dakota's Room
+  view:                      no
   entities:
     - light.lamp
 
 balcony:
-  name:              Balcony
-  view:              no
+  name:                      Balcony
+  view:                      no
   entities:
     - light.main_balcony
     - input_select.led_effects
     - input_select.current_led_effect
 
 daily_forecast:
-  name:              Daily Forecast
+  name:                      Daily Forecast
   entities:
     - sensor.pws_weather_1d
     - sensor.pws_weather_1n
@@ -161,7 +185,7 @@ daily_forecast:
     - sensor.pws_weather_4n
 
 weather_overview:
-  name:              Weather overview
+  name:                      Weather overview
   entities:
     - sensor.pws_weather
     - sensor.pws_temp_f
@@ -176,14 +200,14 @@ weather_overview:
     - sensor.pws_alerts
 
 car_sensors:
-  name:              Car sensors
+  name:                      Car sensors
   entities:
     - binary_sensor.carpresence
     - sensor.carpresencesignal
     - sensor.carpresenceuptime
 
 garage:
-  name:              Garage
+  name:                      Garage
   entities:
     - cover.garage_door
     - sensor.garage_door
@@ -193,27 +217,27 @@ garage:
     - sensor.garagdet_connection
 
 plex_sensors:
-  name:              TV sensors
+  name:                      TV sensors
   entities:
     - sensor.living_room_tv
     - sensor.master_bedroom_tv
     - sensor.dakota_bedroom_tv
 
 living_room:
-  name:              Living Room
+  name:                      Living Room
   entities:
     - light.ge_14294_inwall_smart_dimmer_level
     - zwave.ge_14294_inwall_smart_dimmer
 
 vacuum:
-  name:              Mi Mi
+  name:                      Mi Mi
   entities:
     - vacuum.xiaomi_vacuum_cleaner
     - sensor.vacuum_cleaner_status
     - sensor.vacuum_cleaner_error_sensor
 
 messages:
-  name:              Messaging
+  name:                      Messaging
   entities:
     - sensor.last_message
     - sensor.last_notification
