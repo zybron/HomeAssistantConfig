@@ -24,7 +24,7 @@ default_view:
 
 media:
   view:              yes
-  icon:              mdi:ondemand_video
+  icon:              mdi:television
   name:              Media
   entities:
     - media_player.kitchen_speaker
