@@ -226,7 +226,7 @@ cover:
     payload_stop:                              "stop"
     value_template:                            "{{ value_json.status }}"
 zwave:
-  usb_path:                                    /dev/Z-Wave
+  usb_path:                                    /dev/ttyACM1
   device_config:
     light.ge_14294_inwall_smart_dimmer_level:
       refresh_value:                           true
