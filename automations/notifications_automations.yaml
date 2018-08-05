@@ -90,6 +90,7 @@
   trigger:
   - platform:           state
     entity_id:          sensor.front_door_sensor
+    from:               open              
     to:                 closed
   action:
   - service:            script.speech_processing
