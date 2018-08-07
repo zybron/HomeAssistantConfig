@@ -175,7 +175,7 @@
   trigger:
   - platform:        state
     entity_id:       input_boolean.vacuum_sensor_timer_reset
-    to:              true
+    to:              'on'
   action:
   - service:       input_boolean.turn_off
     entity_id:     input_boolean.vacuum_sensor_timer_reset
