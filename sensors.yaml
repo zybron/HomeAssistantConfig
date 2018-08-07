@@ -180,6 +180,14 @@
   json_attributes:
     - time
   name:                                    'Last Notification'
+  
+- platform:                                mqtt
+  name:                                    'Vacuum Sensor Timer'
+  state_topic:                             'vacuum/timer/sensors'
+  value_template:                          '{{value_json.sensor_left}}'
+  json_attributes:
+    - last_start_time
+    - last_stop_time
 
 - platform:                                systemmonitor
   resources:
