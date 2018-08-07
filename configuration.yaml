@@ -123,6 +123,9 @@ input_boolean:
   nathan_away:
     name:                                      Nathan is Away
     initial:                                   off
+  vacuum_sensor_timer_reset:
+    name:                                      'Reset Vacuum Sensor Timer'
+    initial:                                   off
 
 input_select:
   led_effects:
