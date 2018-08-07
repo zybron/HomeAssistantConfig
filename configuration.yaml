@@ -108,14 +108,6 @@ recorder:
   purge_interval:                              1
   purge_keep_days:                             14
 
-media_player:
-  - platform:                                  cast
-    host:                                      192.168.1.158
-  - platform:                                  cast
-    host:                                      192.168.1.163
-  - platform:                                  cast
-    host:                                      192.168.1.164
-
 input_boolean:
   erin_away:
     name:                                      Erin is Away
