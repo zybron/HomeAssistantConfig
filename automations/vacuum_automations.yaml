@@ -16,6 +16,15 @@
     entity_id:       vacuum.xiaomi_vacuum_cleaner
     to:              'on'
   action:
+  - service:         mqtt.publish
+    data_template:
+      topic:         'vacuum/timer/sensor'
+      payload: >-
+        { "sensor_left":"{{ states.sensor.vacuum_sensor_timer.state }}",
+          "last_start_time":"{{ states.sensor.date__time.state }}",
+          "last_stop_time":"{{ states.sensor.vacuum_sensor_timer.attributes.last_stop_time"}}
+        }
+      retain:        true
   - service:         script.store_message
     data:
       message:       'Mi Mi has started cleaning.'
