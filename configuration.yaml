@@ -247,4 +247,5 @@ vacuum:
 panel_iframe:
   nodered:
     title: 'Node-RED'
-    url: 'http://192.168.1.200:1880'
+    url: 'https://panda-home.duckdns.org/node-red'
+    icon: mdi:sitemap
