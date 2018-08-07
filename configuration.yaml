@@ -243,3 +243,8 @@ vacuum:
   - platform:                                  xiaomi_miio
     host:                                      192.168.1.186
     token:                                     !secret vacuum_token
+
+panel_iframe:
+  nodered:
+    title: 'Node-RED'
+    url: 'http://192.168.1.200:1880'
