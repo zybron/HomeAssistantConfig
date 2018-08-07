@@ -22,7 +22,7 @@
       payload: >-
         { "sensor_left":"{{ states.sensor.vacuum_sensor_timer.state }}",
           "last_start_time":"{{ states.sensor.date__time.state }}",
-          "last_stop_time":"{{ states.sensor.vacuum_sensor_timer.attributes.last_stop_time"}}
+          "last_stop_time":"{{ states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}"
         }
       retain:        true
   - service:         script.store_message
@@ -167,3 +167,23 @@
           - action:  'vacuum_locate'
             title:   'Locate'
         tag:         vacuum_location_notification
+        
+- id:                ResetVacuumSensorTimer
+  alias:             'Reset Vacuum Sensor Timer'
+  initial_state:     on
+  trigger:
+  - platform:        state
+    entity_id:       input_boolean.vacuum_sensor_timer_reset
+    to:              true
+  action:
+    - service:       input_boolean.turn_off
+      entity_id:     input_boolean.vacuum_sensor_timer_reset
+    - service:       mqtt.publish
+      data_template:
+      topic:         'vacuum/timer/sensor'
+      payload: >-
+        { "sensor_left":"30",
+          "last_start_time":"{{ states.sensor.vacuum_sensor_timer.attributes.last_start_time }}",
+          "last_stop_time":"{{ states.sensor.vacuum_sensor_timer.attributes.last_stop_time }}"
+        }
+      retain:        true
