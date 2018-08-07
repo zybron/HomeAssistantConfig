@@ -1,191 +1,201 @@
-- id:                DailyVacuumStart
-  alias:             'Daily Vacuum Start'
-  initial_state:     on
+- id:                         DailyVacuumStart
+  alias:                      'Daily Vacuum Start'
+  initial_state:              on
   trigger:
-  - platform:        time
-    at:              '11:00:00'
+  - platform:                 time
+    at:                       '11:00:00'
   action:
-    - service:       vacuum.turn_on
-      entity_id:     vacuum.xiaomi_vacuum_cleaner
+    - service:                vacuum.turn_on
+      entity_id:              vacuum.xiaomi_vacuum_cleaner
 
-- id:                VacuumStartNotification
-  alias:             'Vacuum Start Notification'
-  initial_state:     on
+- id:                         VacuumStartNotification
+  alias:                      'Vacuum Start Notification'
+  initial_state:              on
   trigger:
-  - platform:        state
-    entity_id:       vacuum.xiaomi_vacuum_cleaner
-    to:              'on'
+  - platform:                 state
+    entity_id:                vacuum.xiaomi_vacuum_cleaner
+    to:                       'on'
   action:
-  - service:         mqtt.publish
+  - service:                  mqtt.publish
     data_template:
-      topic:         'vacuum/timer/sensor'
-      payload: >-
-        { 
+      topic:                  'vacuum/timer/sensor'
+      payload:                >-
+        {
           "sensor_left":"{{states.sensor.vacuum_sensor_timer.state}}",
           "last_start_time":"{{states.sensor.date__time.state}}",
           "last_stop_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}"
         }
-      retain:        true
-  - service:         script.store_message
+      retain:                 true
+  - service:                  script.store_message
     data:
-      message:       'Mi Mi has started cleaning.'
-      topic:         'notification'
-  - service:         notify.html5_notify
+      message:                'Mi Mi has started cleaning.'
+      topic:                  'notification'
+  - service:                  notify.html5_notify
     data_template:
       message:      '{{ states.sensor.date__time.state }}: Mi Mi has started cleaning.'
     data:
       data:
         actions:
-          - action:  'vacuum_stop_cleaning'
-            title:   'Stop Cleaning'
-        tag:         vacuum_start_notification
+          - action:           'vacuum_stop_cleaning'
+            title:            'Stop Cleaning'
+        tag:                  vacuum_start_notification
 
-- id:                VacuumStopCleaningActionClicked
-  alias:             'Vacuum Stop Cleaning Action Clicked'
-  initial_state:     on
+- id:                         VacuumStopCleaningActionClicked
+  alias:                      'Vacuum Stop Cleaning Action Clicked'
+  initial_state:              on
   trigger:
-  - platform:        event
-    event_type:      html5_notification.clicked
+  - platform:                 event
+    event_type:               html5_notification.clicked
     event_data:
-      action:        vacuum_stop_cleaning
+      action:                 vacuum_stop_cleaning
   action:
-  - service:         vacuum.turn_off
-    entity_id:       vacuum.xiaomi_vacuum_cleaner
+  - service:                  vacuum.turn_off
+    entity_id:                vacuum.xiaomi_vacuum_cleaner
 
-- id:                VacuumStopNotification
-  alias:             'Vacuum Stop Notification'
-  initial_state:     on
+- id:                         VacuumStopNotification
+  alias:                      'Vacuum Stop Notification'
+  initial_state:              on
   trigger:
-  - platform:        state
-    entity_id:       vacuum.xiaomi_vacuum_cleaner
-    to:              'off'
+  - platform:                 state
+    entity_id:                vacuum.xiaomi_vacuum_cleaner
+    to:                       'off'
   action:
-  - service:         script.store_message
-    data:
-      message:       'Mi Mi has stopped cleaning.'
-      topic:         'notification'
-  - service:         notify.html5_notify
+  - service:                  mqtt.publish
     data_template:
-      message:      '{{ states.sensor.date__time.state }}: Mi Mi has stopped cleaning.'
+      topic:                  'vacuum/timer/sensor'
+      payload:                >-
+        {
+          "sensor_left":"{{states.sensor.vacuum_sensor_timer.state}}",
+          "last_stop_time":"{{states.sensor.date__time.state}}",
+          "last_start_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}}"
+        }
+      retain:                 true
+  - service:                  script.store_message
+    data:
+      message:                'Mi Mi has stopped cleaning.'
+      topic:                  'notification'
+  - service:                  notify.html5_notify
+    data_template:
+      message:                '{{ states.sensor.date__time.state }}: Mi Mi has stopped cleaning.'
     data:
       data:
-        tag:         vacuum__stop_notification
+        tag:                  vacuum__stop_notification
 
-- id:                VacuumErrorNotification
-  alias:             'Vacuum Error Notification'
-  initial_state:     on
+- id:                         VacuumErrorNotification
+  alias:                      'Vacuum Error Notification'
+  initial_state:              on
   trigger:
-  - platform:        template
-    value_template:  >-
+  - platform:                 template
+    value_template:           >-
       {% if is_state('sensor.vacuum_cleaner_error_sensor', 'No Error') %}
         false
       {% else %}
         true
       {% endif %}
   action:
-  - service:         script.store_message
+  - service:                  script.store_message
     data_template:
-      message:       >-
+      message:                >-
         Mi Mi has an error:
         {{ states.sensor.vacuum_cleaner_error_sensor.state }}
-      topic:         'notification'
-  - service:         notify.html5_notify
+      topic:                  'notification'
+  - service:                  notify.html5_notify
     data_template:
-      message:       >-
+      message:                >-
         {{ states.sensor.date__time.state }}: Mi Mi has an error:
         {{ states.sensor.vacuum_cleaner_error_sensor.state }}
     data:
       data:
         actions:
-          - action:  'vacuum_resume_cleaning'
-            title:   'Resume Cleaning'
-          - action:  'vacuum_locate'
-            title:   'Locate'
-        tag:         vacuum_error_notification
+          - action:           'vacuum_resume_cleaning'
+            title:            'Resume Cleaning'
+          - action:           'vacuum_locate'
+            title:            'Locate'
+        tag:                  vacuum_error_notification
 
-- id:                VacuumRestartAfterCleanBrushError
-  alias:             'Vacuum Restart After Clean Brush Error'
-  initial_state:     on
+- id:                         VacuumRestartAfterCleanBrushError
+  alias:                      'Vacuum Restart After Clean Brush Error'
+  initial_state:              on
   trigger:
-  - platform:        state
-    entity_id:       sensor.vacuum_cleaner_error_sensor
-    to:              Clean main brush
+  - platform:                 state
+    entity_id:                sensor.vacuum_cleaner_error_sensor
+    to:                       Clean main brush
     for:
-      minutes:       5
+      minutes:                5
   action:
-  - service:         vacuum.start_pause
-    entity_id:       vacuum.xiaomi_vacuum_cleaner
-  - service:         script.store_message
+  - service:                  vacuum.start_pause
+    entity_id:                vacuum.xiaomi_vacuum_cleaner
+  - service:                  script.store_message
     data_template:
-      message:       'Restarting Mi Mi after clean main brush error'
-      topic:         'notification'
-  - service:         notify.html5_notify
+      message:                'Restarting Mi Mi after clean main brush error'
+      topic:                  'notification'
+  - service:                  notify.html5_notify
     data_template:
-      message:       'Restarting Mi Mi after clean main brush error'
+      message:                'Restarting Mi Mi after clean main brush error'
     data:
       data:
         actions:
-          - action:  'vacuum_resume_cleaning'
-            title:   'Pause Cleaning'
-          - action:  'vacuum_locate'
-            title:   'Locate'
-        tag:         vacuum_restart_notification
+          - action:           'vacuum_resume_cleaning'
+            title:            'Pause Cleaning'
+          - action:           'vacuum_locate'
+            title:            'Locate'
+        tag:                  vacuum_restart_notification
 
-- id:                VacuumResumeCleaningActionClicked
-  alias:             'Vacuum Resume Cleaning Action Clicked'
-  initial_state:     on
+- id:                         VacuumResumeCleaningActionClicked
+  alias:                      'Vacuum Resume Cleaning Action Clicked'
+  initial_state:              on
   trigger:
-  - platform:        event
-    event_type:      html5_notification.clicked
+  - platform:                 event
+    event_type:               html5_notification.clicked
     event_data:
-      action:        vacuum_resume_cleaning
+      action:                 vacuum_resume_cleaning
   action:
-  - service:         vacuum.start_pause
-    entity_id:       vacuum.xiaomi_vacuum_cleaner
+  - service:                  vacuum.start_pause
+    entity_id:                vacuum.xiaomi_vacuum_cleaner
 
-- id:                VacuumLocateActionClicked
-  alias:             'Vacuum Locate Action Clicked'
-  initial_state:     on
+- id:                         VacuumLocateActionClicked
+  alias:                      'Vacuum Locate Action Clicked'
+  initial_state:              on
   trigger:
-  - platform:        event
-    event_type:      html5_notification.clicked
+  - platform:                 event
+    event_type:               html5_notification.clicked
     event_data:
-      action:        vacuum_locate
+      action:                 vacuum_locate
   action:
-  - service:         vacuum.locate
-    entity_id:       vacuum.xiaomi_vacuum_cleaner
-  - service:         script.store_message
+  - service:                  vacuum.locate
+    entity_id:                vacuum.xiaomi_vacuum_cleaner
+  - service:                  script.store_message
     data_template:
-      message:       'Locate Mi Mi triggered'
-      topic:         'notification'
-  - service:         notify.html5_notify
+      message:                'Locate Mi Mi triggered'
+      topic:                  'notification'
+  - service:                  notify.html5_notify
     data:
-      message:       'Locate Mi Mi triggered'
+      message:                'Locate Mi Mi triggered'
       data:
         actions:
-          - action:  'vacuum_resume_cleaning'
-            title:   'Resume Cleaning'
-          - action:  'vacuum_locate'
-            title:   'Locate'
-        tag:         vacuum_location_notification
-        
-- id:                ResetVacuumSensorTimer
-  alias:             'Reset Vacuum Sensor Timer'
-  initial_state:     on
+          - action:           'vacuum_resume_cleaning'
+            title:            'Resume Cleaning'
+          - action:           'vacuum_locate'
+            title:            'Locate'
+        tag:                  vacuum_location_notification
+
+- id:                         ResetVacuumSensorTimer
+  alias:                      'Reset Vacuum Sensor Timer'
+  initial_state:              on
   trigger:
-  - platform:        state
-    entity_id:       input_boolean.vacuum_sensor_timer_reset
-    to:              'on'
+  - platform:                 state
+    entity_id:                input_boolean.vacuum_sensor_timer_reset
+    to:                       'on'
   action:
-  - service:       input_boolean.turn_off
-    entity_id:     input_boolean.vacuum_sensor_timer_reset
-  - service:       mqtt.publish
+  - service:                  input_boolean.turn_off
+    entity_id:                input_boolean.vacuum_sensor_timer_reset
+  - service:                  mqtt.publish
     data_template:
-      topic:         'vacuum/timer/sensor'
-      payload: >-
-        { 
+      topic:                  'vacuum/timer/sensor'
+      payload:                >-
+        {
           "sensor_left":"30",
           "last_start_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}}",
           "last_stop_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}"
         }
-      retain:        true
+      retain:                 true
