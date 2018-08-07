@@ -183,7 +183,7 @@
   
 - platform:                                mqtt
   name:                                    'Vacuum Sensor Timer'
-  state_topic:                             'vacuum/timer/sensors'
+  state_topic:                             'vacuum/timer/sensor'
   value_template:                          '{{value_json.sensor_left}}'
   json_attributes:
     - last_start_time
