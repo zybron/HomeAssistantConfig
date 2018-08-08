@@ -58,6 +58,18 @@
     vacuum_cleaner_status:
       friendly_name:                       Vacuum Cleaner Status
       value_template:                      '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}'
+    vacuum_filter_timer:
+      friendly_name:                       Vacuum Filter Timer
+      value_template:                      '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.filter_left}}'
+      unit_of_measurement:                 hours
+    vacuum_main_brush_timer:
+      friendly_name:                       Vacuum Main Brush Timer
+      value_template:                      '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.main_brush_left}}'
+      unit_of_measurement:                 hours
+    vacuum_side_brush_timer:
+      friendly_name:                       Vacuum Side Brush Timer
+      value_template:                      '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.side_brush_left}}'
+      unit_of_measurement:                 hours
 
 - platform:                                plex
   host:                                    192.168.1.65
@@ -180,9 +192,10 @@
   json_attributes:
     - time
   name:                                    'Last Notification'
-  
+
 - platform:                                mqtt
   name:                                    'Vacuum Sensor Timer'
+  unit_of_measurement:                     hours
   state_topic:                             'vacuum/timer/sensor'
   value_template:                          '{{value_json.sensor_left}}'
   json_attributes:

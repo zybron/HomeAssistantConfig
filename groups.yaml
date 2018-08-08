@@ -228,8 +228,11 @@ vacuum:
     - sensor.vacuum_cleaner_error_sensor
     - sensor.vacuum_sensor_timer
     - input_boolean.vacuum_sensor_timer_reset
+    - sensor.vacuum_filter_timer
     - input_boolean.vacuum_filter_reset
+    - sensor.vacuum_side_brush_timer
     - input_boolean.vacuum_side_brush_reset
+    - sensor.vacuum_main_brush_timer
     - input_boolean.vacuum_main_brush_reset
 
 messages:
