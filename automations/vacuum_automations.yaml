@@ -25,7 +25,7 @@
           "last_start_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time}},
           "last_stop_time":{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}
         }
-      retain:                 true
+      retain:                 True
   - service:                  script.store_message
     data:
       message:                'Mi Mi has started cleaning.'
@@ -71,7 +71,7 @@
           "last_stop_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time}},
           "last_start_time":{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}}
         }
-      retain:                 true
+      retain:                 True
   - service:                  script.store_message
     data:
       message:                'Mi Mi has stopped cleaning.'
@@ -92,7 +92,7 @@
       {% if is_state('sensor.vacuum_cleaner_error_sensor', 'No Error') %}
         false
       {% else %}
-        true
+        True
       {% endif %}
   action:
   - service:                  script.store_message
@@ -201,11 +201,11 @@
       topic:                  'vacuum/timer/sensor'
       payload:                >-
         {
-          "sensor_left":"30",
+          "sensor_left":30,
           "last_start_time":{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}},
           "last_stop_time":{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}
         }
-      retain:                 true
+      retain:                 True
 
 - id:                         CleanSensorNotification
   alias:                      'Clean Vacuum Sensors Notification'
@@ -293,7 +293,7 @@
   initial_state:              on
   trigger:
   - platform:                 template
-    value_template:           "{% if is_state_attr('vacuum.xiaomi_vacuum_cleaner','main_brush_left',0) %} true {% endif %}"
+    value_template:           "{% if is_state_attr('vacuum.xiaomi_vacuum_cleaner','main_brush_left',0) %} True {% endif %}"
   action:
   - service:                  script.store_message
     data_template:
@@ -325,7 +325,7 @@
   initial_state:              on
   trigger:
   - platform:                 template
-    value_template:           "{% if is_state_attr('vacuum.xiaomi_vacuum_cleaner','side_brush_left',0) %} true {% endif %}"
+    value_template:           "{% if is_state_attr('vacuum.xiaomi_vacuum_cleaner','side_brush_left',0) %} True {% endif %}"
   action:
   - service:                  script.store_message
     data_template:
@@ -357,7 +357,7 @@
   initial_state:              on
   trigger:
   - platform:                 template
-    value_template:           "{% if is_state_attr('vacuum.xiaomi_vacuum_cleaner','filter_left',0) %} true {% endif %}"
+    value_template:           "{% if is_state_attr('vacuum.xiaomi_vacuum_cleaner','filter_left',0) %} True {% endif %}"
   action:
   - service:                  script.store_message
     data_template:
