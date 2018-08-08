@@ -22,7 +22,7 @@
       payload:                >-
         {
           "sensor_left":"{{states.sensor.vacuum_sensor_timer.state}}",
-          "last_start_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaning_time}},
+          "last_start_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time}},
           "last_stop_time":{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}
         }
       retain:                 true
@@ -66,9 +66,9 @@
       payload:                >-
         {
           "sensor_left":{{ states.sensor.vacuum_sensor_timer.state | float -
-            ((states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaning_time -
+            ((states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time -
               states.sensor.vacuum_sensor_timer.attributes.last_start_time) / 60) }},
-          "last_stop_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaning_time}},
+          "last_stop_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time}},
           "last_start_time":{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}}
         }
       retain:                 true
