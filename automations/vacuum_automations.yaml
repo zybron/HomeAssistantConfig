@@ -22,8 +22,8 @@
       payload:                >-
         {
           "sensor_left":"{{states.sensor.vacuum_sensor_timer.state}}",
-          "last_start_time":"{{states.sensor.date__time.state}}",
-          "last_stop_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}"
+          "last_start_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaning_time}},
+          "last_stop_time":{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}
         }
       retain:                 true
   - service:                  script.store_message
@@ -65,9 +65,11 @@
       topic:                  'vacuum/timer/sensor'
       payload:                >-
         {
-          "sensor_left":"{{states.sensor.vacuum_sensor_timer.state}}",
-          "last_stop_time":"{{states.sensor.date__time.state}}",
-          "last_start_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}}"
+          "sensor_left":{{ states.sensor.vacuum_sensor_timer.state | float -
+            ((states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaning_time -
+              states.sensor.vacuum_sensor_timer.attributes.last_start_time) / 60) }},
+          "last_stop_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaning_time}},
+          "last_start_time":{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}}
         }
       retain:                 true
   - service:                  script.store_message
@@ -195,7 +197,40 @@
       payload:                >-
         {
           "sensor_left":"30",
-          "last_start_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}}",
-          "last_stop_time":"{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}"
+          "last_start_time":{{states.sensor.vacuum_sensor_timer.attributes.last_start_time}},
+          "last_stop_time":{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}
         }
       retain:                 true
+
+- id:                         CleanSensorNotification
+  alias:                      'Clean Vacuum Sensors Notification'
+  initial_state:              on
+  trigger:
+  - platform:                 numeric_state
+    entity_id:                sensor.vacuum_sensor_timer
+    below:                    0
+  action:
+  - service:                  script.store_message
+    data_template:
+      message:                'Time to clean Mi Mi's sensors'
+      topic:                  'notification'
+  - service:                  notify.html5_notify
+    data:
+      message:                'Time to clean Mi Mi's sensors'
+      data:
+        actions:
+          - action:           'vacuum_reset_timer'
+            title:            'Reset Timer'
+        tag:                  vacuum_timer_notification
+
+- id:                         ResetVacuumSensorTimerNotificationClicked
+  alias:                      'Reset Vacuum Sensor Timer Notification Clicked'
+  initial_state:              on
+  trigger:
+  - platform:                 event
+    event_type:               html5_notification.clicked
+    event_data:
+      action:                 vacuum_reset_timer
+  action:
+  - service:                  input_boolean.turn_on
+    entity_id:                input_boolean.vacuum_sensor_timer_reset
