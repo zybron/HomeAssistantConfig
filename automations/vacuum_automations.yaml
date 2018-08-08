@@ -244,6 +244,7 @@
     to:                       'on'
   action:
   - service:                  vacuum.send_command
-    entity_id:                vacuum.xiaomi_vacuum_cleaner
-    command:                  reset_consumable
-    params:                   main_brush_work_time
+    data:
+      entity_id:                vacuum.xiaomi_vacuum_cleaner
+      command:                  reset_consumable
+      params:                   main_brush_work_time
