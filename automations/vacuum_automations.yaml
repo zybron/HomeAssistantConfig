@@ -212,11 +212,11 @@
   action:
   - service:                  script.store_message
     data_template:
-      message:                'Time to clean Mi Mi's sensors'
+      message:                'Time to clean Mi Mi\'s sensors'
       topic:                  'notification'
   - service:                  notify.html5_notify
     data:
-      message:                'Time to clean Mi Mi's sensors'
+      message:                'Time to clean Mi Mi\'s sensors'
       data:
         actions:
           - action:           'vacuum_reset_timer'
