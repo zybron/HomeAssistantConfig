@@ -118,6 +118,15 @@ input_boolean:
   vacuum_sensor_timer_reset:
     name:                                      'Reset Vacuum Sensor Timer'
     initial:                                   off
+  vacuum_main_brush_reset:
+    name:                                      'Reset Main Brush Timer'
+    initial:                                   off
+  vacuum_side_brush_reset:
+    name:                                      'Reset Side Brush Timer'
+    initial:                                   off
+  vacuum_filter_reset:
+    name:                                      'Reset Filter Timer'
+    initial:                                   off
 
 input_select:
   led_effects:
@@ -246,6 +255,6 @@ vacuum:
 
 panel_iframe:
   nodered:
-    title: 'Node-RED'
-    url: 'https://panda-node-red.duckdns.org/'
-    icon: mdi:sitemap
+    title:                                     'Node-RED'
+    url:                                       'https://panda-node-red.duckdns.org/'
+    icon:                                      mdi:sitemap
