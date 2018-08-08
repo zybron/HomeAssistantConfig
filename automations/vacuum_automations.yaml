@@ -21,7 +21,7 @@
       topic:                  'vacuum/timer/sensor'
       payload:                >-
         {
-          "sensor_left":"{{states.sensor.vacuum_sensor_timer.state}}",
+          "sensor_left":{{states.sensor.vacuum_sensor_timer.state}},
           "last_start_time":{{states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time}},
           "last_stop_time":{{states.sensor.vacuum_sensor_timer.attributes.last_stop_time}}
         }
