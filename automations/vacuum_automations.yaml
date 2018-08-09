@@ -197,7 +197,7 @@
   trigger:
   - platform:        event
     event_type:      timer.finished
-    data:
+    event_data:
       entity_id:     timer.vacuum_error_timer
   action:
   - service:         input_number.set_value
