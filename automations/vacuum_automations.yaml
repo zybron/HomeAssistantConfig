@@ -62,8 +62,8 @@
     data_template:
       entity_id:     input_number.vacuum_sensor_timer
       value:         >-
-        {% if (states.input_number.vacuum_sensor_timer - (states.input_number.vacuum_end_time - states.input_number.vacuum_start_time)/ 60) > 0 %}
-          {{ states.input_number.vacuum_sensor_timer - (states.input_number.vacuum_end_time - states.input_number.vacuum_start_time)/ 60 }}
+        {% if (states.input_number.vacuum_sensor_timer.state | float - (states.input_number.vacuum_end_time.state | float - states.input_number.vacuum_start_time.state | float) / 60) > 0 %}
+          {{ states.input_number.vacuum_sensor_timer.state | float - (states.input_number.vacuum_end_time.state | float - states.input_number.vacuum_start_time.state | float) / 60 }}
         {% else %}
           0
         {% endif %}
