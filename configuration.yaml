@@ -144,6 +144,11 @@ input_number:
     min:                                       0
     max:                                       99999999
     step:                                      0.001
+  vacuum_error_count:
+    name:                                      Vacuum Error Count
+    min:                                       0
+    max:                                       10
+    step:                                      1
 
 input_select:
   led_effects:
@@ -275,3 +280,7 @@ panel_iframe:
     title:                                     'Node-RED'
     url:                                       'https://panda-node-red.duckdns.org/'
     icon:                                      mdi:sitemap
+
+timer:
+  vacuum_error_timer:
+    duration:                                  '00:03:00'                                 
