@@ -92,7 +92,7 @@
   condition:
     condition:       template
     value_template:  >-
-      {% if is_state('sensor.vacuum_cleaner_sensor','Clean main brush') %}
+      {% if is_state('sensor.vacuum_cleaner_error_sensor','Clean main brush') %}
         false
       {% else %}
         true
