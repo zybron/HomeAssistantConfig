@@ -72,7 +72,7 @@
       unit_of_measurement:                 hours
     vacuum_sensor_timer:
       friendly_name:                       Vacuum Sensor Timer
-      value_template:                      '{{ states.input_number.vacuum_sensor_timer.state }}'
+      value_template:                      '{{ states.input_number.vacuum_sensor_timer.state | round(2) }}'
       unit_of_measurement:                 hours
 
 - platform:                                plex
