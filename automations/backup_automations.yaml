@@ -1,20 +1,22 @@
-- id:                 DailyBackup
-  alias:              'Daily Backup'
-  initial_state:      on
+- id:                DailyBackup
+  alias:             'Daily Backup'
+  initial_state:     on
   trigger:
-  - platform:         time
-    at:               '03:00:00'
+  - platform:        time
+    at:              '03:00:00'
   action:
-    - service:        hassio.snapshot_full
+    - service:       hassio.snapshot_full
       data_template:
-        name:         Automated Backup {{ now().strftime('%Y-%m-%d') }}
+        name:        Automated Backup {{ now().strftime('%Y-%m-%d') }}
 
-- id:                 UploadBackup
-  alias:              'Upload Backup'
-  initial_state:      on
+- id:                UploadBackup
+  alias:             'Upload Backup'
+  initial_state:     on
   trigger:
-  - platform:         time
-    at:               '04:00:00'
+  - platform:        time
+    at:              '04:00:00'
   action:
-    - service:        hassio.addon_stdin
-      data_template:  '{"addon":"7be23ff5_dropbox_sync","input":{"command":"upload"}}'
+    - service:       hassio.addon_stdin
+      data:
+        addon:       '7be23ff5_dropbox_sync'
+        input:       '{"command":"upload"}'
