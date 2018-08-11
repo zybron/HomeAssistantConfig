@@ -10,7 +10,7 @@
         name:         Automated Backup {{ now().strftime('%Y-%m-%d') }}
 
 - id:                 UploadBackup
-  alias:              'UploadBackup'
+  alias:              'Upload Backup'
   initial_state:      on
   trigger:
   - platform:         time
@@ -18,4 +18,4 @@
   action:
     - service:        hassio.addon_stdin
       data_template:
-        name:         {"addon":"7be23ff5_dropbox_sync","input":{"command":"upload"}}
+        name:         '{"addon":"7be23ff5_dropbox_sync","input":{"command":"upload"}}'
