@@ -101,6 +101,8 @@ device_tracker:
   - platform:                                  google_maps
     username:                                  !secret google_maps_username
     password:                                  !secret google_maps_password
+  - platform:                                  bluetooth_tracker
+    interval_seconds:                          30
 
 discovery:
 
