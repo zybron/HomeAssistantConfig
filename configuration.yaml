@@ -205,43 +205,33 @@ input_select:
 binary_sensor:
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     0.6
+    probability_threshold:                     1.0
     name:                                      nathan_home_bayesian
     observations:
       - entity_id:                             device_tracker.nathan_oneplus
         platform:                              'state'
         to_state:                              'home'
-        prob_given_true:                       0.8
-        prob_given_false:                      0.3
-      - entity_id:                             device_tracker.oneplus_one
+        prob_given_true:                       1.0
+        prob_given_false:                      0.5
+      - entity_id:                             device_tracker.oneplusone
         platform:                              'state'
         to_state:                              'home'
-        prob_given_true:                       0.8
-        prob_given_false:                      0.2
-      - entity_id:                             device_tracker.google_maps_108648636233625132646
-        platform:                              'state'
-        to_state:                              'home'
-        prob_given_true:                       0.8
+        prob_given_true:                       1.0
         prob_given_false:                      0.0
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     0.6
+    probability_threshold:                     1.0
     name:                                      erin_home_bayesian
     observations:
       - entity_id:                             device_tracker.erin_galaxys5
         platform:                              'state'
         to_state:                              'home'
-        prob_given_true:                       0.8
-        prob_given_false:                      0.3
+        prob_given_true:                       1.0
+        prob_given_false:                      0.5
       - entity_id:                             device_tracker.samsung_galaxy_s5
         platform:                              'state'
         to_state:                              'home'
-        prob_given_true:                       0.8
-        prob_given_false:                      0.2
-      - entity_id:                             device_tracker.google_maps_111510462305838841156
-        platform:                              'state'
-        to_state:                              'home'
-        prob_given_true:                       0.8
+        prob_given_true:                       1.0
         prob_given_false:                      0.0
 
 google_assistant:
@@ -285,4 +275,4 @@ panel_iframe:
 
 timer:
   vacuum_error_timer:
-    duration:                                  '00:03:00'                                 
+    duration:                                  '00:03:00'
