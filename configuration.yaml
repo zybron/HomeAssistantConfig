@@ -216,6 +216,11 @@ binary_sensor:
         to_state:                              'home'
         prob_given_true:                       0.99
         prob_given_false:                      0.5
+      - entity_id:                             device_tracker.oneplus_one
+        platform:                              'state'
+        to_state:                              'home'
+        prob_given_true:                       0.99
+        prob_given_false:                      0.5
 
   - platform:                                  bayesian
     prior:                                     0.5
@@ -223,6 +228,11 @@ binary_sensor:
     name:                                      erin_home_bayesian
     observations:
       - entity_id:                             device_tracker.erin_galaxys5
+        platform:                              'state'
+        to_state:                              'home'
+        prob_given_true:                       0.99
+        prob_given_false:                      0.5
+      - entity_id:                             device_tracker.galaxy_s5
         platform:                              'state'
         to_state:                              'home'
         prob_given_true:                       0.99

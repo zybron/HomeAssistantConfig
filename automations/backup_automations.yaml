@@ -20,3 +20,21 @@
       data:
         addon:       '7be23ff5_dropbox_sync'
         input:       {"command":"upload"}
+
+- id:                PullNewConfig
+  alias:             'Pull New Config'
+  initial_state:     on
+  trigger:
+  - platform:        state
+    entity_id:       sensor.zybronhomeassistantconfig_last_build_id
+  - condition:
+    condition:       state
+    entity_id:       sensor.zybronhomeassistantconfig_state
+    state:           'passed'
+  action:
+    - service:       hassio.addon_stop
+      data:
+        addon:       'core_git_pull'
+    - service:       hassio.addon_start
+      data:
+        addon:       'core_git_pull'
