@@ -208,7 +208,7 @@ input_select:
 binary_sensor:
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     0.75
+    probability_threshold:                     0.7
     name:                                      nathan_home_bayesian
     observations:
       - entity_id:                             device_tracker.nathan_oneplus
@@ -224,7 +224,7 @@ binary_sensor:
 
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     0.75
+    probability_threshold:                     0.7
     name:                                      erin_home_bayesian
     observations:
       - entity_id:                             device_tracker.erin_galaxys5
