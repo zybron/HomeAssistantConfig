@@ -27,7 +27,7 @@
   trigger:
   - platform:        state
     entity_id:       sensor.zybronhomeassistantconfig_last_build_id
-  - condition:
+  condition:
     condition:       state
     entity_id:       sensor.zybronhomeassistantconfig_state
     state:           'passed'
