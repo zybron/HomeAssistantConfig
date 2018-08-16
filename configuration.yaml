@@ -208,35 +208,35 @@ input_select:
 binary_sensor:
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     0.9
+    probability_threshold:                     0.75
     name:                                      nathan_home_bayesian
     observations:
       - entity_id:                             device_tracker.nathan_oneplus
         platform:                              'state'
         to_state:                              'home'
         prob_given_true:                       0.99
-        prob_given_false:                      0.5
+        prob_given_false:                      0.6
       - entity_id:                             device_tracker.oneplus_one
         platform:                              'state'
         to_state:                              'home'
         prob_given_true:                       0.99
-        prob_given_false:                      0.5
+        prob_given_false:                      0.6
 
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     0.9
+    probability_threshold:                     0.75
     name:                                      erin_home_bayesian
     observations:
       - entity_id:                             device_tracker.erin_galaxys5
         platform:                              'state'
         to_state:                              'home'
         prob_given_true:                       0.99
-        prob_given_false:                      0.5
+        prob_given_false:                      0.6
       - entity_id:                             device_tracker.galaxy_s5
         platform:                              'state'
         to_state:                              'home'
         prob_given_true:                       0.99
-        prob_given_false:                      0.5
+        prob_given_false:                      0.6
 
 google_assistant:
   project_id:                                  panda-pad-home
