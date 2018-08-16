@@ -35,6 +35,7 @@
     - service:       hassio.addon_stop
       data:
         addon:       'core_git_pull'
+    - delay:         '00:01:00'
     - service:       hassio.addon_start
       data:
         addon:       'core_git_pull'
