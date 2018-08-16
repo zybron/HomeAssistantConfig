@@ -101,6 +101,11 @@ device_tracker:
   - platform:                                  google_maps
     username:                                  !secret google_maps_username
     password:                                  !secret google_maps_password
+  - platform:                                  ping
+    count:                                     5
+    hosts:
+      oneplus_one:                             192.168.1.64
+      galaxy_s5:                               192.168.1.166
 
 discovery:
 
@@ -203,24 +208,24 @@ input_select:
 binary_sensor:
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     1.0
+    probability_threshold:                     0.9
     name:                                      nathan_home_bayesian
     observations:
       - entity_id:                             device_tracker.nathan_oneplus
         platform:                              'state'
         to_state:                              'home'
-        prob_given_true:                       1.0
+        prob_given_true:                       0.99
         prob_given_false:                      0.5
 
   - platform:                                  bayesian
     prior:                                     0.5
-    probability_threshold:                     1.0
+    probability_threshold:                     0.9
     name:                                      erin_home_bayesian
     observations:
       - entity_id:                             device_tracker.erin_galaxys5
         platform:                              'state'
         to_state:                              'home'
-        prob_given_true:                       1.0
+        prob_given_true:                       0.99
         prob_given_false:                      0.5
 
 google_assistant:
