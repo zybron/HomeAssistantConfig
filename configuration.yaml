@@ -139,16 +139,6 @@ input_number:
     min:                                       0
     max:                                       30
     step:                                      0.001
-  vacuum_start_time:
-    name:                                      Vacuum Start Time
-    min:                                       0
-    max:                                       99999999
-    step:                                      0.001
-  vacuum_end_time:
-    name:                                      Vacuum End Time
-    min:                                       0
-    max:                                       99999999
-    step:                                      0.001
   vacuum_error_count:
     name:                                      Vacuum Error Count
     min:                                       0

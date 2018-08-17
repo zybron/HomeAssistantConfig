@@ -16,10 +16,6 @@
     entity_id:       vacuum.xiaomi_vacuum_cleaner
     to:              'on'
   action:
-  - service:         input_number.set_value
-    data_template:
-      entity_id:     input_number.vacuum_start_time
-      value:         '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
   - service:         script.store_message
     data:
       message:       'Mi Mi has started cleaning.'
@@ -54,29 +50,16 @@
     entity_id:       vacuum.xiaomi_vacuum_cleaner
     to:              'off'
   action:
-  - service:         input_number.set_value
-    data_template:
-      entity_id:     input_number.vacuum_end_time
-      value:         '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
-  - service:         input_number.set_value
-    data_template:
-      entity_id:     input_number.vacuum_sensor_timer
-      value:         >-
-        {% if (states.input_number.vacuum_sensor_timer.state | float - (states.input_number.vacuum_end_time.state | float - states.input_number.vacuum_start_time.state | float) / 60) > 0 %}
-          {{ states.input_number.vacuum_sensor_timer.state | float - (states.input_number.vacuum_end_time.state | float - states.input_number.vacuum_start_time.state | float) / 60 }}
-        {% else %}
-          0
-        {% endif %}
   - service:         script.store_message
     data:
       message:       'Mi Mi has stopped cleaning.'
       topic:         'notification'
   - service:         notify.html5_notify
     data_template:
-      message:                '{{ states.sensor.date__time.state }}: Mi Mi has stopped cleaning.'
+      message:       '{{ states.sensor.date__time.state }}: Mi Mi has stopped cleaning.'
     data:
       data:
-        tag:         vacuum__stop_notification
+        tag:         vacuum_stop_notification
 
 - id:                VacuumErrorNotification
   alias:             'Vacuum Error Notification'
@@ -439,3 +422,25 @@
   action:
   - service:         input_boolean.turn_on
     entity_id:       input_boolean.vacuum_filter_reset
+
+- id:                UpdateVacuumSensorTimer
+  alias:             'Update Vacuum Sensor Timer'
+  initial_state:     on
+  trigger:
+  - platform:        numeric_state
+    entity_id:       vacuum.xiaomi_vacuum_cleaner
+    value_template:  '{{ state.attributes.cleaning_time }}'
+  condition:
+    condition:       state
+    entity_id:       'vacuum.xiaomi_vacuum_cleaner'
+    state:           'on'
+  action:
+  - service:         input_number.set_value
+    data_template:
+      entity_id:     input_number.vacuum_sensor_timer
+      value:         >-
+        {% if (states.input_number.vacuum_sensor_timer.state | float - (1/60 | float) > 0 %}
+          {{ states.input_number.vacuum_sensor_timer.state | float - (1/60 | float) }}
+        {% else %}
+          0
+        {% endif %}
