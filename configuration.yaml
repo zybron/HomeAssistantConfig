@@ -132,9 +132,6 @@ input_boolean:
   vacuum_filter_reset:
     name:                                      'Reset Filter Timer'
     initial:                                   off
-  new_config:
-    name:                                      'New Config Is Testing'
-    initial:                                   off
 
 input_number:
   vacuum_sensor_timer:

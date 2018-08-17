@@ -28,14 +28,7 @@
   - platform:        state
     entity_id:       sensor.zybronhomeassistantconfig_last_build_state
     to:              'passed'
-  condition:
-    condition:       state
-    entity_id:       input_boolean.new_config
-    state:           'on'
   action:
-    - service:       input_boolean.turn_off
-      data:
-        entity_id:   input_boolean.new_config
     - service:       hassio.addon_stop
       data:
         addon:       'core_git_pull'
@@ -43,14 +36,3 @@
     - service:       hassio.addon_start
       data:
         addon:       'core_git_pull'
-
-- id:                SetNewConfigTesting
-  alias:             'Set New Config In Testing'
-  initial_state:     on
-  trigger:
-  - platform:        state
-    entity_id:       sensor.zybronhomeassistantconfig_last_build_id
-  action:
-    - service:       input_boolean.turn_on
-      data:
-        entity_id:   input_boolean.new_config
