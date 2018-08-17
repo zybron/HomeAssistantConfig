@@ -429,6 +429,7 @@
   trigger:
   - platform:        time
     minutes:         '/1'
+    seconds:         '00'
   condition:
     condition:       state
     entity_id:       'vacuum.xiaomi_vacuum_cleaner'
