@@ -428,8 +428,8 @@
   initial_state:     on
   trigger:
   - platform:        numeric_state
-    entity_id:       vacuum.xiaomi_vacuum_cleaner
-    value_template:  '{{ state.attributes.cleaning_time }}'
+    entity_id:       sensor.vacuum_cleaning_time
+    above:           0
   condition:
     condition:       state
     entity_id:       'vacuum.xiaomi_vacuum_cleaner'
