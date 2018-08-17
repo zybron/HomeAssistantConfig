@@ -439,7 +439,7 @@
     data_template:
       entity_id:     input_number.vacuum_sensor_timer
       value:         >-
-        {% if (states.input_number.vacuum_sensor_timer.state | float - (1/60 | float) > 0 %}
+        {% if states.input_number.vacuum_sensor_timer.state | float - (1/60 | float) > 0 %}
           {{ states.input_number.vacuum_sensor_timer.state | float - (1/60 | float) }}
         {% else %}
           0
