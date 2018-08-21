@@ -114,11 +114,6 @@ recorder:
   purge_interval:                              1
   purge_keep_days:                             14
 
-input_boolean:
-  erin_away:
-    name:                                      Erin is Away
-    initial:                                   off
-
 input_select:
   led_effects:
     name:                                      Led Effects
@@ -168,23 +163,6 @@ input_select:
       - cyan_strobe
       - purple_strobe
       - white_strobe
-
-binary_sensor:
-  - platform:                                  bayesian
-    prior:                                     0.5
-    probability_threshold:                     0.7
-    name:                                      erin_home_bayesian
-    observations:
-      - entity_id:                             device_tracker.erin_galaxys5
-        platform:                              'state'
-        to_state:                              'home'
-        prob_given_true:                       0.99
-        prob_given_false:                      0.6
-      - entity_id:                             device_tracker.galaxy_s5
-        platform:                              'state'
-        to_state:                              'home'
-        prob_given_true:                       0.99
-        prob_given_false:                      0.6
 
 google_assistant:
   project_id:                                  panda-pad-home

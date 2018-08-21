@@ -137,12 +137,6 @@ other_sensors:
     - input_boolean.toggle_school_day
     - sensor.tower
 
-erin:
-  name:              Erin
-  view:              no
-  entities:
-    - sensor.erin_home
-
 dakotas_room:
   name:              Dakota's Room
   view:              no
