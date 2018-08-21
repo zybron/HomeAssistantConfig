@@ -11,8 +11,8 @@ homeassistant:
   # Pick yours from here:                      http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone:                                   America/New_York
   # customizations
-  customize:                                   !include customize.yaml
   packages:                                    !include_dir_named packages
+  customize:                                   !include customize.yaml
 
 group:                                         !include groups.yaml
 automation:                                    !include_dir_merge_list automations/
