@@ -170,15 +170,6 @@ google_assistant:
   access_token:                                !secret google_access_token
   api_key:                                     !secret google_api_key
 
-cover:
-  - platform:                                  mqtt
-    name:                                      "Garage Door"
-    command_topic:                             "garadget/garage/command"
-    state_topic:                               "garadget/garage/status"
-    payload_open:                              "open"
-    payload_close:                             "close"
-    payload_stop:                              "stop"
-    value_template:                            "{{ value_json.status }}"
 zwave:
   usb_path:                                    /dev/ttyACM1
   device_config:

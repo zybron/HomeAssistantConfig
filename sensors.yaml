@@ -1,21 +1,4 @@
 - platform:                                template
-  sensors:
-    nathan_home:
-      friendly_name:                       'Nathan Home'
-      value_template:                      >-
-        {% if is_state('device_tracker.nathan_oneplus','home') or is_state('device_tracker.oneplus_one','home') %}
-          home
-        {% else %}
-          not_home
-        {% endif %}
-    erin_home:
-      friendly_name:                       'Erin Home'
-      value_template:                      >-
-        {% if is_state('device_tracker.erin_galaxys5','home') or is_state('device_tracker.galaxy_s5','home') %}
-          home
-        {% else %}
-          not_home
-        {% endif %}
     garage_door_changed:
       friendly_name:                       'Garage Door Changed'
       value_template:                      '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
@@ -105,29 +88,6 @@
     - wind_string
 
 - platform:                                uptime
-
-- platform:                                mqtt
-  name:                                    'Garage Door'
-  state_topic:                             'garadget/garage/status'
-  value_template:                          '{{ value_json.status }}'
-
-- platform:                                mqtt
-  name:                                    'Garage Brightness'
-  state_topic:                             'garadget/garage/status'
-  unit_of_measurement:                     '%'
-  value_template:                          '{{ value_json.bright }}'
-
-- platform:                                mqtt
-  name:                                    'Garage Door Sensor'
-  state_topic:                             'garadget/garage/status'
-  unit_of_measurement:                     '%'
-  value_template:                          '{{ value_json.sensor }}'
-
-- platform:                                mqtt
-  name:                                    'Garagdet Connection'
-  state_topic:                             'garadget/garage/status'
-  unit_of_measurement:                     'dB'
-  value_template:                          '{{ value_json.signal }}'
 
 - platform:                                mqtt
   name:                                    'Living Room TV'

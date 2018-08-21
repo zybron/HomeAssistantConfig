@@ -1,79 +1,29 @@
 # car sensor is connected and the garage door is closed
-- alias:            CarPresence_ON
-  initial_state:    on
+- alias:          CarPresence_ON
+  initial_state:  on
   trigger:
-    platform:       state
-    entity_id:      binary_sensor.carpresence
-    to:             'on'
+    platform:     state
+    entity_id:    binary_sensor.carpresence
+    to:           'on'
   condition:
-  - condition:      state
-    entity_id:      'sensor.garage_door'
-    state:          'closed'
+  - condition:    state
+    entity_id:    'sensor.garage_door'
+    state:        'closed'
   action:
-  - service:        cover.open_cover
-    entity_id:      'cover.garage_door'
+  - service:      cover.open_cover
+    entity_id:    'cover.garage_door'
 
 # car sensor is disconnected for and the garage door is open
-- alias:            CarPresence_OFF
-  initial_state:    on
+- alias:          CarPresence_OFF
+  initial_state:  on
   trigger:
-    platform:       state
-    entity_id:      binary_sensor.carpresence
-    to:             'off'
+    platform:     state
+    entity_id:    binary_sensor.carpresence
+    to:           'off'
   condition:
-  - condition:      state
-    entity_id:      'sensor.garage_door'
-    state:          'open'
+  - condition:    state
+    entity_id:    'sensor.garage_door'
+    state:        'open'
   action:
-  - service:        cover.close_cover
-    entity_id:      'cover.garage_door'
-
-- alias:            'Update Garage Brightness'
-  initial_state:    on
-  trigger:
-    platform:       time
-    minutes:        '/2'
-    seconds:        00
-  action:
-    service:        mqtt.publish
-    data:
-      topic:        "garadget/garage/command"
-      payload:      "get-status"
-
-- alias:            'Auto Close Garage Door'
-  initial_state:    on
-  trigger:
-    platform:       state
-    entity_id:      sensor.garage_door
-    to:             'open'
-    for:
-      minutes:      7
-  condition:
-  - condition:      state
-    entity_id:      'binary_sensor.carpresence'
-    state:          'off'
-  action:
-  - service:        cover.close_cover
-    entity_id:      'cover.garage_door'
-
-- alias:            'Update Garage Door DateTime Opened'
-  initial_state:    on
-  trigger:
-    platform:       state
-    entity_id:      sensor.garage_door
-    to:             'open'
-  action:
-  - service:        input_datetime.set_datetime
-    data_template:
-      entity_id:    input_datetime.garage_door_opened
-
-- alias:            'Update Garage Door DateTime Closed'
-  initial_state:    on
-  trigger:
-    platform:       state
-    entity_id:      sensor.garage_door
-    to:             'closed'
-  action:
-  - service:        input_datetime.set_datetime
-    data_template:
-      entity_id:    input_datetime.garage_door_closed
+  - service:      cover.close_cover
+    entity_id:    'cover.garage_door'
