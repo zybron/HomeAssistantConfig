@@ -1,0 +1,80 @@
+homeassistant:
+  customize:
+    light.ge_14294_inwall_smart_dimmer_level:
+    friendly_name:                             Living Room Lights
+
+group:
+  living_room:
+    name:                                      Living Room
+    entities:
+      - light.ge_14294_inwall_smart_dimmer_level
+      - zwave.ge_14294_inwall_smart_dimmer
+
+sensor:
+  - platform:                                  mqtt
+    name:                                      'Living Room TV'
+    state_topic:                               'plex/Living Room'
+    value_template:                            '{{value_json.state}}'
+    json_attributes:
+      - user
+      - full_title
+      - library_name
+
+automation:
+  - id:                                        MorningLightOn
+    alias:                                     "Turn On Lights Daily - Morning"
+    initial_state:                             on
+    trigger:
+    - platform:                                time
+      at:                                      '07:00:00'
+    action:
+      - service:                               light.turn_on
+        entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+
+  - id:                                        MorningLightOff
+    alias:                                     "Turn Off Lights Daily - Morning"
+    initial_state:                             on
+    trigger:
+    - platform:                                sun
+      event:                                   sunrise
+      offset:                                  '00:45:00'
+    action:
+      - service:                               light.turn_off
+        entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+
+  - id:                                        EveningLightOn
+    alias:                                     "Turn On Lights Daily - Evening"
+    initial_state:                             on
+    trigger:
+    - platform:                                sun
+      event:                                   sunset
+      offset:                                  '-00:45:00'
+    action:
+      - service:                               light.turn_on
+        entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+
+  - id:                                        EveningLightOffWeekday
+    alias:                                     "Turn Off Lights Daily - Weekday Evening"
+    initial_state:                             on
+    trigger:
+    - platform:                                time
+      at:                                      '22:00:00'
+    condition:
+      condition:                               template
+      value_template:                          '{{ now().weekday() < 5 }}'
+    action:
+      - service:                               light.turn_off
+        entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+
+  - id:                                        EveningLightOffWeekend
+    alias:                                     "Turn Off Lights Daily - Weekend Evening"
+    initial_state:                             on
+    trigger:
+    - platform:                                time
+      at:                                      '23:00:00'
+    condition:
+      condition:                               template
+      value_template:                          '{{ now().weekday() == 0 or now().weekday() >= 5 }}'
+    action:
+      - service:                               light.turn_off
+        entity_id:                             light.ge_14294_inwall_smart_dimmer_level

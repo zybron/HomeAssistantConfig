@@ -141,12 +141,6 @@ plex_sensors:
     - sensor.master_bedroom_tv
     - sensor.dakota_bedroom_tv
 
-living_room:
-  name:              Living Room
-  entities:
-    - light.ge_14294_inwall_smart_dimmer_level
-    - zwave.ge_14294_inwall_smart_dimmer
-
 messages:
   name:              Messaging
   entities:
