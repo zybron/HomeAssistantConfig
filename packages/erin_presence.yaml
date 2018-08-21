@@ -28,10 +28,11 @@ input_boolean:
     initial:                off
 
 sensor:
-  - platform:                                template
+  - platform:               template
+    sensors:
       erin_home:
-        friendly_name:                       'Erin Home'
-        value_template:                      >-
+        friendly_name:      'Erin Home'
+        value_template:     >-
           {% if is_state('device_tracker.erin_galaxys5','home') or is_state('device_tracker.galaxy_s5','home') %}
             home
           {% else %}

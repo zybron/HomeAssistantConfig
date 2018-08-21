@@ -1,16 +1,16 @@
 cover:
-  - platform:               mqtt
-    name:                   "Garage Door"
-    command_topic:          "garadget/garage/command"
-    state_topic:            "garadget/garage/status"
-    payload_open:           "open"
-    payload_close:          "close"
-    payload_stop:           "stop"
-    value_template:         "{{ value_json.status }}"
+  - platform:                 mqtt
+    name:                     "Garage Door"
+    command_topic:            "garadget/garage/command"
+    state_topic:              "garadget/garage/status"
+    payload_open:             "open"
+    payload_close:            "close"
+    payload_stop:             "stop"
+    value_template:           "{{ value_json.status }}"
 
 group:
   garage:
-    name:                   Garage
+    name:                     Garage
     entities:
       - cover.garage_door
       - sensor.garage_door
@@ -20,56 +20,58 @@ group:
       - sensor.garagdet_connection
 
 sensor:
-  - platform:               mqtt
-    garage_door:
-      friendly_name:        'Garage Door'
-      state_topic:          'garadget/garage/status'
-      value_template:       '{{ value_json.status }}'
-    garage_brightness:
-      friendly_name:        'Garage Brightness'
-      state_topic:          'garadget/garage/status'
-      unit_of_measurement:  '%'
-      value_template:       '{{ value_json.bright }}'
-    garage_door_sensor:
-      friendly_name:        'Garage Door Sensor'
-      state_topic:          'garadget/garage/status'
-      unit_of_measurement:  '%'
-      value_template:       '{{ value_json.sensor }}'
-    garadget_connection:
-      friendly_name:        'Garagdet Connection'
-      state_topic:          'garadget/garage/status'
-      unit_of_measurement:  'dB'
-      value_template:       '{{ value_json.signal }}'
-  - platform:               template
-    garage_door_changed:
-      friendly_name:        'Garage Door Changed'
-      value_template:       '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
+  - platform:                 mqtt
+    sensors:
+      garage_door:
+        friendly_name:        'Garage Door'
+        state_topic:          'garadget/garage/status'
+        value_template:       '{{ value_json.status }}'
+      garage_brightness:
+        friendly_name:        'Garage Brightness'
+        state_topic:          'garadget/garage/status'
+        unit_of_measurement:  '%'
+        value_template:       '{{ value_json.bright }}'
+      garage_door_sensor:
+        friendly_name:        'Garage Door Sensor'
+        state_topic:          'garadget/garage/status'
+        unit_of_measurement:  '%'
+        value_template:       '{{ value_json.sensor }}'
+      garadget_connection:
+        friendly_name:        'Garagdet Connection'
+        state_topic:          'garadget/garage/status'
+        unit_of_measurement:  'dB'
+        value_template:       '{{ value_json.signal }}'
+  - platform:                 template
+    sensors:
+      garage_door_changed:
+        friendly_name:        'Garage Door Changed'
+        value_template:       '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
 
 automation:
-  - alias:                  'Update Garage Brightness'
-    initial_state:          on
+  - alias:                    'Update Garage Brightness'
+    initial_state:            on
     trigger:
-      platform:             time
-      minutes:              '/2'
-      seconds:              00
+      platform:               time
+      minutes:                '/2'
+      seconds:                00
     action:
-      service:              mqtt.publish
+      service:                mqtt.publish
       data:
-        topic:              "garadget/garage/command"
-        payload:            "get-status"
+        topic:                "garadget/garage/command"
+        payload:              "get-status"
 
-  - alias:                  'Auto Close Garage Door'
-    initial_state:          on
+  - alias:                    'Auto Close Garage Door'
+    initial_state:            on
     trigger:
-      platform:             state
-      entity_id:            sensor.garage_door
-      to:                   'open'
+      platform:               state
+      entity_id:              sensor.garage_door
+      to:                     'open'
       for:
-        minutes:            7
+        minutes:              7
     condition:
-    - condition:            state
-      entity_id:            'binary_sensor.carpresence'
-      state:                'off'
+    - condition:              state
+      entity_id:              'binary_sensor.carpresence'
+      state:                  'off'
     action:
-    - service:              cover.close_cover
-      entity_id:            'cover.garage_door'
+    - service:                cover.close_cover
+      entity_id:              'cover.garage_door'
