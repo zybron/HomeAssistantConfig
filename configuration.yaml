@@ -19,6 +19,7 @@ script:                                        !include scripts.yaml
 sensor:                                        !include sensors.yaml
 light:                                         !include lights.yaml
 switch:                                        !include switches.yaml
+packages:                                      !include_dir_named packages
 
 cloud:
 
@@ -120,30 +121,6 @@ input_boolean:
   nathan_away:
     name:                                      Nathan is Away
     initial:                                   off
-  vacuum_sensor_timer_reset:
-    name:                                      'Reset Vacuum Sensor Timer'
-    initial:                                   off
-  vacuum_main_brush_reset:
-    name:                                      'Reset Main Brush Timer'
-    initial:                                   off
-  vacuum_side_brush_reset:
-    name:                                      'Reset Side Brush Timer'
-    initial:                                   off
-  vacuum_filter_reset:
-    name:                                      'Reset Filter Timer'
-    initial:                                   off
-
-input_number:
-  vacuum_sensor_timer:
-    name:                                      Vacuum Sensor Timer
-    min:                                       0
-    max:                                       30
-    step:                                      0.001
-  vacuum_error_count:
-    name:                                      Vacuum Error Count
-    min:                                       0
-    max:                                       10
-    step:                                      1
 
 input_select:
   led_effects:
@@ -256,17 +233,8 @@ shell_command:
   disco_on:                                    echo -e -n "\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50" > /dev/ttyACM0
   health_check:                                curl --retry 3 https://hc-ping.com/33aee216-ff26-47ee-9627-1e29985f0336
 
-vacuum:
-  - platform:                                  xiaomi_miio
-    host:                                      192.168.1.186
-    token:                                     !secret vacuum_token
-
 panel_iframe:
   nodered:
     title:                                     'Node-RED'
     url:                                       'https://panda-node-red.duckdns.org/'
     icon:                                      mdi:sitemap
-
-timer:
-  vacuum_error_timer:
-    duration:                                  '00:03:00'

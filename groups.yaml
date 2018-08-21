@@ -220,21 +220,6 @@ living_room:
     - light.ge_14294_inwall_smart_dimmer_level
     - zwave.ge_14294_inwall_smart_dimmer
 
-vacuum:
-  name:              Mi Mi
-  entities:
-    - vacuum.xiaomi_vacuum_cleaner
-    - sensor.vacuum_cleaner_status
-    - sensor.vacuum_cleaner_error_sensor
-    - sensor.vacuum_sensor_timer
-    - input_boolean.vacuum_sensor_timer_reset
-    - sensor.vacuum_filter_timer
-    - input_boolean.vacuum_filter_reset
-    - sensor.vacuum_side_brush_timer
-    - input_boolean.vacuum_side_brush_reset
-    - sensor.vacuum_main_brush_timer
-    - input_boolean.vacuum_main_brush_reset
-
 messages:
   name:              Messaging
   entities:
