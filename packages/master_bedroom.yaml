@@ -1,0 +1,30 @@
+homeassistant:
+  customize:
+    light.her_light:
+      friendly_name:      Her Light
+    light.his_light:
+      friendly_name:      His Light
+    light.bedroom_left:
+      friendly_name:      Bedroom Left
+    light.bedroom_right:
+      friendly_name:      Bedroom Right
+
+group:
+  bedroom:
+    name:                 Bedroom
+    view:                 no
+    entities:
+      - light.her_light
+      - light.his_light
+      - light.bedroom_left
+      - light.bedroom_right
+
+sensor:
+  - platform:             mqtt
+    name:                 'Master Bedroom TV'
+    state_topic:          'plex/Bedroom'
+    value_template:       '{{value_json.state}}'
+    json_attributes:
+      - user
+      - full_title
+      - library_name

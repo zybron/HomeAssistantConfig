@@ -50,15 +50,6 @@ automations:
     - group.all_scripts
     - group.all_switches
 
-bedroom:
-  name:              Bedroom
-  view:              no
-  entities:
-    - light.her_light
-    - light.his_light
-    - light.bedroom_left
-    - light.bedroom_right
-
 kitchen:
   name:              Kitchen
   view:              no
