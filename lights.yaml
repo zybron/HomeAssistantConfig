@@ -1,7 +1,5 @@
 - platform:         flux_led
   devices:
-    192.168.1.168:
-      name:         Main Balcony
     192.168.1.171:
       name:         Cabinets
   effect:           true

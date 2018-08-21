@@ -1,0 +1,126 @@
+group:
+  balcony:
+    name:               Balcony
+    view:               no
+    entities:
+      - light.main_balcony
+      - input_select.led_effects
+      - input_select.current_led_effect
+
+input_select:
+  led_effects:
+    name:               Led Effects
+    options:
+      - colorloop
+      - colorjump
+      - colorstrobe
+      - random
+      - red_fade
+      - green_fade
+      - blue_fade
+      - yellow_fade
+      - cyan_fade
+      - purple_fade
+      - white_fade
+      - rg_cross_fade
+      - rb_cross_fade
+      - gb_cross_fade
+      - red_strobe
+      - green_strobe
+      - blue_strobe
+      - yellow_strobe
+      - cyan_strobe
+      - purple_strobe
+      - white_strobe
+  current_led_effect:
+    name:               Current Led Effect
+    options:
+      - colorloop
+      - colorjump
+      - colorstrobe
+      - random
+      - red_fade
+      - green_fade
+      - blue_fade
+      - yellow_fade
+      - cyan_fade
+      - purple_fade
+      - white_fade
+      - rg_cross_fade
+      - rb_cross_fade
+      - gb_cross_fade
+      - red_strobe
+      - green_strobe
+      - blue_strobe
+      - yellow_strobe
+      - cyan_strobe
+      - purple_strobe
+      - white_strobe
+
+light:
+  - platform:           flux_led
+    devices:
+      192.168.1.168:
+        name:           Main Balcony
+    effect:             true
+    effect_list:
+      - colorloop
+      - colorjump
+      - colorstrobe
+      - random
+      - red_fade
+      - green_fade
+      - blue_fade
+      - yellow_fade
+      - cyan_fade
+      - purple_fade
+      - white_fade
+      - rg_cross_fade
+      - rb_cross_fade
+      - gb_cross_fade
+      - red_strobe
+      - green_strobe
+      - blue_strobe
+      - yellow_strobe
+      - cyan_strobe
+      - purple_strobe
+      - white_strobe
+
+automation:
+  - alias:              LED Effects
+    initial_state:      on
+    trigger:
+      - platform:       state
+        entity_id:      input_select.led_effects
+    action:
+      - service:        light.turn_on
+        data_template:
+          entity_id:    light.main_balcony
+          effect:       '{{ states.input_select.led_effects.state }}'
+      - service:        input_select.select_option
+        data:
+          entity_id:    input_select.current_led_effect
+          option:       '{{ states.input_select.led_effects.state }}'
+
+  - id:                 EveningLightOnBalcony
+    alias:              "Turn On Lights Daily - Balcony"
+    initial_state:      on
+    trigger:
+    - platform:         sun
+      event:            sunset
+      offset:           '-00:45:00'
+    action:
+      - service:        light.turn_on
+        data:
+          entity_id:    light.main_balcony
+          effect:       cyan_fade
+
+  - id:                 EveningLightOffBalcony
+    alias:              "Turn Off Balcony Lights Daily"
+    initial_state:      on
+    trigger:
+    - platform:         time
+      at:               '22:00:00'
+    action:
+      - service:        light.turn_off
+        entity_id:      light.main_balcony

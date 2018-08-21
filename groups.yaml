@@ -50,12 +50,6 @@ automations:
     - group.all_scripts
     - group.all_switches
 
-kitchen:
-  name:              Kitchen
-  view:              no
-  entities:
-    - light.cabinets
-
 entry:
   name:              Entry
   view:              no
@@ -133,14 +127,6 @@ dakotas_room:
   view:              no
   entities:
     - light.lamp
-
-balcony:
-  name:              Balcony
-  view:              no
-  entities:
-    - light.main_balcony
-    - input_select.led_effects
-    - input_select.current_led_effect
 
 daily_forecast:
   name:              Daily Forecast
