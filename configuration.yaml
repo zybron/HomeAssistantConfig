@@ -18,7 +18,6 @@ group:                                         !include groups.yaml
 automation:                                    !include_dir_merge_list automations/
 script:                                        !include scripts.yaml
 sensor:                                        !include sensors.yaml
-light:                                         !include lights.yaml
 switch:                                        !include switches.yaml
 
 cloud:
