@@ -137,12 +137,6 @@ other_sensors:
     - input_boolean.toggle_school_day
     - sensor.tower
 
-nathan:
-  name:              Nathan
-  view:              no
-  entities:
-    - sensor.nathan_home
-
 erin:
   name:              Erin
   view:              no

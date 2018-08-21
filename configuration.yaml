@@ -118,9 +118,6 @@ input_boolean:
   erin_away:
     name:                                      Erin is Away
     initial:                                   off
-  nathan_away:
-    name:                                      Nathan is Away
-    initial:                                   off
 
 input_select:
   led_effects:
@@ -173,22 +170,6 @@ input_select:
       - white_strobe
 
 binary_sensor:
-  - platform:                                  bayesian
-    prior:                                     0.5
-    probability_threshold:                     0.7
-    name:                                      nathan_home_bayesian
-    observations:
-      - entity_id:                             device_tracker.nathan_oneplus
-        platform:                              'state'
-        to_state:                              'home'
-        prob_given_true:                       0.99
-        prob_given_false:                      0.6
-      - entity_id:                             device_tracker.oneplus_one
-        platform:                              'state'
-        to_state:                              'home'
-        prob_given_true:                       0.99
-        prob_given_false:                      0.6
-
   - platform:                                  bayesian
     prior:                                     0.5
     probability_threshold:                     0.7

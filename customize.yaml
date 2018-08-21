@@ -1,7 +1,3 @@
-device_tracker.erin:
-  friendly_name:                           Erin
-device_tracker.nathan:
-  friendly_name:                           Nathan
 group.all_automations:
   hidden:                                  false
 group.all_scripts:
