@@ -1,4 +1,5 @@
 - platform:                                template
+  sensors:
     garage_door_changed:
       friendly_name:                       'Garage Door Changed'
       value_template:                      '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
