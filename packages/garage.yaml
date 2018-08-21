@@ -73,3 +73,90 @@ automation:
     action:
     - service:              cover.close_cover
       entity_id:            'cover.garage_door'
+
+# Notifications
+  - id:                     GarageDoorLeftOpen
+    alias:                  "Garage Door Left Open"
+    initial_state:          on
+    trigger:
+    - platform:             state
+      entity_id:            sensor.garage_door
+      to:                   open
+      for:
+        minutes:            5
+    action:
+    - service:              script.speech_processing
+      data_template:
+        speech_message:     'The garage door was left open.'
+    - service:              script.store_message
+      data:
+        message:            'The garage door was left open.'
+        topic:              'notification'
+    - service:              notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: The garage door was left open.'
+      data:
+        data:
+          actions:
+            - action:       "close_garage_door"
+              title:        "Close Garage Door"
+          tag:              garage_door_notification
+
+  - id:                     GarageDoorOpen
+    alias:                  "Garage Door Open"
+    initial_state:          on
+    trigger:
+    - platform:             state
+      entity_id:            sensor.garage_door
+      to:                   open
+    action:
+    - service:              script.speech_processing
+      data_template:
+        speech_message:     'The garage door is open.'
+    - service:              script.store_message
+      data:
+        message:            'The garage door is open.'
+        topic:              'notification'
+    - service:              notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: The garage door is open.'
+      data:
+        data:
+          actions:
+            - action:       "close_garage_door"
+              title:        "Close Garage Door"
+          tag:              garage_door_notification
+
+  - id:                     GarageDoorClosed
+    alias:                  "Garage Door Closed"
+    initial_state:          on
+    trigger:
+    - platform:             state
+      entity_id:            sensor.garage_door
+      to:                   closed
+    action:
+    - service:              script.speech_processing
+      data_template:
+        speech_message:     'The garage door is closed.'
+    - service:              script.store_message
+      data:
+        message:            'The garage door is closed.'
+        topic:              'notification'
+    - service:              notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'
+      data:
+        data:
+          tag:              garage_door_notification
+
+  - id:                     CloseGarageDoorClicked
+    alias:                  "Close Garage Door Clicked"
+    initial_state:          on
+    trigger:
+    - platform:             event
+      event_type:           html5_notification.clicked
+      event_data:
+        action:             close_garage_door
+    action:
+    - service:              cover.close_cover
+      entity_id:            'cover.garage_door'
