@@ -27,11 +27,11 @@ input_boolean:
       name:                 Nathan is Away
 
 sensor:
-  - platform:                                template
+  - platform:               template
     sensors:
       nathan_home:
-        friendly_name:                       'Nathan Home'
-        value_template:                      >-
+        friendly_name:      'Nathan Home'
+        value_template:     >-
           {% if is_state('device_tracker.nathan_oneplus','home') or is_state('device_tracker.oneplus_one','home') %}
             home
           {% else %}
