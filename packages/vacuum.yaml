@@ -89,7 +89,7 @@ timer:
   vacuum_error_timer:
     duration:                       '00:03:00'
 
-automations:
+automation:
 - id:                               DailyVacuumStart
   alias:                            'Daily Vacuum Start'
   initial_state:                    on
