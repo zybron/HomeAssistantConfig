@@ -1,6 +1,7 @@
-customize:
-  vacuum.xiaomi_vacuum_cleaner:
-    friendly_name:                  Mi Mi
+homeassistant:
+  customize:
+    vacuum.xiaomi_vacuum_cleaner:
+      friendly_name:                Mi Mi
 
 group:
   vacuum:
