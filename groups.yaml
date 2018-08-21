@@ -155,13 +155,6 @@ weather_overview:
     - sensor.pws_uv
     - sensor.pws_alerts
 
-car_sensors:
-  name:              Car sensors
-  entities:
-    - binary_sensor.carpresence
-    - sensor.carpresencesignal
-    - sensor.carpresenceuptime
-
 plex_sensors:
   name:              TV sensors
   entities:

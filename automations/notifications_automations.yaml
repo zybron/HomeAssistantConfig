@@ -130,19 +130,3 @@
     data:
       data:
         tag:            home_asssitant_update_notification
-
-- id:                   LateArrivalNotificationClicked
-  alias:                "Late Arrival Notification Clicked"
-  initial_state:        on
-  trigger:
-  - platform:           event
-    event_type:         html5_notification.clicked
-    event_data:
-      action:           turn_off_lights
-  action:
-  - service:            light.turn_off
-    entity_id:
-      - light.her_light
-      - light.his_light
-  - service:            light.turn_off
-    entity_id:          light.cabinets
