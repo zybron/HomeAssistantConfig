@@ -4,9 +4,5 @@ group.all_scripts:
   hidden:                                  false
 group.all_switches:
   hidden:                                  false
-light.bottom_stairs:
-  friendly_name:                           Bottom Stairs
-light.top_stairs:
-  friendly_name:                           Top Stairs
 light.ge_14294_inwall_smart_dimmer_level:
   friendly_name:                           Living Room Lights

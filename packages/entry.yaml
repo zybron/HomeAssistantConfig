@@ -1,0 +1,170 @@
+homeassistant:
+  customize:
+    light.bottom_stairs:
+      friendly_name:                         Bottom Stairs
+    light.top_stairs:
+      friendly_name:                         Top Stairs
+
+group:
+  entry:
+    name:                                    Entry
+    view:                                    no
+    entities:
+      - light.stairway
+      - light.bottom_stairs
+      - light.top_stairs
+
+  entry_sensors:
+    name:                                    Entry Sensors
+    view:                                    no
+    entities:
+      - zwave.front_door_sensor
+      - sensor.front_door_sensor
+      - sensor.front_door_sensor_battery
+      - zwave.motion_sensor_downstairs
+      - sensor.alarm_level_2
+      - sensor.motion_sensor_downstairs
+      - sensor.motion_sensor_downstairs_temperature
+      - sensor.motion_sensor_downstairs_battery
+
+sensor:
+  - platform:                                template
+    sensors:
+      front_door_sensor:
+        friendly_name:                       'Front Door Sensor'
+        value_template:                      >-
+          {% if is_state('binary_sensor.sensor','on') %}
+            open
+          {% else %}
+            closed
+          {% endif %}
+      front_door_sensor_battery:
+        friendly_name:                       'Front Door Sensor Battery'
+        value_template:                      '{{ states.zwave.front_door_sensor.attributes.battery_level }}'
+        unit_of_measurement:                 '%'
+      motion_sensor_downstairs:
+        friendly_name:                       'Motion Sensor Downstairs'
+        value_template:                      >-
+          {% if states.sensor.alarm_level_2.state | float > 20 %}
+            active
+          {% else %}
+            inactive
+          {% endif %}
+      motion_sensor_downstairs_temperature:
+        friendly_name:                       'Downstairs Temperature'
+        value_template:                      '{{ states.sensor.vision_zp3102_pir_motion_sensor_temperature.state | float }}'
+        unit_of_measurement:                 '°F'
+      motion_sensor_downstairs_battery:
+        friendly_name:                       'Motion Sensor Downstairs Battery'
+        value_template:                      '{{ states.zwave.motion_sensor_downstairs.attributes.battery_level }}'
+        unit_of_measurement:                 '%'
+
+automation:
+  - id:                                      LightOnEntry
+    alias:                                   "Turn On Light On Entry"
+    initial_state:                           on
+    trigger:
+    - platform:                              state
+      entity_id:                             sensor.motion_sensor_downstairs
+      to:                                    'active'
+    - platform:                              state
+      entity_id:                             sensor.front_door_sensor
+      to:                                    'open'
+    action:
+      service:                               homeassistant.turn_on
+      entity_id:                             light.bottom_stairs
+
+  - id:                                      LightOffEntryMotion
+    alias:                                   "Turn Off Light After Entry - Motion"
+    initial_state:                           on
+    trigger:
+    - platform:                              state
+      entity_id:                             sensor.motion_sensor_downstairs
+      to:                                    'inactive'
+      for:
+        minutes:                             3
+    action:
+      service:                               homeassistant.turn_off
+      entity_id:                             light.bottom_stairs
+
+  - id:                                      LightOffEntryDoor
+    alias:                                   "Turn Off Light After Entry - Door"
+    initial_state:                           on
+    trigger:
+    - platform:                              state
+      entity_id:                             sensor.front_door_sensor
+      to:                                    'closed'
+      for:
+        minutes:                             3
+    action:
+      service:                               homeassistant.turn_off
+      entity_id:                             light.bottom_stairs
+
+  - id:                                      FrontDoorOpen
+    alias:                                   "Front Door Open"
+    initial_state:                           on
+    trigger:
+    - platform:                              state
+      entity_id:                             sensor.front_door_sensor
+      to:                                    open
+      for:
+        minutes:                             2
+    action:
+    - service:                               script.speech_processing
+      data_template:
+        speech_message:                      'The front door was left open!'
+    - service:                               script.store_message
+      data:
+        message:                             'The front door was left open!'
+        topic:                               'notification'
+    - service:                               notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: The front door was left open!'
+      data:
+        data:
+          tag:                               front_door_notification
+
+  - id:                                      FrontDoorOpened
+    alias:                                   "Front Door Opened"
+    initial_state:                           on
+    trigger:
+    - platform:                              state
+      entity_id:                             sensor.front_door_sensor
+      to:                                    open
+    action:
+    - service:                               script.speech_processing
+      data_template:
+        speech_message:                      'The front door opened.'
+    - service:                               script.store_message
+      data:
+        message:                             'The front door opened.'
+        topic:                               'notification'
+    - service:                               notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: The front door opened.'
+      data:
+        data:
+          tag:                               front_door_notification
+
+  - id:                                      FrontDoorClosed
+    alias:                                   "Front Door Closed"
+    initial_state:                           on
+    trigger:
+    - platform:                              state
+      entity_id:                             sensor.front_door_sensor
+      from:                                  open
+      to:                                    closed
+    action:
+    - service:                               script.speech_processing
+      data_template:
+        speech_message:                      'The front door closed.'
+    - service:                               script.store_message
+      data:
+        message:                             'The front door closed.'
+        topic:                               'notification'
+    - service:                               notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: The front door closed.'
+      data:
+        data:
+          tag:                               front_door_notification
