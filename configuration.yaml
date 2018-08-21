@@ -15,10 +15,8 @@ homeassistant:
   customize:                                   !include customize.yaml
 
 group:                                         !include groups.yaml
-automation:                                    !include_dir_merge_list automations/
 script:                                        !include scripts.yaml
 sensor:                                        !include sensors.yaml
-switch:                                        !include switches.yaml
 
 cloud:
 
@@ -121,12 +119,6 @@ zwave:
     light.ge_14294_inwall_smart_dimmer_level:
       refresh_value:                           true
       delay:                                   5
-
-# commands from HA to turn on/off disco lights
-shell_command:
-  disco_off:                                   echo -e -n "\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51" > /dev/ttyACM0
-  disco_on:                                    echo -e -n "\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50" > /dev/ttyACM0
-  health_check:                                curl --retry 3 https://hc-ping.com/33aee216-ff26-47ee-9627-1e29985f0336
 
 panel_iframe:
   nodered:

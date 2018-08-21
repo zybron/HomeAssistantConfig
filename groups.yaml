@@ -65,34 +65,6 @@ sensor_page:
     - group.other_sensors
     - group.system_monitor
 
-system_monitor:
-  name:              System Monitor
-  entities:
-    - sensor.cpu_temp
-    - sensor.speedtest_ping
-    - sensor.speedtest_download
-    - sensor.speedtest_upload
-    - sensor.disk_use_percent_
-    - sensor.disk_use_
-    - sensor.disk_free_
-    - sensor.memory_use_percent
-    - sensor.memory_use
-    - sensor.memory_free
-    - sensor.swap_use_percent
-    - sensor.swap_use
-    - sensor.swap_free
-    - sensor.load_1m
-    - sensor.load_5m
-    - sensor.load_15m
-    - sensor.network_in_wlan0
-    - sensor.network_out_wlan0
-    - sensor.ipv4_address_wlan0
-    - sensor.processor_use
-    - sensor.process_hass
-    - sensor.process_mosquitto
-    - sensor.last_boot
-    - sensor.since_last_boot
-
 other_sensors:
   name:              Other Sensors
   entities:

@@ -1,0 +1,212 @@
+group:
+  system_monitor:
+    name:                  System Monitor
+    entities:
+      - sensor.cpu_temp
+      - sensor.speedtest_ping
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.disk_use_percent_
+      - sensor.disk_use_
+      - sensor.disk_free_
+      - sensor.memory_use_percent
+      - sensor.memory_use
+      - sensor.memory_free
+      - sensor.swap_use_percent
+      - sensor.swap_use
+      - sensor.swap_free
+      - sensor.load_1m
+      - sensor.load_5m
+      - sensor.load_15m
+      - sensor.network_in_wlan0
+      - sensor.network_out_wlan0
+      - sensor.ipv4_address_wlan0
+      - sensor.processor_use
+      - sensor.process_hass
+      - sensor.process_mosquitto
+      - sensor.last_boot
+      - sensor.since_last_boot
+
+sensor:
+  - platform:              uptime
+
+  - platform:              systemmonitor
+    resources:
+      - type:              disk_use_percent
+        arg:               /
+      - type:              disk_use
+        arg:               /
+      - type:              disk_free
+        arg:               /
+      - type:              memory_use_percent
+      - type:              memory_use
+      - type:              memory_free
+      - type:              swap_use_percent
+      - type:              swap_use
+      - type:              swap_free
+      - type:              load_1m
+      - type:              load_5m
+      - type:              load_15m
+      - type:              network_in
+        arg:               wlan0
+      - type:              network_out
+        arg:               wlan0
+      - type:              ipv4_address
+        arg:               wlan0
+      - type:              processor_use
+      - type:              process
+        arg:               hass
+      - type:              process
+        arg:               mosquitto
+      - type:              last_boot
+      - type:              since_last_boot
+
+  - platform:              command_line
+    name:                  CPU Temp
+    command:               'cat /sys/class/thermal/thermal_zone0/temp'
+    unit_of_measurement:   '°C'
+    value_template:        '{{ value | multiply(0.001) }}'
+
+  - platform:              time_date
+    display_options:
+        - 'time'
+        - 'date'
+        - 'date_time'
+
+  - platform:              travisci
+    api_key:               !secret travis_ci_token
+    monitored_conditions:
+      - last_build_id
+      - last_build_state
+      - state
+    repository:
+      - HomeAssistantConfig
+
+shell_command:
+  disco_off:               echo -e -n "\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51" > /dev/ttyACM0
+  disco_on:                echo -e -n "\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50" > /dev/ttyACM0
+  health_check:            curl --retry 3 https://hc-ping.com/33aee216-ff26-47ee-9627-1e29985f0336
+
+switch:
+  - platform:              mqtt
+    command_topic:         'zigbee2mqtt/bridge/config/permit_join'
+    state_topic:           'zigbee2mqtt/bridge/config/permit_join'
+    availability_topic:    'zigbee2mqtt/bridge/state'
+    name:                  'Zigbee Pairing'
+    qos:                   2
+    retain:                true
+    payload_on:            'true'
+    payload_off:           'false'
+
+automation:
+  - id:                    DailyBackup
+    alias:                 'Daily Backup'
+    initial_state:         on
+    trigger:
+    - platform:            time
+      at:                  '03:00:00'
+    action:
+      - service:           hassio.snapshot_full
+        data_template:
+          name:            Automated Backup {{ now().strftime('%Y-%m-%d') }}
+
+  - id:                    UploadBackup
+    alias:                 'Upload Backup'
+    initial_state:         on
+    trigger:
+    - platform:            time
+      at:                  '04:00:00'
+    action:
+      - service:           hassio.addon_stdin
+        data:
+          addon:           '7be23ff5_dropbox_sync'
+          input:           {"command":"upload"}
+
+  - id:                    PullNewConfig
+    alias:                 'Pull New Config'
+    initial_state:         on
+    trigger:
+    - platform:            state
+      entity_id:           sensor.zybronhomeassistantconfig_last_build_state
+      to:                  'passed'
+    action:
+      - service:           hassio.addon_stop
+        data:
+          addon:           'core_git_pull'
+      - delay:             '00:01:00'
+      - service:           hassio.addon_start
+        data:
+          addon:           'core_git_pull'
+
+  # Notifications
+  - id:                    HomeAssistantStartup
+    alias:                 HomeAssistantStartup
+    initial_state:         on
+    trigger:
+    - event:               start
+      platform:            homeassistant
+    action:
+    - service:             frontend.set_theme
+      data:
+        name:              dark_theme
+    - service:             script.store_message
+      data:
+        message:           'PandaPadMain is starting.'
+        topic:             'notification'
+    - service:             notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: PandaPadMain is starting.'
+      data:
+        data:
+          tag:             home_assistant_notification
+
+  - id:                    HomeAssistantShutdown
+    alias:                 HomeAssistantShutdown
+    initial_state:         on
+    trigger:
+    - event:               shutdown
+      platform:            homeassistant
+    action:
+    - service:             script.store_message
+      data:
+        message:           'PandaPadMain is shutting down.'
+        topic:             'notification'
+    - service:             notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: PandaPadMain is shutting down.'
+      data:
+        data:
+          tag:             home_assistant_notification
+
+  - id:                    UpdateAvailable
+    alias:                 "Update Notification"
+    initial_state:         on
+    trigger:
+    - platform:            state
+      entity_id:           updater.updater
+    action:
+    - service:             persistent_notification.create
+      data:
+        message:           'There is an update available for Home Assistant.'
+        title:             'Home Assistant Update'
+        notification_id:   'Update'
+    - service:             script.store_message
+      data:
+        message:           'There is an update available for Home Assistant.'
+        topic:             'notification'
+    - service:             notify.html5_notify
+      data_template:
+        message:          '{{ states.sensor.date__time.state }}: There is an update available for Home Assistant'
+      data:
+        data:
+          tag:             home_asssitant_update_notification
+
+  - id:                    HealthCheckStatusUpdate
+    alias:                 'Health Check Status Update'
+    initial_state:         on
+    trigger:
+    - platform:            time
+      minutes:             '/5'
+      seconds:             '00'
+    action:
+      - service:           shell_command.health_check
