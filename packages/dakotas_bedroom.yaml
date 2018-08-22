@@ -1,0 +1,16 @@
+group:
+  dakotas_room:
+    name:             Dakota's Room
+    view:             no
+    entities:
+      - light.lamp
+
+sensor:
+  - platform:         mqtt
+    name:             'Dakota Bedroom TV'
+    state_topic:      'plex/Roku Stick - 2L649C198656'
+    value_template:   '{{value_json.state}}'
+    json_attributes:
+      - user
+      - full_title
+      - library_name

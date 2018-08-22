@@ -1,0 +1,15 @@
+group:
+  plex_sensors:
+    name:        TV sensors
+    entities:
+      - sensor.living_room_tv
+      - sensor.master_bedroom_tv
+      - sensor.dakota_bedroom_tv
+
+sensor:
+  - platform:    plex
+    host:        192.168.1.65
+    port:        32400
+    name:        Tower
+    username:    !secret plex_username
+    password:    !secret plex_password

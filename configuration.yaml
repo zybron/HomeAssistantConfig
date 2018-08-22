@@ -1,88 +1,16 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
-  name:                                        PandaPad
-  # Location required to calculate the time the sun rises and sets
+  customize:                                   !include customize.yaml
+  elevation:                                   85
   latitude:                                    !secret latitude
   longitude:                                   !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation:                                   85
-  # metric for Metric, imperial for Imperial
-  unit_system:                                 imperial
-  # Pick yours from here:                      http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone:                                   America/New_York
-  # customizations
+  name:                                        PandaPad
   packages:                                    !include_dir_named packages
-  customize:                                   !include customize.yaml
-
-group:                                         !include groups.yaml
-script:                                        !include scripts.yaml
-sensor:                                        !include sensors.yaml
+  time_zone:                                   America/New_York
+  unit_system:                                 imperial
 
 cloud:
-
-# Enables the frontend
-frontend:                                      !include frontend.yaml
-
-# Enables configuration UI
 config:
-
-http:
-  # Uncomment this to add a password (recommended!)
-  api_password:                                !secret http_password
-  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  base_url:                                    panda-home.duckdns.org
-  trusted_networks:
-    - 172.30.32.0/23
-    - 127.0.0.1
-    - 192.168.1.0/24
-  ip_ban_enabled:                              True
-  login_attempts_threshold:                    10
-
-# Checks for available updates
-updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components:                   true
-
-# Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
-
-# Enables support for tracking state changes over time
-history:
-
-# View all events in a logbook
-logbook:
-
-logger:
-  default:                                     info
-  logs:
-    homeassistant.components.mqtt:             debug
-
-map:
-
-# Track the sun
-sun:
-
-# Text to speech
-tts:
-  - platform:                                  google
-
-mqtt:
-  broker:                                      192.168.1.200
-  port:                                        1883
-  client_id:                                   PandaPad_Main
-  username:                                    !secret mqtt_user
-  password:                                    !secret mqtt_password
-  discovery:                                   true
-  discovery_prefix:                            homeassistant
-
-notify:
-  - name:                                      Discord_Notify
-    platform:                                  discord
-    token:                                     !secret discord_token
-  - name:                                      HTML5_Notify
-    platform:                                  html5
-    gcm_api_key:                               !secret gcm_api_key
-    gcm_sender_id:                             !secret gcm_sender_id
 
 device_tracker:
   - platform:                                  owntracks_http
@@ -102,10 +30,7 @@ device_tracker:
       galaxy_s5:                               192.168.1.166
 
 discovery:
-
-recorder:
-  purge_interval:                              1
-  purge_keep_days:                             14
+frontend:                                      !include frontend.yaml
 
 google_assistant:
   project_id:                                  panda-pad-home
@@ -113,15 +38,58 @@ google_assistant:
   access_token:                                !secret google_access_token
   api_key:                                     !secret google_api_key
 
-zwave:
-  usb_path:                                    /dev/ttyACM1
-  device_config:
-    light.ge_14294_inwall_smart_dimmer_level:
-      refresh_value:                           true
-      delay:                                   5
+group:                                         !include groups.yaml
+history:
+
+http:
+  api_password:                                !secret http_password
+  base_url:                                    panda-home.duckdns.org
+  trusted_networks:
+    - 172.30.32.0/23
+    - 127.0.0.1
+    - 192.168.1.0/24
+  ip_ban_enabled:                              True
+  login_attempts_threshold:                    10
+
+logbook:
+
+logger:
+  default:                                     info
+  logs:
+    homeassistant.components.mqtt:             debug
+
+map:
+
+mqtt:
+  broker:                                      192.168.1.200
+  port:                                        1883
+  client_id:                                   PandaPad_Main
+  username:                                    !secret mqtt_user
+  password:                                    !secret mqtt_password
+  discovery:                                   true
+  discovery_prefix:                            homeassistant
 
 panel_iframe:
   nodered:
     title:                                     'Node-RED'
     url:                                       'https://panda-node-red.duckdns.org/'
     icon:                                      mdi:sitemap
+
+recorder:
+  purge_interval:                              1
+  purge_keep_days:                             14
+
+sun:
+
+tts:
+  - platform:                                  google
+
+updater:
+  include_used_components:                     true
+
+zwave:
+  usb_path:                                    /dev/ttyACM1
+  device_config:
+    light.ge_14294_inwall_smart_dimmer_level:
+      refresh_value:                           true
+      delay:                                   5
