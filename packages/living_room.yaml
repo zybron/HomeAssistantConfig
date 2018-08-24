@@ -78,3 +78,43 @@ automation:
     action:
       - service:                               light.turn_off
         entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+
+  - id:                                        'TurnOffLightsWhenMoviePlaying'
+    alias:                                     'Turn off lights when a movie is playing'
+    initial_state:                             on
+    trigger:
+    - platform:                                state
+      entity_id:                               media_player.living_room
+      to:                                      'playing'
+    condition:
+      condition:                               and
+      conditions:
+        - condition:                           state
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          state:                               'on'
+        - condition:                           sun
+          after:                               sunset
+    action:
+      - service:                               light.turn_off
+        entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+
+  - id:                                        'TurnOnLightsWhenMoviePaused'
+    alias:                                     'Turn on lights when a movie is paused'
+    initial_state:                             on
+    trigger:
+    - platform:                                state
+      entity_id:                               media_player.living_room
+      to:                                      'paused'
+    condition:
+      condition:                               and
+      conditions:
+        - condition:                           state
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          state:                               'off'
+        - condition:                           sun
+          after:                               sunset
+    action:
+      - service:                               light.turn_on
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          brightness:                          20
