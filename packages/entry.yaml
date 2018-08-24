@@ -172,3 +172,24 @@ automation:
       data:
         data:
           tag:                               front_door_notification
+  - id:                 EveningLightOnFrontDoor
+    alias:              "Turn On Lights Daily - Front Door"
+    initial_state:      on
+    trigger:
+    - platform:         sun
+      event:            sunset
+      offset:           '-00:45:00'
+    action:
+      - service:        light.turn_on
+        data:
+          entity_id:    light.front_door
+
+  - id:                 EveningLightOffFrontDoor
+    alias:              "Turn Off Front Door Light Daily"
+    initial_state:      on
+    trigger:
+    - platform:         time
+      at:               '22:00:00'
+    action:
+      - service:        light.turn_off
+        entity_id:      light.front_door
