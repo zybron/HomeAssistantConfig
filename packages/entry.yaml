@@ -4,13 +4,15 @@ homeassistant:
       friendly_name:                         Bottom Stairs
     light.top_stairs:
       friendly_name:                         Top Stairs
+    light.front_door:
+      friendly_name:                         Front Door Light
 
 group:
   entry:
     name:                                    Entry
     view:                                    no
     entities:
-      - light.stairway
+      - light.front_door
       - light.bottom_stairs
       - light.top_stairs
 
@@ -71,8 +73,10 @@ automation:
       entity_id:                             sensor.front_door_sensor
       to:                                    'open'
     action:
-      service:                               homeassistant.turn_on
-      entity_id:                             light.bottom_stairs
+      service:                               light.turn_on
+      entity_id:                             
+        - light.bottom_stairs
+        - light.front_door
 
   - id:                                      LightOffEntryMotion
     alias:                                   "Turn Off Light After Entry - Motion"
