@@ -117,4 +117,4 @@ automation:
       - service:                               light.turn_on
         data:
           entity_id:                           light.ge_14294_inwall_smart_dimmer_level
-          brightness:                          20
+          brightness_pct:                      20
