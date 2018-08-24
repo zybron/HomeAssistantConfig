@@ -10,6 +10,10 @@ group:
       - light.ge_14294_inwall_smart_dimmer_level
       - zwave.ge_14294_inwall_smart_dimmer
 
+input_boolean:
+  vampire_mode:
+    name:                                      'Vampire Mode'
+
 sensor:
   - platform:                                  mqtt
     name:                                      'Living Room TV'
@@ -19,6 +23,28 @@ sensor:
       - user
       - full_title
       - library_name
+
+script:
+  vampire_mode_on:
+    sequence:
+      - service:                               light.turn_on
+        data:
+          entity_id:
+            - light.cabinets
+            - light.main_balcony
+          rgb_color:                           [255,0,0]
+      - service:                               light.turn_on
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          brightness_pct:                      20
+  vampire_mode_off:
+    sequence:
+      - service:                               light.turn_off
+        data:
+          entity_id:
+            - light.cabinets
+            - light.main_balcony
+            - light.ge_14294_inwall_smart_dimmer_level
 
 automation:
   - id:                                        MorningLightOn
@@ -118,3 +144,27 @@ automation:
         data:
           entity_id:                           light.ge_14294_inwall_smart_dimmer_level
           brightness_pct:                      20
+
+  - id:                                        'VampireModeOn'
+    alias:                                     'Vampire Mode On'
+    initial_state:                             on
+    trigger:
+    - platform:                                state
+      entity_id:                               input_boolean.vampire_mode
+      to:                                      'on'
+    action:
+      - service:                               script.turn_on
+        data:
+          entity_id:                           script.vampire_mode_on
+
+  - id:                                        'VampireModeOff'
+    alias:                                     'Vampire Mode Off'
+    initial_state:                             on
+    trigger:
+    - platform:                                state
+      entity_id:                               input_boolean.vampire_mode
+      to:                                      'off'
+    action:
+      - service:                               script.turn_on
+        data:
+          entity_id:                           script.vampire_mode_off
