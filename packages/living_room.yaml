@@ -55,7 +55,9 @@ automation:
       at:                                      '07:00:00'
     action:
       - service:                               light.turn_on
-        entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          brightness_pct:                      100
 
   - id:                                        MorningLightOff
     alias:                                     "Turn Off Lights Daily - Morning"
@@ -77,7 +79,9 @@ automation:
       offset:                                  '-00:45:00'
     action:
       - service:                               light.turn_on
-        entity_id:                             light.ge_14294_inwall_smart_dimmer_level
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          brightness_pct:                      50
 
   - id:                                        EveningLightOffWeekday
     alias:                                     "Turn Off Lights Daily - Weekday Evening"
@@ -143,7 +147,7 @@ automation:
       - service:                               light.turn_on
         data:
           entity_id:                           light.ge_14294_inwall_smart_dimmer_level
-          brightness_pct:                      20
+          brightness_pct:                      30
 
   - id:                                        'VampireModeOn'
     alias:                                     'Vampire Mode On'
