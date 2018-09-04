@@ -74,7 +74,9 @@ automation:
       to:                                    'open'
     action:
       service:                               light.turn_on
-      entity_id:                             light.bottom_stairs
+      entity_id:
+        - light.bottom_stairs
+        - light.top_stairs
 
   - id:                                      LightOffEntryMotion
     alias:                                   "Turn Off Light After Entry - Motion"
@@ -87,7 +89,9 @@ automation:
         minutes:                             3
     action:
       service:                               homeassistant.turn_off
-      entity_id:                             light.bottom_stairs
+      entity_id:
+        - light.bottom_stairs
+        - light.top_stairs
 
   - id:                                      LightOffEntryDoor
     alias:                                   "Turn Off Light After Entry - Door"
@@ -100,7 +104,9 @@ automation:
         minutes:                             3
     action:
       service:                               homeassistant.turn_off
-      entity_id:                             light.bottom_stairs
+      entity_id:
+        - light.bottom_stairs
+        - light.top_stairs
 
   - id:                                      FrontDoorOpen
     alias:                                   "Front Door Open"
