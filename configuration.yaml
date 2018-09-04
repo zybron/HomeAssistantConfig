@@ -7,6 +7,10 @@ homeassistant:
   packages:                                    !include_dir_named packages
   time_zone:                                   America/New_York
   unit_system:                                 imperial
+  auth_providers:
+    - type:                                    homeassistant
+    - type:                                    trusted_networks
+    - type:                                    legacy_api_password                              
 
 cloud:
 config:
