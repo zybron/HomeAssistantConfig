@@ -34,11 +34,6 @@ input_boolean:
     initial:                        off
 
 input_number:
-  vacuum_sensor_timer:
-    name:                           Vacuum Sensor Timer
-    min:                            0
-    max:                            30
-    step:                           0.001
   vacuum_error_count:
     name:                           Vacuum Error Count
     min:                            0
@@ -61,24 +56,25 @@ sensor:
         value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}'
       vacuum_filter_timer:
         friendly_name:              Vacuum Filter Timer
-        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.filter_left}}'
+        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.filter_left }}'
         unit_of_measurement:        hours
       vacuum_main_brush_timer:
         friendly_name:              Vacuum Main Brush Timer
-        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.main_brush_left}}'
+        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.main_brush_left }}'
         unit_of_measurement:        hours
       vacuum_side_brush_timer:
         friendly_name:              Vacuum Side Brush Timer
-        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.side_brush_left}}'
+        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.side_brush_left }}'
         unit_of_measurement:        hours
       vacuum_sensor_timer:
         friendly_name:              Vacuum Sensor Timer
-        value_template:             '{{ states.input_number.vacuum_sensor_timer.state | round(2) }}'
+        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.sensor_dirty_left }}'
         unit_of_measurement:        hours
       vacuum_cleaning_time:
         friendly_name:              Vacuum Cleaning Time
         value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
         unit_of_measurement:        minutes
+
 
 vacuum:
   - platform:                       xiaomi_miio
@@ -97,7 +93,7 @@ automation:
   - platform:                       time
     at:                             '11:00:00'
   action:
-    - service:                      vacuum.turn_on
+    - service:                      vacuum.start
       entity_id:                    vacuum.xiaomi_vacuum_cleaner
 
 - id:                               VacuumStartNotification
@@ -131,7 +127,7 @@ automation:
     event_data:
       action:                       vacuum_stop_cleaning
   action:
-  - service:                        vacuum.turn_off
+  - service:                        vacuum.stop
     entity_id:                      vacuum.xiaomi_vacuum_cleaner
 
 - id:                               VacuumStopNotification
@@ -210,7 +206,7 @@ automation:
       entity_id:                    timer.vacuum_error_timer
   - service:                        input_number.increment
     entity_id:                      input_number.vacuum_error_count
-  - service:                        vacuum.start_pause
+  - service:                        vacuum.start
     entity_id:                      vacuum.xiaomi_vacuum_cleaner
 
 - id:                               SecondVacuumCleanBrushError
@@ -228,7 +224,7 @@ automation:
   action:
   - service:                        input_number.increment
     entity_id:                      input_number.vacuum_error_count
-  - service:                        vacuum.start_pause
+  - service:                        vacuum.start
     entity_id:                      vacuum.xiaomi_vacuum_cleaner
 
 - id:                               FinalVacuumCleanBrushError
@@ -289,7 +285,7 @@ automation:
     event_data:
       action:                       vacuum_resume_cleaning
   action:
-  - service:                        vacuum.start_pause
+  - service:                        vacuum.start
     entity_id:                      vacuum.xiaomi_vacuum_cleaner
 
 - id:                               VacuumLocateActionClicked
@@ -333,10 +329,6 @@ automation:
       entity_id:                    vacuum.xiaomi_vacuum_cleaner
       command:                      reset_consumable
       params:                       sensor_dirty_time
-  - service:                        input_number.set_value
-    data:
-      entity_id:                    input_number.vacuum_sensor_timer
-      value:                        30
 
 - id:                               CleanSensorNotification
   alias:                            'Clean Vacuum Sensors Notification'
@@ -344,7 +336,7 @@ automation:
   trigger:
   - platform:                       state
     entity_id:                      sensor.vacuum_sensor_timer
-    to:                             '0.0'
+    to:                             '0'
   action:
   - service:                        script.store_message
     data_template:
@@ -514,25 +506,3 @@ automation:
   action:
   - service:                        input_boolean.turn_on
     entity_id:                      input_boolean.vacuum_filter_reset
-
-- id:                               UpdateVacuumSensorTimer
-  alias:                            'Update Vacuum Sensor Timer'
-  initial_state:                    on
-  trigger:
-  - platform:                       time
-    minutes:                        '/1'
-    seconds:                        '00'
-  condition:
-    condition:                      state
-    entity_id:                      'vacuum.xiaomi_vacuum_cleaner'
-    state:                          'on'
-  action:
-  - service:                        input_number.set_value
-    data_template:
-      entity_id:                    input_number.vacuum_sensor_timer
-      value:                        >-
-        {% if states.input_number.vacuum_sensor_timer.state | float - (1/60 | float) > 0 %}
-          {{ states.input_number.vacuum_sensor_timer.state | float - (1/60 | float) }}
-        {% else %}
-          0
-        {% endif %}
