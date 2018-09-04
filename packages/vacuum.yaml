@@ -53,7 +53,7 @@ sensor:
           {% endif %}
       vacuum_cleaner_status:
         friendly_name:              Vacuum Cleaner Status
-        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}'
+        value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.state }}'
       vacuum_filter_timer:
         friendly_name:              Vacuum Filter Timer
         value_template:             '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.filter_left }}'
