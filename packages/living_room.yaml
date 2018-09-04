@@ -1,7 +1,7 @@
 homeassistant:
   customize:
     light.ge_14294_inwall_smart_dimmer_level:
-    friendly_name:                             Living Room Switch
+      friendly_name:                           Living Room Switch
 
 group:
   living_room:
