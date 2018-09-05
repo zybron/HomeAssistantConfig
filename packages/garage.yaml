@@ -35,7 +35,7 @@ intent_script:
     action:
     - service:              cover.open_cover
       entity_id:            cover.garage_door
-  OpenGarageDoor:
+  CloseGarageDoor:
     speech:
       text:                 'Closing the garage door.'
     action:
