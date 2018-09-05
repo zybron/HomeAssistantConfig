@@ -19,6 +19,29 @@ group:
       - sensor.garage_door_sensor
       - sensor.garagdet_connection
 
+hangouts:
+  intents:
+    OpenGarageDoor:
+      sentences:
+        - Open garage
+    CloseGarageDoor:
+      sentences:
+        - Close garage
+
+intent_script:
+  OpenGarageDoor:
+    speech:
+      text:                 'Opening the garage door.'
+    action:
+    - service:              cover.open_cover
+      entity_id:            cover.garage_door
+  OpenGarageDoor:
+    speech:
+      text:                 'Closing the garage door.'
+    action:
+    - service:              cover.close_cover
+      entity_id:            cover.garage_door
+
 sensor:
   - platform:               mqtt
     name:                   'Garage Door'
@@ -101,6 +124,10 @@ automation:
             - action:       "close_garage_door"
               title:        "Close Garage Door"
           tag:              garage_door_notification
+    - service:              hangouts.send_message
+      data:
+        target:             [{"name":"Panda Pad"}]
+        message:            [{"text":"The garage door was left open. Type 'Close garage' to close."}]
 
   - id:                     GarageDoorOpen
     alias:                  "Garage Door Open"
@@ -126,6 +153,10 @@ automation:
             - action:       "close_garage_door"
               title:        "Close Garage Door"
           tag:              garage_door_notification
+    - service:              hangouts.send_message
+      data:
+        target:             [{"name":"Panda Pad"}]
+        message:            [{"text":"The garage door is open. Type 'Close garage' to close."}]
 
   - id:                     GarageDoorClosed
     alias:                  "Garage Door Closed"
@@ -148,6 +179,10 @@ automation:
       data:
         data:
           tag:              garage_door_notification
+    - service:              hangouts.send_message
+      data:
+        target:             [{"name":"Panda Pad"}]
+        message:            [{"text":"The garage door is closed. Type 'Open garage' to open."}]
 
   - id:                     CloseGarageDoorClicked
     alias:                  "Close Garage Door Clicked"

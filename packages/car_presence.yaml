@@ -9,7 +9,7 @@ hangouts:
   intents:
     ArriveLate:
       sentences:
-        - Off
+        - Turn off lights
 
 intent_script:
   ArriveLate:
@@ -22,7 +22,7 @@ intent_script:
         - light.his_light
     - service:             light.turn_off
       entity_id:           light.cabinets
-      
+
 automation:
   # car sensor is connected and the garage door is closed
   - alias:                 CarPresence_ON
@@ -94,7 +94,7 @@ automation:
       - service:           hangouts.send_message
         data:
           target:          [{"name":"Panda Pad"}]
-          message:         [{"text":"Welcome Home. Type 'Off' to turn off all lights."}]
+          message:         [{"text":"Welcome Home. Type 'Turn off lights' to turn off all lights."}]
 
   - id:                    LateArrivalNotificationClicked
     alias:                 "Late Arrival Notification Clicked"
