@@ -1,0 +1,104 @@
+group:
+  entry:
+    name:                  Gaming
+    view:                  no
+    entities:
+      - input_boolean.game_night
+      - input_boolean.vampire_mode
+
+input_boolean:
+  game_night:
+    name:                  'Game Night'
+  vampire_mode:
+    name:                  'Vampire Mode'
+
+script:
+  vampire_mode_on:
+    sequence:
+      - service:           light.turn_on
+        data:
+          entity_id:
+            - light.cabinets
+            - light.main_balcony
+          rgb_color:       [255,0,0]
+      - service:           light.turn_on
+        data:
+          entity_id:       light.ge_14294_inwall_smart_dimmer_level
+          brightness_pct:  20
+  vampire_mode_off:
+    sequence:
+      - service:           light.turn_off
+        data:
+          entity_id:
+            - light.cabinets
+            - light.main_balcony
+            - light.ge_14294_inwall_smart_dimmer_level
+  game_night_on:
+    sequence:
+      - service:           automation.turn_off
+        data:
+          entity_id:
+            - automation.arrive_home_late
+            - automation.turn_off_balcony_lights_daily
+            - automation.turn_off_lights_daily__cabinets
+            - automation.turn_off_lights_daily__weekday_evening
+            - automation.turn_off_lights_daily__weekend_evening
+  game_night_off:
+    sequence:
+      - service:           automation.turn_on
+        data:
+          entity_id:
+            - automation.arrive_home_late
+            - automation.turn_off_balcony_lights_daily
+            - automation.turn_off_lights_daily__cabinets
+            - automation.turn_off_lights_daily__weekday_evening
+            - automation.turn_off_lights_daily__weekend_evening
+
+automation:
+  - id:                    'VampireModeOn'
+    alias:                 'Vampire Mode On'
+    initial_state:         on
+    trigger:
+    - platform:            state
+      entity_id:           input_boolean.vampire_mode
+      to:                  'on'
+    action:
+      - service:           script.turn_on
+        data:
+          entity_id:       script.vampire_mode_on
+
+  - id:                    'VampireModeOff'
+    alias:                 'Vampire Mode Off'
+    initial_state:         on
+    trigger:
+    - platform:            state
+      entity_id:           input_boolean.vampire_mode
+      to:                  'off'
+    action:
+      - service:           script.turn_on
+        data:
+          entity_id:       script.vampire_mode_off
+
+  - id:                    'GameNightOn'
+    alias:                 'Game Night On'
+    initial_state:         on
+    trigger:
+    - platform:            state
+      entity_id:           input_boolean.game_night
+      to:                  'on'
+    action:
+      - service:           script.turn_on
+        data:
+          entity_id:       script.game_night_on
+
+  - id:                    'GameNightOff'
+    alias:                 'Game Night Off'
+    initial_state:         on
+    trigger:
+    - platform:            state
+      entity_id:           input_boolean.game_night
+      to:                  'off'
+    action:
+      - service:           script.turn_on
+        data:
+          entity_id:       script.game_night_off
