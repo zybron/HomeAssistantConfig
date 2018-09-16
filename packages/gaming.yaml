@@ -1,6 +1,6 @@
 group:
   entry:
-    name:                  Gaming
+    name:                  Gaming Modes
     view:                  no
     entities:
       - input_boolean.game_night
