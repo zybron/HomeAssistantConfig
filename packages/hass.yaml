@@ -130,10 +130,10 @@ automation:
       entity_id:           sensor.zybronhomeassistantconfig_last_build_state
       to:                  'passed'
     action:
-      - service:           hassio.addon_stop
+      - service:           hangouts.send_message
         data:
-          addon:           'core_git_pull'
-      - delay:             '00:01:00'
+          target:          [{"name":"Panda Pad"}]
+          message:         [{"text":"Pulling new configuration from GitHub."}]
       - service:           hassio.addon_start
         data:
           addon:           'core_git_pull'
