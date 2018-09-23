@@ -172,9 +172,9 @@ automation:
     entity_id:                      vacuum.xiaomi_vacuum_cleaner
     to:                             'cleaning'
   condition:
-    condition:                      state
+    condition:                      numeric_state
     entity_id:                      input_number.vacuum_error_count
-    state:                          0
+    below:                          1
   action:
   - service:                        script.store_message
     data:
