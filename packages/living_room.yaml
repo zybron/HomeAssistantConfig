@@ -13,7 +13,7 @@ group:
 sensor:
   - platform:                                  mqtt
     name:                                      'Living Room TV'
-    state_topic:                               'plex/Living Room'
+    state_topic:                               'plex/SHIELD Android TV'
     value_template:                            '{{value_json.state}}'
     json_attributes:
       - user
