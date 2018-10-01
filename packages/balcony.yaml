@@ -109,11 +109,31 @@ automation:
     - platform:         sun
       event:            sunset
       offset:           '-00:45:00'
+    condition:
+      condition:        template
+      value_template:   "{{ now().month != 10 }}"
     action:
       - service:        light.turn_on
         data:
           entity_id:    light.main_balcony
           effect:       cyan_fade
+
+  - id:                 EveningLightOnBalconyHalloween
+    alias:              "Turn On Lights Daily - Balcony - Halloween"
+    initial_state:      on
+    trigger:
+    - platform:         sun
+      event:            sunset
+      offset:           '-00:45:00'
+    condition:
+      condition:        template
+      value_template:   "{{ now().month == 10 }}"
+    action:
+      - service:        light.turn_on
+        data:
+          entity_id:    light.main_balcony
+          rgb_color:    [255,165,0]
+          transition:   60
 
   - id:                 EveningLightOffBalcony
     alias:              "Turn Off Balcony Lights Daily"
