@@ -85,22 +85,22 @@ automation:
           rgb_color:           [0,255,255]
           transition:          60
 
-    - id:                      EveningLightOnCabinetsHalloween
-      alias:                   "Turn On Lights Daily - Cabinets - Halloween"
-      initial_state:           on
-      trigger:
-      - platform:              sun
-        event:                 sunset
-        offset:                '-00:45:00'
-      condition:
-        condition:             template
-        value_template:        "{{ now().month == 10 }}"
-      action:
-        - service:             light.turn_on
-          data:
-            entity_id:         light.cabinets
-            rgb_color:         [255,165,0]
-            transition:        60
+  - id:                        EveningLightOnCabinetsHalloween
+    alias:                     "Turn On Lights Daily - Cabinets - Halloween"
+    initial_state:             on
+    trigger:
+    - platform:                sun
+      event:                   sunset
+      offset:                  '-00:45:00'
+    condition:
+      condition:               template
+      value_template:          "{{ now().month == 10 }}"
+    action:
+      - service:               light.turn_on
+        data:
+          entity_id:           light.cabinets
+          rgb_color:           [255,165,0]
+          transition:          60
 
   - id:                        EveningLightOffCabinets
     alias:                     "Turn Off Lights Daily - Cabinets"
