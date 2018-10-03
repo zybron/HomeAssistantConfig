@@ -99,7 +99,7 @@ automation:
       - service:               light.turn_on
         data:
           entity_id:           light.cabinets
-          rgb_color:           [255,69,0]
+          rgb_color:           [255,40,0]
           transition:          60
 
   - id:                        EveningLightOffCabinets
@@ -154,5 +154,5 @@ automation:
       - service:               light.turn_on
         data:
           entity_id:           light.cabinets
-          rgb_color:           [255,69,0]
+          rgb_color:           [255,40,0]
           transition:          60
