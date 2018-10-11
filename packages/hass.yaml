@@ -149,13 +149,17 @@ automation:
     - service:             frontend.set_theme
       data:
         name:              dark_theme
+    - service:             hangouts.send_message
+      data:
+        target:            [{"name":"Panda Pad"}]
+        message:           [{"text":"Home Assistant is starting."}]
     - service:             script.store_message
       data:
-        message:           'PandaPadMain is starting.'
+        message:           'Home Assistant is starting.'
         topic:             'notification'
     - service:             notify.html5_notify
       data_template:
-        message:          '{{ states.sensor.date__time.state }}: PandaPadMain is starting.'
+        message:          '{{ states.sensor.date__time.state }}: Home Assistant is starting.'
       data:
         data:
           tag:             home_assistant_notification
@@ -167,13 +171,17 @@ automation:
     - event:               shutdown
       platform:            homeassistant
     action:
+    - service:             hangouts.send_message
+      data:
+        target:            [{"name":"Panda Pad"}]
+        message:           [{"text":"Home Assistant is shutting down."}]
     - service:             script.store_message
       data:
-        message:           'PandaPadMain is shutting down.'
+        message:           'Home Assistant is shutting down.'
         topic:             'notification'
     - service:             notify.html5_notify
       data_template:
-        message:          '{{ states.sensor.date__time.state }}: PandaPadMain is shutting down.'
+        message:          '{{ states.sensor.date__time.state }}: Home Assistant is shutting down.'
       data:
         data:
           tag:             home_assistant_notification
@@ -190,6 +198,10 @@ automation:
         message:           'There is an update available for Home Assistant.'
         title:             'Home Assistant Update'
         notification_id:   'Update'
+    - service:             hangouts.send_message
+      data:
+        target:            [{"name":"Panda Pad"}]
+        message:           [{"text":"There is an update available for Home Assistant."}]
     - service:             script.store_message
       data:
         message:           'There is an update available for Home Assistant.'
