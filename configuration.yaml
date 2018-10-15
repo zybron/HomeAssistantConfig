@@ -35,11 +35,6 @@ device_tracker:
 
 discovery:
 frontend:                                      !include frontend.yaml
-
-google_assistant:
-  project_id:                                  panda-pad-home
-  api_key:                                     !secret google_api_key
-
 group:                                         !include groups.yaml
 history:
 
