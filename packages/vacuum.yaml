@@ -9,6 +9,7 @@ group:
     entities:
       - vacuum.xiaomi_vacuum_cleaner
       - sensor.vacuum_cleaner_status
+      - input_datetime.vacuum_start_time
       - sensor.vacuum_cleaner_error_sensor
       - sensor.vacuum_sensor_timer
       - input_boolean.vacuum_sensor_timer_reset
@@ -18,6 +19,11 @@ group:
       - input_boolean.vacuum_side_brush_reset
       - sensor.vacuum_main_brush_timer
       - input_boolean.vacuum_main_brush_reset
+
+input_datetime:
+  name: 'Vacuum Start Time'
+  has_date: false
+  has_time: true
 
 hangouts:
   intents:
