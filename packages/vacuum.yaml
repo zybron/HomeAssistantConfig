@@ -165,8 +165,8 @@ automation:
   alias:                            'Daily Vacuum Start'
   initial_state:                    on
   trigger:
-  - platform:                       time
-    at:                             '11:00:00'
+    platform: template
+    value_template: '{{ states.sensor.time.state == states.input_datetime.vacuum_start_time.state[0:5] }}'
   action:
     - service:                      vacuum.start
       entity_id:                    vacuum.xiaomi_vacuum_cleaner
