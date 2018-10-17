@@ -21,7 +21,8 @@ group:
       - input_boolean.vacuum_main_brush_reset
 
 input_datetime:
-  name: 'Vacuum Start Time'
+  vacuum_start_time:
+    name: 'Vacuum Start Time'
     has_date: false
     has_time: true
 
