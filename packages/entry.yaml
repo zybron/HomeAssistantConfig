@@ -30,6 +30,7 @@ group:
       - sensor.motion_sensor_downstairs_battery
       - zwave.interior_garage_door
       - sensor.interior_garage_door
+      - sensor.interior_garage_door_battery
 
 sensor:
   - platform:                                template
@@ -62,18 +63,18 @@ sensor:
         friendly_name:                       'Motion Sensor Downstairs Battery'
         value_template:                      '{{ states.zwave.motion_sensor_downstairs.attributes.battery_level }}'
         unit_of_measurement:                 '%'
-    interior_garage_door:
-        friendly_name:                       'Interior Garage Door'
-        value_template:                      >-
-          {% if is_state('binary_sensor.interior_garage_door','on') %}
-            open
-          {% else %}
-            closed
-          {% endif %}
-    interior_garage_door_battery:
-        friendly_name:                       'Interior Garage Door Sensor Battery'
-        value_template:                      '{{ states.zwave.interior_garage_door_sensor.attributes.battery_level }}'
-        unit_of_measurement:                 '%'
+      interior_garage_door:
+          friendly_name:                       'Interior Garage Door'
+          value_template:                      >-
+            {% if is_state('binary_sensor.interior_garage_door','on') %}
+              open
+            {% else %}
+              closed
+            {% endif %}
+      interior_garage_door_battery:
+          friendly_name:                       'Interior Garage Door Sensor Battery'
+          value_template:                      '{{ states.zwave.interior_garage_door_sensor.attributes.battery_level }}'
+          unit_of_measurement:                 '%'
 
 automation:
   - id:                                      LightOnEntry
