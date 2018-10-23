@@ -73,7 +73,7 @@ sensor:
             {% endif %}
       interior_garage_door_battery:
           friendly_name:                       'Interior Garage Door Sensor Battery'
-          value_template:                      '{{ states.zwave.interior_garage_door_sensor.attributes.battery_level }}'
+          value_template:                      '{{ states.zwave.interior_garage_door.attributes.battery_level }}'
           unit_of_measurement:                 '%'
 
 automation:
