@@ -3,6 +3,7 @@ default_view:
   icon:           mdi:home
   name:           Panda Pad
   entities:
+    - group.thermostat
     - group.gaming
     - group.family
     - group.bedroom

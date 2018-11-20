@@ -1,0 +1,13 @@
+group:
+  thermostat:
+    name:               Thermostat
+    view:               no
+    entities:
+      - climate.thermostat
+      - sensor.thermostat_temperature
+      - sensor.thermostat_humidity
+      - binary_sensor.thermostat_occupancy
+      - sensor.bedroom_temperature
+      - binary_sensor.bedroom_occupancy
+      - sensor.living_room_temparature
+      - binary_sensor.living_room_occupancy
