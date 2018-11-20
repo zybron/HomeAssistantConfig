@@ -34,6 +34,8 @@ device_tracker:
       galaxy_s5:                               192.168.1.166
 
 discovery:
+ecobee:
+  api_key: !secret ecobee_api_key
 frontend:                                      !include frontend.yaml
 group:                                         !include groups.yaml
 history:
