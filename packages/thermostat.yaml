@@ -9,5 +9,5 @@ group:
       - binary_sensor.thermostat_occupancy
       - sensor.bedroom_temperature
       - binary_sensor.bedroom_occupancy
-      - sensor.living_room_temparature
+      - sensor.living_room_temperature
       - binary_sensor.living_room_occupancy
