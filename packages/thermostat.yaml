@@ -50,8 +50,9 @@ automation:
       value_template: '{{ now().weekday() < 5 }}' 
     action:
       - service: input_text.set_value
-        entity_id: input_text.current_hold_mode
-        value: 'sleep'
+        data:
+          entity_id: input_text.current_hold_mode
+          value: 'sleep'
 
   - id: SetThermostatModeSleepStopWeekday
     alias: 'Set Mode Sleep Time Stop on Weekday'
@@ -64,8 +65,9 @@ automation:
       value_template: '{{ now().weekday() < 5 }}' 
     action:
       - service: input_text.set_value
-        entity_id: input_text.current_hold_mode
-        value: 'home'
+        data:
+          entity_id: input_text.current_hold_mode
+          value: 'home'
 
   - id: SetThermostatModeSleepStartWeekend
     alias: 'Set Mode Sleep Time Start on Weekdend'
@@ -78,8 +80,9 @@ automation:
       value_template: '{{ now().weekday() >= 5 }}' 
     action:
       - service: input_text.set_value
-        entity_id: input_text.current_hold_mode
-        value: 'sleep'
+        data:
+          entity_id: input_text.current_hold_mode
+          value: 'sleep'
 
   - id: SetThermostatModeSleepStopWeekday
     alias: 'Set Mode Sleep Time Stop on Weekday'
@@ -92,8 +95,9 @@ automation:
       value_template: '{{ now().weekday() >= 5 }}' 
     action:
       - service: input_text.set_value
-        entity_id: input_text.current_hold_mode
-        value: 'home'
+        data:
+          entity_id: input_text.current_hold_mode
+          value: 'home'
 
   - id: SetThermostatSleepStartWeekday
     alias: 'Sleep Time Start on Weekday'
