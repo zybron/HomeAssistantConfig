@@ -25,6 +25,11 @@ script:
         data:
           entity_id:       light.ge_14294_inwall_smart_dimmer_level
           brightness_pct:  20
+      - service: climate.set_temperature
+        data:
+          entity_id: climate.thermostat
+          target_temp_low: 68
+          target_temp_high: 75
   vampire_mode_off:
     sequence:
       - service:           light.turn_off
@@ -33,6 +38,10 @@ script:
             - light.cabinets
             - light.main_balcony
             - light.ge_14294_inwall_smart_dimmer_level
+      - service: climate.set_hold_mode
+        data_template:
+          entity_id: climate.thermostat
+          hold_mode: {{ states.input_text.current_hold_mode.state }}
   game_night_on:
     sequence:
       - service:           automation.turn_off
@@ -43,6 +52,11 @@ script:
             - automation.turn_off_lights_daily__cabinets
             - automation.turn_off_lights_daily__weekday_evening
             - automation.turn_off_lights_daily__weekend_evening
+      - service: climate.set_temperature
+        data:
+          entity_id: climate.thermostat
+          target_temp_low: 68
+          target_temp_high: 75
   game_night_off:
     sequence:
       - service:           automation.turn_on
@@ -53,6 +67,10 @@ script:
             - automation.turn_off_lights_daily__cabinets
             - automation.turn_off_lights_daily__weekday_evening
             - automation.turn_off_lights_daily__weekend_evening
+      - service: climate.set_hold_mode
+        data_template:
+          entity_id: climate.thermostat
+          hold_mode: {{ states.input_text.current_hold_mode.state }}
 
 automation:
   - id:                    'VampireModeOn'
@@ -102,3 +120,33 @@ automation:
       - service:           script.turn_on
         data:
           entity_id:       script.game_night_off
+
+  - id:                    'GameNightOffAtNight'
+    alias:                 'Game Night Auto Turn Off'
+    initial_state:         on
+    trigger:
+    - platform:            time
+      at: '03:00:00'
+    condition:
+      condition: state
+      entity_id: input_boolean.game_night
+      state: 'on'
+    action:
+      - service:           input_boolean.turn_off
+        data:
+          entity_id:       input_boolean.game_night
+
+  - id:                    'VampireModeOffAtNight'
+    alias:                 'Vampire Mode Auto Turn Off'
+    initial_state:         on
+    trigger:
+    - platform:            time
+      at: '03:00:00'
+    condition:
+      condition: state
+      entity_id: input_boolean.vampire_mode
+      state: 'on'
+    action:
+      - service:           input_boolean.turn_off
+        data:
+          entity_id:       input_boolean.vampire_mode
