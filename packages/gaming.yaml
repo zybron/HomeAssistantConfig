@@ -41,7 +41,7 @@ script:
       - service: climate.set_hold_mode
         data_template:
           entity_id: climate.thermostat
-          hold_mode: {{ states.input_text.current_hold_mode.state }}
+          hold_mode: '{{ states.input_text.current_hold_mode}}'
   game_night_on:
     sequence:
       - service:           automation.turn_off
@@ -70,7 +70,7 @@ script:
       - service: climate.set_hold_mode
         data_template:
           entity_id: climate.thermostat
-          hold_mode: {{ states.input_text.current_hold_mode.state }}
+          hold_mode: '{{ states.input_text.current_hold_mode.state }}'
 
 automation:
   - id:                    'VampireModeOn'

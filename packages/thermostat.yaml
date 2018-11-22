@@ -18,19 +18,19 @@ group:
 
 input_datetime:
   weekday_sleep_start_time:
-    name: "Weekday Sleep Start Time"
+    name: 'Weekday Sleep Start Time'
     has_date: false
     has_time: true
   weekday_sleep_stop_time:
-    name: "Weekday Sleep Stop Time"
+    name: 'Weekday Sleep Stop Time'
     has_date: false
     has_time: true
   weekend_sleep_start_time:
-    name: "Weekend Sleep Start Time"
+    name: 'Weekend Sleep Start Time'
     has_date: false
     has_time: true
   weekend_sleep_stop_time:
-    name: "Weekend Sleep Stop Time"
+    name: 'Weekend Sleep Stop Time'
     has_date: false
     has_time: true
 
@@ -44,10 +44,10 @@ automation:
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekday_sleep_start_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekday_sleep_start_time.state[0:5] }}'
     condition: 
       condition: template
-      value_template: "{{ now().weekday() < 5 }}" 
+      value_template: '{{ now().weekday() < 5 }}' 
     action:
       - service: input_text.set_value
         entity_id: input_text.current_hold_mode
@@ -58,10 +58,10 @@ automation:
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekday_sleep_stop_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekday_sleep_stop_time.state[0:5] }}'
     condition: 
       condition: template
-      value_template: "{{ now().weekday() < 5 }}" 
+      value_template: '{{ now().weekday() < 5 }}' 
     action:
       - service: input_text.set_value
         entity_id: input_text.current_hold_mode
@@ -72,10 +72,10 @@ automation:
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekend_sleep_start_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekend_sleep_start_time.state[0:5] }}'
     condition: 
       condition: template
-      value_template: "{{ now().weekday() >= 5 }}" 
+      value_template: '{{ now().weekday() >= 5 }}' 
     action:
       - service: input_text.set_value
         entity_id: input_text.current_hold_mode
@@ -86,10 +86,10 @@ automation:
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekday_sleep_stop_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekday_sleep_stop_time.state[0:5] }}'
     condition: 
       condition: template
-      value_template: "{{ now().weekday() >= 5 }}" 
+      value_template: '{{ now().weekday() >= 5 }}' 
     action:
       - service: input_text.set_value
         entity_id: input_text.current_hold_mode
@@ -100,12 +100,12 @@ automation:
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekday_sleep_start_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekday_sleep_start_time.state[0:5] }}'
     condition:
       condition: and
       conditions:
         - condition: template
-          value_template: "{{ now().weekday() < 5 }}" #Sunday,Monday,Tuesday,Wednesday,Thursday
+          value_template: '{{ now().weekday() < 5 }}' #Sunday,Monday,Tuesday,Wednesday,Thursday
         - condition: state
           entity_id: input_boolean.vampire_mode
           state: 'off'
@@ -116,19 +116,19 @@ automation:
       - service: climate.set_hold_mode
         data_template:
           entity_id: climate.thermostat
-          hold_mode: {{ states.input_text.current_hold_mode.state }}
+          hold_mode: '{{ states.input_text.current_hold_mode }}'
 
   - id: SetThermostatSleepStartWeekend
     alias: 'Sleep Time Start on Weekend'
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekend_sleep_start_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekend_sleep_start_time.state[0:5] }}'
     condition:
       condition: and
       conditions:
         - condition: template
-          value_template: "{{ now().weekday() >= 5 }}" #Friday,Saturday
+          value_template: '{{ now().weekday() >= 5 }}' #Friday,Saturday
         - condition: state
           entity_id: input_boolean.vampire_mode
           state: 'off'
@@ -139,19 +139,19 @@ automation:
       - service: climate.set_hold_mode
         data_template:
           entity_id: climate.thermostat
-          hold_mode: {{ states.input_text.current_hold_mode.state }}
+          hold_mode: '{{ states.input_text.current_hold_mode }}'
 
   - id: SetThermostatSleepStopWeekday
     alias: 'Sleep Time Stop on Weekday'
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekday_sleep_stop_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekday_sleep_stop_time.state[0:5] }}'
     condition:
       condition: and
       conditions:
         - condition: template
-          value_template: "{{ now().weekday() < 5 }}" #Sunday,Monday,Tuesday,Wednesday,Thursday
+          value_template: '{{ now().weekday() < 5 }}' #Sunday,Monday,Tuesday,Wednesday,Thursday
         - condition: state
           entity_id: input_boolean.vampire_mode
           state: 'off'
@@ -162,19 +162,19 @@ automation:
       - service: climate.set_hold_mode
         data_template:
           entity_id: climate.thermostat
-          hold_mode: {{ states.input_text.current_hold_mode.state }}
+          hold_mode: '{{ states.input_text.current_hold_mode }}'
 
   - id: SetThermostatSleepStopWeekend
     alias: 'Sleep Time Stop on Weekend'
     initial_state: on
     trigger:
       platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.weekend_sleep_stop_time.state[0:5] }}"
+      value_template: '{{ states.sensor.time.state == states.input_datetime.weekend_sleep_stop_time.state[0:5] }}'
     condition:
       condition: and
       conditions:
         - condition: template
-          value_template: "{{ now().weekday() >= 5 }}" #Friday,Saturday
+          value_template: '{{ now().weekday() >= 5 }}' #Friday,Saturday
         - condition: state
           entity_id: input_boolean.vampire_mode
           state: 'off'
@@ -185,4 +185,4 @@ automation:
       - service: climate.set_hold_mode
         data_template:
           entity_id: climate.thermostat
-          hold_mode: {{ states.input_text.current_hold_mode.state }}
+          hold_mode: '{{ states.input_text.current_hold_mode }}'
