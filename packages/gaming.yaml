@@ -38,10 +38,10 @@ script:
             - light.cabinets
             - light.main_balcony
             - light.ge_14294_inwall_smart_dimmer_level
-      - service: climate.set_hold_mode
-        data_template:
+      - service: climate.resume_program
+        data:
           entity_id: climate.thermostat
-          hold_mode: '{{ states.input_text.current_hold_mode}}'
+          resume_all: true
   game_night_on:
     sequence:
       - service:           automation.turn_off
@@ -67,10 +67,10 @@ script:
             - automation.turn_off_lights_daily__cabinets
             - automation.turn_off_lights_daily__weekday_evening
             - automation.turn_off_lights_daily__weekend_evening
-      - service: climate.set_hold_mode
-        data_template:
+      - service: climate.resume_program
+        data:
           entity_id: climate.thermostat
-          hold_mode: '{{ states.input_text.current_hold_mode.state }}'
+          resume_all: true
 
 automation:
   - id:                    'VampireModeOn'
