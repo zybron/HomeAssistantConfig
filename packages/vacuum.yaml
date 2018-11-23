@@ -9,6 +9,7 @@ group:
     entities:
       - vacuum.xiaomi_vacuum_cleaner
       - sensor.vacuum_cleaner_status
+      - input_boolean.vacuum_auto_start
       - input_datetime.vacuum_start_time
       - sensor.vacuum_cleaner_error_sensor
       - sensor.vacuum_sensor_timer
@@ -107,6 +108,8 @@ input_boolean:
   vacuum_filter_reset:
     name: "Reset Filter Timer"
     initial: off
+  vacuum_auto_start:
+    name: "Vacuum Auto Start"
 
 input_number:
   vacuum_error_count:
@@ -166,6 +169,10 @@ automation:
     trigger:
       platform: template
       value_template: "{{ states.sensor.time.state == states.input_datetime.vacuum_start_time.state[0:5] }}"
+    condition:
+      condition: state
+      entity_id: input_boolean.vacuum_auto_start
+      state: 'on'
     action:
       - service: vacuum.start
         entity_id: vacuum.xiaomi_vacuum_cleaner
