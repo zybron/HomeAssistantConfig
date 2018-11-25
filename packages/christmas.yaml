@@ -1,0 +1,40 @@
+group:
+  christmas:
+    name: Christmas
+    view: no
+    entities:
+      - switch.christmas_tree
+      - sensor.christmas_tree_amps
+      - sensor.christmas_tree_watts
+      - sensor.christmas_tree_total_kwh
+      - sensor.christmas_tree_volts
+      - sensor.christmas_tree_today_kwh
+
+sensor:
+  - platform: template
+    sensors:
+      christmas_tree_amps:
+        friendly_name_template: "{{ states.switch.christmas_tree.name}} Current"
+        value_template: '{{ states.switch.christmas_tree.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      christmas_tree_watts:
+        friendly_name_template: "{{ states.switch.christmas_tree.name}} Current Consumption"
+        value_template: '{{ states.switch.christmas_tree.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      christmas_tree_total_kwh:
+        friendly_name_template: "{{ states.switch.christmas_tree.name}} Total Consumption"
+        value_template: '{{ states.switch.christmas_tree.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      christmas_tree_volts:
+        friendly_name_template: "{{ states.switch.christmas_tree.name}} Voltage"
+        value_template: '{{ states.switch.christmas_tree.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      christmas_tree_today_kwh:
+        friendly_name_template: "{{ states.switch.christmas_tree.name}} Today's Consuption"
+        value_template: '{{ states.switch.christmas_tree.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+
+switch:
+  - platform: tplink
+    host: 192.168.1.228
+    name: 'Christmas Tree'
