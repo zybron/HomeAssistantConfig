@@ -23,6 +23,7 @@ default_view:
     - group.car_sensors
     - group.vacuum
     - group.messages
+    - group.christmas
 
 media:
   view:           yes

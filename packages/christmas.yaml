@@ -1,6 +1,12 @@
 group:
   christmas:
-    name: Christmas
+    name: 'Christmas'
+    view: no
+    entities:
+      - group.christmas_tree_switch
+      - group.balcony_switch
+  christmas_tree_switch:
+    name: 'Christmas Tree Switch'
     view: no
     entities:
       - switch.christmas_tree
@@ -9,6 +15,16 @@ group:
       - sensor.christmas_tree_total_kwh
       - sensor.christmas_tree_volts
       - sensor.christmas_tree_today_kwh
+  balcony_switch:
+    name: 'Balcony Switch'
+    view: no
+    entities:
+      - switch.balcony
+      - sensor.balcony_amps
+      - sensor.balcony_watts
+      - sensor.balcony_total_kwh
+      - sensor.balcony_volts
+      - sensor.balcony_today_kwh
 
 sensor:
   - platform: template
@@ -33,8 +49,106 @@ sensor:
         friendly_name_template: "{{ states.switch.christmas_tree.name}} Today's Consuption"
         value_template: '{{ states.switch.christmas_tree.attributes["today_energy_kwh"] | float }}'
         unit_of_measurement: 'kWh'
+      balcony_amps:
+        friendly_name_template: "{{ states.switch.balcony.name}} Current"
+        value_template: '{{ states.switch.balcony.attributes["current_a"] | float }}'
+        unit_of_measurement: 'A'
+      balcony_watts:
+        friendly_name_template: "{{ states.switch.balcony.name}} Current Consumption"
+        value_template: '{{ states.switch.balcony.attributes["current_power_w"] | float }}'
+        unit_of_measurement: 'W'
+      balcony_total_kwh:
+        friendly_name_template: "{{ states.switch.balcony.name}} Total Consumption"
+        value_template: '{{ states.switch.balcony.attributes["total_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
+      balcony_volts:
+        friendly_name_template: "{{ states.switch.balcony.name}} Voltage"
+        value_template: '{{ states.switch.balcony.attributes["voltage"] | float }}'
+        unit_of_measurement: 'V'
+      balcony_today_kwh:
+        friendly_name_template: "{{ states.switch.balcony.name}} Today's Consuption"
+        value_template: '{{ states.switch.balcony.attributes["today_energy_kwh"] | float }}'
+        unit_of_measurement: 'kWh'
 
 switch:
   - platform: tplink
     host: 192.168.1.228
     name: 'Christmas Tree'
+  - platform: tplink
+    host: 192.168.1.229
+    name: 'Balcony'
+
+automation:
+  - alias: 'Christmas Tree Visibility - On'
+    id: ChristmasTreeVisibilityOn
+    initial_state:      on
+    trigger:
+      - platform:       state
+        entity_id:      switch.christmas_tree
+        from: 'unavailable'
+        to: 'on'
+      - platform:       state
+        entity_id:      switch.christmas_tree
+        from: 'unavailable'
+        to: 'off'
+    action:
+      - service: group.set_visibility
+        entity_id: group.christmas_tree_switch
+        data:
+          visible: True
+  
+  - alias: 'Christmas Tree Visibility - Off'
+    id: ChristmasTreeVisibilityOff
+    initial_state:      on
+    trigger:
+      - platform:       state
+        entity_id:      switch.christmas_tree
+        from: 'on'
+        to: 'unavailable'
+      - platform:       state
+        entity_id:      switch.christmas_tree
+        from: 'off'
+        to: 'unavailable'
+    action:
+      - service: group.set_visibility
+        entity_id: group.christmas_tree_switch
+        data:
+          visible: False
+  
+  - alias: 'Balcony Visibility - On'
+    id: BalconyVisibilityOn
+    initial_state:      on
+    trigger:
+      - platform:       state
+        entity_id:      switch.balcony
+        from: 'unavailable'
+        to: 'on'
+      - platform:       state
+        entity_id:      switch.balcony
+        from: 'unavailable'
+        to: 'off'
+    action:
+      - service: group.set_visibility
+        entity_id: group.balcony_switch
+        data:
+          visible: True
+  
+  - alias: 'Balcony Visibility - Off'
+    id: BalconyVisibilityOff
+    initial_state:      on
+    trigger:
+      - platform:       state
+        entity_id:      switch.balcony
+        from: 'on'
+        to: 'unavailable'
+      - platform:       state
+        entity_id:      switch.balcony
+        from: 'off'
+        to: 'unavailable'
+    action:
+      - service: group.set_visibility
+        entity_id: group.balcony_switch
+        data:
+          visible: False
+
+
