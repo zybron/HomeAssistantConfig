@@ -18,13 +18,13 @@ conversation:
 
 device_tracker:
   # Google Home Kitchen
-  - platform: google_home
+  - platform: googlehome
     host: 192.168.1.158
   # Google Home Master
-  - platform: google_home
+  - platform: googlehome
     host: 192.168.1.163
   # Google Home Bedroom
-  - platform: google_home
+  - platform: googlehome
     host: 192.168.1.164
   - platform:                                  google_maps
     username:                                  !secret google_maps_username
