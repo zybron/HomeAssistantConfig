@@ -15,4 +15,4 @@ sensor:
     password:    !secret plex_password
   - platform: tautulli
     api_key: !secret tautulli_api_key
-    host: 192.168.1.65:8181
+    host: 192.168.1.65
