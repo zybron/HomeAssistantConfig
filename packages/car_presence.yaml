@@ -46,6 +46,8 @@ automation:
       platform:            state
       entity_id:           binary_sensor.carpresence
       to:                  'off'
+      for:
+        minutes: 2
     condition:
     - condition:           state
       entity_id:           'sensor.garage_door'
