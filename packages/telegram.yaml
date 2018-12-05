@@ -1,3 +1,8 @@
+notify:
+  - name: telegram_pandahome
+    platform: telegram
+    chat_id: -1001184476815
+
 telegram_bot:
   - platform: webhooks
     api_key: !secret telegram_api
