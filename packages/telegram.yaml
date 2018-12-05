@@ -1,0 +1,7 @@
+telegram_bot:
+  - platform: webhooks
+    api_key: !secret telegram_api
+    parse_mode: html
+    allowed_chat_ids:
+      - 749282427
+      - -1001184476815
