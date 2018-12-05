@@ -4,7 +4,7 @@ notify:
     chat_id: -1001184476815
 
 telegram_bot:
-  - platform: webhooks
+  - platform: polling
     api_key: !secret telegram_api
     parse_mode: html
     allowed_chat_ids:
