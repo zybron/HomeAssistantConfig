@@ -150,5 +150,30 @@ automation:
         entity_id: group.balcony_switch
         data:
           visible: False
-
-
+          
+  - id:                                        ChristmasLightsOnEvening
+    alias:                                     "Turn On Christmas Lights Evening"
+    initial_state:                             on
+    trigger:
+    - platform:                                sun
+      event:                                   sunset
+      offset:                                  '-00:45:00'
+    action:
+      - service:                               switch.turn_on
+        data:
+          entity_id:
+            - switch.balcony
+            - switch.christmas_tree
+            
+  - id:                                        ChristmasLightsOffEvening
+    alias:                                     "Turn Off Christmas Lights Evening"
+    initial_state:                             on
+    trigger:
+    - platform:                                time
+      at: '00:00:00'
+    action:
+      - service:                               switch.turn_off
+        data:
+          entity_id:
+            - switch.balcony
+            - switch.christmas_tree
