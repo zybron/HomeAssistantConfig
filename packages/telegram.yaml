@@ -18,7 +18,7 @@ automation:
     trigger:
       - platform: event
         event_type: telegram_command
-        event_date:
+        event_data:
           command: '/test'
     action:
       - service: notify.telegram_pandahome
@@ -35,7 +35,7 @@ automation:
     trigger:
       - platform: event
         event_type: telegram_callback
-        event_date:
+        event_data:
           data: '/do_test'
     action:
       - service: notify.telegram_pandahome
