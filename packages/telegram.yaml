@@ -10,3 +10,35 @@ telegram_bot:
     allowed_chat_ids:
       - 749282427
       - -1001184476815
+
+automation:
+  - id: 'TelegramTesting'
+    alias: 'Telegram Testing'
+    initial_state: on
+    trigger:
+      - platform: event
+        event_type: telegram_command
+        event_date:
+          command: '/test'
+    action:
+      - service: notify.telegram_pandahome
+        data:
+          title: 'Test Title'
+          message: 'Test message.'
+          data:
+            inline_keyboard:
+              - 'Test:/do_test'
+  
+  - id: 'TelegramTestingCallback'
+    alias: 'Telegram Testing Callback'
+    initial_state: on
+    trigger:
+      - platform: event
+        event_type: telegram_callback
+        event_date:
+          data: '/do_test'
+    action:
+      - service: notify.telegram_pandahome
+        data:
+          title: 'Success Title'
+          message: 'Success message.'
