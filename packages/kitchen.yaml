@@ -77,7 +77,7 @@ automation:
       offset:                  '-00:45:00'
     condition:
       condition:               template
-      value_template:          "{{ now().month != 10 && now().month != 12 }}"
+      value_template:          "{{ now().month != 10 and now().month != 12 }}"
     action:
       - service:               light.turn_on
         data:
@@ -150,7 +150,7 @@ automation:
       at:                      '07:00:00'
     condition:
       condition:               template
-      value_template:          "{{ now().month != 10 && now().month != 12 }}"
+      value_template:          "{{ now().month != 10 and now().month != 12 }}"
     action:
       - service:               light.turn_on
         data:
