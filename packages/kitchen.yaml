@@ -77,7 +77,7 @@ automation:
       offset:                  '-00:45:00'
     condition:
       condition:               template
-      value_template:          "{{ now().month != 10 }}"
+      value_template:          "{{ now().month != 10 && now().month != 12 }}"
     action:
       - service:               light.turn_on
         data:
@@ -100,6 +100,23 @@ automation:
         data:
           entity_id:           light.cabinets
           rgb_color:           [255,40,0]
+          transition:          60
+
+  - id:                        EveningLightOnCabinetsChristmas
+    alias:                     "Turn On Lights Daily - Cabinets - Christmas"
+    initial_state:             on
+    trigger:
+    - platform:                sun
+      event:                   sunset
+      offset:                  '-00:45:00'
+    condition:
+      condition:               template
+      value_template:          "{{ now().month == 12 }}"
+    action:
+      - service:               light.turn_on
+        data:
+          entity_id:           light.cabinets
+          rgb_color:           [0,0,255]
           transition:          60
 
   - id:                        EveningLightOffCabinets
@@ -133,7 +150,7 @@ automation:
       at:                      '07:00:00'
     condition:
       condition:               template
-      value_template:          "{{ now().month != 10 }}"
+      value_template:          "{{ now().month != 10 && now().month != 12 }}"
     action:
       - service:               light.turn_on
         data:
@@ -155,4 +172,20 @@ automation:
         data:
           entity_id:           light.cabinets
           rgb_color:           [255,40,0]
+          transition:          60
+
+  - id:                        MorningLightOnCabinetsChristmas
+    alias:                     "Turn On Lights Daily Morning - Cabinets - Christmas"
+    initial_state:             on
+    trigger:
+    - platform:                time
+      at:                      '07:00:00'
+    condition:
+      condition:               template
+      value_template:          "{{ now().month == 12 }}"
+    action:
+      - service:               light.turn_on
+        data:
+          entity_id:           light.cabinets
+          rgb_color:           [0,0,255]
           transition:          60
