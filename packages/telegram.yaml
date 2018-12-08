@@ -1,7 +1,9 @@
 notify:
   - name: telegram_pandahome
     platform: telegram
-    chat_id: -1001184476815
+    chat_id:
+      - 728102599
+      - 749282427
 
 telegram_bot:
   - platform: polling
@@ -9,6 +11,7 @@ telegram_bot:
     parse_mode: html
     allowed_chat_ids:
       - 749282427
+      - 728102599
       - -1001184476815
 
 automation:
