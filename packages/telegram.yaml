@@ -1,9 +1,10 @@
 notify:
-  - name: telegram_pandahome
+  - name: telegram_nathan
     platform: telegram
-    chat_id:
-      - 728102599
-      - 749282427
+    chat_id: 749282427
+  - name: telegram_erin
+    platform: telegram
+    chat_id: 728102599
 
 telegram_bot:
   - platform: polling
