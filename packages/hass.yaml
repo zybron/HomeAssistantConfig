@@ -130,10 +130,10 @@ automation:
       entity_id:           sensor.zybronhomeassistantconfig_last_build_state
       to:                  'passed'
     action:
-      - service:           hangouts.send_message
+      - service: notify.telegram_nathan
         data:
-          target:          [{"name":"Panda Pad"}]
-          message:         [{"text":"Pulling new configuration from GitHub."}]
+          title: 'Pull Config'
+          message: 'Pulling new config from GitHub.'
       - service:           hassio.addon_start
         data:
           addon:           'core_git_pull'
@@ -149,20 +149,14 @@ automation:
     - service:             frontend.set_theme
       data:
         name:              dark_theme
-    - service:             hangouts.send_message
+    - service: notify.telegram_nathan
       data:
-        target:            [{"name":"Panda Pad"}]
-        message:           [{"text":"Home Assistant is starting."}]
-    - service:             script.store_message
+        title: 'Home Assistant'
+        message: 'Home Assistant is starting.'
+    - service: notify.telegram_erin
       data:
-        message:           'Home Assistant is starting.'
-        topic:             'notification'
-    - service:             notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: Home Assistant is starting.'
-      data:
-        data:
-          tag:             home_assistant_notification
+        title: 'Home Assistant'
+        message: 'Home Assistant is starting.'
 
   - id:                    HomeAssistantShutdown
     alias:                 HomeAssistantShutdown
@@ -171,47 +165,15 @@ automation:
     - event:               shutdown
       platform:            homeassistant
     action:
-    - service:             hangouts.send_message
+    - service: notify.telegram_nathan
       data:
-        target:            [{"name":"Panda Pad"}]
-        message:           [{"text":"Home Assistant is shutting down."}]
-    - service:             script.store_message
+        title: 'Home Assistant'
+        message: 'Home Assistant is shutting down.'
+    - service: notify.telegram_erin
       data:
-        message:           'Home Assistant is shutting down.'
-        topic:             'notification'
-    - service:             notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: Home Assistant is shutting down.'
-      data:
-        data:
-          tag:             home_assistant_notification
+        title: 'Home Assistant'
+        message: 'Home Assistant is shutting down.'
 
-  - id:                    UpdateAvailable
-    alias:                 "Update Notification"
-    initial_state:         on
-    trigger:
-    - platform:            state
-      entity_id:           updater.updater
-    action:
-    - service:             persistent_notification.create
-      data:
-        message:           'There is an update available for Home Assistant.'
-        title:             'Home Assistant Update'
-        notification_id:   'Update'
-    - service:             hangouts.send_message
-      data:
-        target:            [{"name":"Panda Pad"}]
-        message:           [{"text":"There is an update available for Home Assistant."}]
-    - service:             script.store_message
-      data:
-        message:           'There is an update available for Home Assistant.'
-        topic:             'notification'
-    - service:             notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: There is an update available for Home Assistant'
-      data:
-        data:
-          tag:             home_asssitant_update_notification
 
   - id:                    HealthCheckStatusUpdate
     alias:                 'Health Check Status Update'

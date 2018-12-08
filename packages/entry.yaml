@@ -144,16 +144,14 @@ automation:
     - service:                               script.speech_processing
       data_template:
         speech_message:                      'The front door was left open!'
-    - service:                               script.store_message
+    - service: notify.telegram_nathan
       data:
-        message:                             'The front door was left open!'
-        topic:                               'notification'
-    - service:                               notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The front door was left open!'
+        title: 'Front Door'
+        message: 'The front door was left open.'
+    - service: notify.telegram_erin
       data:
-        data:
-          tag:                               front_door_notification
+        title: 'Front Door'
+        message: 'The front door was left open.'
 
   - id:                                      FrontDoorOpened
     alias:                                   "Front Door Opened"
@@ -166,16 +164,14 @@ automation:
     - service:                               script.speech_processing
       data_template:
         speech_message:                      'The front door opened.'
-    - service:                               script.store_message
+    - service: notify.telegram_nathan
       data:
-        message:                             'The front door opened.'
-        topic:                               'notification'
-    - service:                               notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The front door opened.'
+        title: 'Front Door'
+        message: 'The front door opened.'
+    - service: notify.telegram_erin
       data:
-        data:
-          tag:                               front_door_notification
+        title: 'Front Door'
+        message: 'The front door opened.'
 
   - id:                                      FrontDoorClosed
     alias:                                   "Front Door Closed"
@@ -189,16 +185,14 @@ automation:
     - service:                               script.speech_processing
       data_template:
         speech_message:                      'The front door closed.'
-    - service:                               script.store_message
+    - service: notify.telegram_nathan
       data:
-        message:                             'The front door closed.'
-        topic:                               'notification'
-    - service:                               notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The front door closed.'
+        title: 'Front Door'
+        message: 'The front door closed.'
+    - service: notify.telegram_erin
       data:
-        data:
-          tag:                               front_door_notification
+        title: 'Front Door'
+        message: 'The front door closed.'
   
   - id:                                      InteriorGarageDoorOpen
     alias:                                   "Interior Garage Door Open"
@@ -213,16 +207,14 @@ automation:
     - service:                               script.speech_processing
       data_template:
         speech_message:                      'The interior garage door was left open!'
-    - service:                               script.store_message
+    - service: notify.telegram_nathan
       data:
-        message:                             'The interior garage door was left open!'
-        topic:                               'notification'
-    - service:                               notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The interior garage door was left open!'
+        title: 'Interior Garage Door'
+        message: 'The interior garage door was left open.'
+    - service: notify.telegram_erin
       data:
-        data:
-          tag:                               interior_garage_door_notification
+        title: 'Interior Garage Door'
+        message: 'The interior garage door was left open.'
 
   - id:                                      InteriorGarageDoorOpened
     alias:                                   "Interior Garage Door Opened"
@@ -235,16 +227,14 @@ automation:
     - service:                               script.speech_processing
       data_template:
         speech_message:                      'The interior garage door opened.'
-    - service:                               script.store_message
+    - service: notify.telegram_nathan
       data:
-        message:                             'The interior garage door opened.'
-        topic:                               'notification'
-    - service:                               notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The interior door opened.'
+        title: 'Interior Garage Door'
+        message: 'The interior garage door opened.'
+    - service: notify.telegram_erin
       data:
-        data:
-          tag:                               interior_garage_door_notification
+        title: 'Interior Garage Door'
+        message: 'The interior garage door opened.'
 
   - id:                                      InteriorGarageDoorClosed
     alias:                                   "Interior Garage Door Closed"
@@ -258,16 +248,14 @@ automation:
     - service:                               script.speech_processing
       data_template:
         speech_message:                      'The interior garage door closed.'
-    - service:                               script.store_message
+    - service: notify.telegram_nathan
       data:
-        message:                             'The interior garage door closed.'
-        topic:                               'notification'
-    - service:                               notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The interior garage door closed.'
+        title: 'Interior Garage Door'
+        message: 'The interior garage door closed.'
+    - service: notify.telegram_erin
       data:
-        data:
-          tag:                               interior_garage_door_notification
+        title: 'Interior Garage Door'
+        message: 'The interior garage door closed.'
 
   - id:                                      EveningLightOnFrontDoor
     alias:                                   "Turn On Lights Daily - Front Door"

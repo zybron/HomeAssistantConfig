@@ -27,74 +27,6 @@ input_datetime:
     has_date: false
     has_time: true
 
-hangouts:
-  intents:
-    StopVacuum:
-      sentences:
-        - Stop cleaning
-    ResumeVacuum:
-      sentences:
-        - Resume cleaning
-    LocateVacuum:
-      sentences:
-        - Locate mi mi
-    ResetSensorTimer:
-      sentences:
-        - Reset sensor timer
-    ResetMainBrushTimer:
-      sentences:
-        - Reset main brush timer
-    ResetSideBrushTimer:
-      sentences:
-        - Reset side brush timer
-    ResetFilterTimer:
-      sentences:
-        - Reset filter timer
-
-intent_script:
-  StopVacuum:
-    speech:
-      text: "Telling Mi Mi to stop cleaning."
-    action:
-      - service: vacuum.pause
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-  ResumeVacuum:
-    speech:
-      text: "Telling Mi Mi to resume cleaning."
-    action:
-      - service: vacuum.start
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-  LocateVacuum:
-    speech:
-      text: "Asking Mi Mi to announce her location."
-    action:
-      - service: vacuum.locate
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-  ResetSensorTimer:
-    speech:
-      text: "Resetting the sensor timer."
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_sensor_timer_reset
-  ResetMainBrushTimer:
-    speech:
-      text: "Resetting the main brush timer."
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_main_brush_reset
-  ResetSideBrushTimer:
-    speech:
-      text: "Resetting the side brush timer."
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_side_brush_reset
-  ResetFilterTimer:
-    speech:
-      text: "Resetting the filter timer."
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_filter_reset
-
 input_boolean:
   vacuum_sensor_timer_reset:
     name: "Reset Vacuum Sensor Timer"
@@ -189,40 +121,22 @@ automation:
       entity_id: input_number.vacuum_error_count
       below: 1
     action:
-      - service: script.store_message
+      - service: notify.telegram_nathan
         data:
-          message: "Mi Mi has started cleaning."
-          topic: "notification"
-      - service: notify.html5_notify
-        data_template:
-          message: "{{ states.sensor.date__time.state }}: Mi Mi has started cleaning."
-        data:
+          title: 'Mi Mi'
+          message: 'Mi Mi has started cleaning.'
           data:
-            actions:
-              - action: "vacuum_stop_cleaning"
-                title: "Stop Cleaning"
-            tag: vacuum_start_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data:
-          target: [{ "name": "Panda Pad" }]
-          message:
-            [
-              {
-                "text": "Mi Mi has started cleaning. Type 'Stop cleaning' to have her stop.",
-              },
-            ]
-
-  - id: VacuumStopCleaningActionClicked
-    alias: "Vacuum Stop Cleaning Action Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: html5_notification.clicked
-        event_data:
-          action: vacuum_stop_cleaning
-    action:
-      - service: vacuum.stop
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+          title: 'Mi Mi'
+          message: 'Mi Mi has started cleaning.'
+          data:
+            inline_keyboard:
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
 
   - id: VacuumStopNotification
     alias: "Vacuum Stop Notification"
@@ -232,20 +146,22 @@ automation:
         entity_id: vacuum.xiaomi_vacuum_cleaner
         to: "returning"
     action:
-      - service: script.store_message
+      - service: notify.telegram_nathan
         data:
-          message: "Mi Mi has stopped cleaning."
-          topic: "notification"
-      - service: notify.html5_notify
-        data_template:
-          message: "{{ states.sensor.date__time.state }}: Mi Mi is returning to the dock."
-        data:
+          title: 'Mi Mi'
+          message: 'Mi Mi is returning to the dock.'
           data:
-            tag: vacuum_stop_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Start:/start_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data:
-          target: [{ "name": "Panda Pad" }]
-          message: [{ "text": "Mi Mi is returning to the dock." }]
+          title: 'Mi Mi'
+          message: 'Mi Mi is returning to the dock.'
+          data:
+            inline_keyboard:
+              - 'Start:/start_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
 
   - id: VacuumErrorNotification
     alias: "Vacuum Error Notification"
@@ -267,31 +183,22 @@ automation:
           true
         {% endif %}
     action:
-      - service: script.store_message
+      - service: notify.telegram_nathan
         data_template:
-          message: >-
-            Mi Mi has an error:
-            {{ states.sensor.vacuum_cleaner_error_sensor.state }}
-          topic: "notification"
-      - service: notify.html5_notify
-        data_template:
-          message: >-
-            {{ states.sensor.date__time.state }}: Mi Mi has an error:
-            {{ states.sensor.vacuum_cleaner_error_sensor.state }}
-        data:
+          title: 'Mi Mi'
+          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
           data:
-            actions:
-              - action: "vacuum_resume_cleaning"
-                title: "Resume Cleaning"
-              - action: "vacuum_locate"
-                title: "Locate"
-            tag: vacuum_error_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Start:/start_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data_template:
-          target: [{ "name": "Panda Pad" }]
-          message: >-
-            [{"text":"Mi Mi has an error: {{ states.vacuum_cleaner_error_sensor.state }}.
-              Type 'Locate Mi Mi' to find her or 'Resume cleaning' to resume."}]
+          title: 'Mi Mi'
+          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
+          data:
+            inline_keyboard:
+              - 'Start:/start_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
 
   - id: FirstVacuumCleanBrushError
     alias: "First Vacuum Clean Brush Error"
@@ -350,31 +257,22 @@ automation:
         data:
           entity_id: input_number.vacuum_error_count
           value: 0
-      - service: script.store_message
+      - service: notify.telegram_nathan
         data_template:
-          message: >-
-            Mi Mi has an error:
-            {{ states.sensor.vacuum_cleaner_error_sensor.state }}
-          topic: "notification"
-      - service: notify.html5_notify
-        data_template:
-          message: >-
-            {{ states.sensor.date__time.state }}: Mi Mi has an error:
-            {{ states.sensor.vacuum_cleaner_error_sensor.state }}
-        data:
+          title: 'Mi Mi'
+          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
           data:
-            actions:
-              - action: "vacuum_resume_cleaning"
-                title: "Resume Cleaning"
-              - action: "vacuum_locate"
-                title: "Locate"
-            tag: vacuum_error_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Start:/start_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data_template:
-          target: [{ "name": "Panda Pad" }]
-          message: >-
-            [{"text":"Mi Mi has an error: {{ states.vacuum_cleaner_error_sensor.state }}.
-              Type 'Locate Mi Mi' to find her or 'Resume cleaning' to resume."}]
+          title: 'Mi Mi'
+          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
+          data:
+            inline_keyboard:
+              - 'Start:/start_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
 
   - id: VacuumErrorTimerEnds
     alias: "VacuumErrorTimerEnds"
@@ -390,14 +288,39 @@ automation:
           entity_id: input_number.vacuum_error_count
           value: 0
 
+  
+  - id: VacuumStopCleaningActionClicked
+    alias: "Vacuum Stop Cleaning Action Clicked"
+    initial_state: on
+    trigger:
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/stop_vacuum'
+    action:
+      - service: vacuum.stop
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+
+  - id: VacuumReturnHomeActionClicked
+    alias: "Vacuum Return Home Action Clicked"
+    initial_state: on
+    trigger:
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/home_vacuum'
+    action:
+      - service: vacuum.return_to_base
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+
   - id: VacuumResumeCleaningActionClicked
     alias: "Vacuum Resume Cleaning Action Clicked"
     initial_state: on
     trigger:
       - platform: event
-        event_type: html5_notification.clicked
+        event_type: telegram_callback
         event_data:
-          action: vacuum_resume_cleaning
+          data: '/start_vacuum'
     action:
       - service: vacuum.start
         entity_id: vacuum.xiaomi_vacuum_cleaner
@@ -407,26 +330,12 @@ automation:
     initial_state: on
     trigger:
       - platform: event
-        event_type: html5_notification.clicked
+        event_type: telegram_callback
         event_data:
-          action: vacuum_locate
+          data: '/locate_vacuum'
     action:
       - service: vacuum.locate
         entity_id: vacuum.xiaomi_vacuum_cleaner
-      - service: script.store_message
-        data_template:
-          message: "Locate Mi Mi triggered"
-          topic: "notification"
-      - service: notify.html5_notify
-        data:
-          message: "Locate Mi Mi triggered"
-          data:
-            actions:
-              - action: "vacuum_resume_cleaning"
-                title: "Resume Cleaning"
-              - action: "vacuum_locate"
-                title: "Locate"
-            tag: vacuum_location_notification
 
   - id: ResetVacuumSensorTimer
     alias: "Reset Vacuum Sensor Timer"
@@ -435,6 +344,10 @@ automation:
       - platform: state
         entity_id: input_boolean.vacuum_sensor_timer_reset
         to: "on"
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/reset_sensor_timer'
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacuum_sensor_timer_reset
@@ -456,39 +369,24 @@ automation:
           false
           {% endif %}
     action:
-      - service: script.store_message
-        data_template:
-          message: "Time to clean Mi Mi's sensors"
-          topic: "notification"
-      - service: notify.html5_notify
+      - service: notify.telegram_nathan
         data:
-          message: "Time to clean Mi Mi's sensors"
+          title: 'Mi Mi'
+          message: 'Time to clean Mi Mi''s sensors.'
           data:
-            actions:
-              - action: "vacuum_reset_timer"
-                title: "Reset Timer"
-            tag: vacuum_timer_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Reset sensor timer:/reset_sensor_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data:
-          target: [{ "name": "Panda Pad" }]
-          message:
-            [
-              {
-                "text": "Time to clean Mi Mi's sensors. Type 'Reset sensor timer' to reset.",
-              },
-            ]
-
-  - id: ResetVacuumSensorTimerNotificationClicked
-    alias: "Reset Vacuum Sensor Timer Notification Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: html5_notification.clicked
-        event_data:
-          action: vacuum_reset_timer
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_sensor_timer_reset
+          title: 'Mi Mi'
+          message: 'Mi Mi is returning to the dock.'
+          data:
+            inline_keyboard:
+              - 'Reset sensor timer:/reset_sensor_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
 
   - id: ResetVacuumMainBrushTime
     alias: "Reset Vacuum Main Brush Time"
@@ -497,6 +395,10 @@ automation:
       - platform: state
         entity_id: input_boolean.vacuum_main_brush_reset
         to: "on"
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/reset_main_brush_timer'
     action:
       - service: vacuum.send_command
         data:
@@ -513,6 +415,10 @@ automation:
       - platform: state
         entity_id: input_boolean.vacuum_side_brush_reset
         to: "on"
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/reset_side_brush_timer'
     action:
       - service: vacuum.send_command
         data:
@@ -529,6 +435,10 @@ automation:
       - platform: state
         entity_id: input_boolean.vacuum_filter_reset
         to: "on"
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/reset_filter_timer'
     action:
       - service: vacuum.send_command
         data:
@@ -550,39 +460,24 @@ automation:
           false
           {% endif %}
     action:
-      - service: script.store_message
-        data_template:
-          message: "Time to replace Mi Mi's main brush"
-          topic: "notification"
-      - service: notify.html5_notify
+      - service: notify.telegram_nathan
         data:
-          message: "Time to replace Mi Mi's main brush"
+          title: 'Mi Mi'
+          message: 'Time to replace Mi Mi''s main brush.'
           data:
-            actions:
-              - action: "vacuum_reset_main_brush_timer"
-                title: "Reset Timer"
-            tag: vacuum_timer_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Reset main brush timer:/reset_main_brush_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data:
-          target: [{ "name": "Panda Pad" }]
-          message:
-            [
-              {
-                "text": "Time to replace Mi Mi's main brush. Type 'Reset main brush timer' to reset.",
-              },
-            ]
-
-  - id: ResetVacuumMainBrushTimerNotificationClicked
-    alias: "Reset Vacuum Main Brush Notification Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: html5_notification.clicked
-        event_data:
-          action: vacuum_reset_main_brush_timer
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_main_brush_reset
+          title: 'Mi Mi'
+          message: 'Time to replace Mi Mi''s main brush.'
+          data:
+            inline_keyboard:
+              - 'Reset main brush timer:/reset_main_brush_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
 
   - id: ReplaceSideBrushNotification
     alias: "Replace Side Brush Notification"
@@ -596,39 +491,24 @@ automation:
           false
           {% endif %}
     action:
-      - service: script.store_message
-        data_template:
-          message: "Time to replace Mi Mi's side brush"
-          topic: "notification"
-      - service: notify.html5_notify
+      - service: notify.telegram_nathan
         data:
-          message: "Time to replace Mi Mi's side brush"
+          title: 'Mi Mi'
+          message: 'Time to replace Mi Mi''s side brush.'
           data:
-            actions:
-              - action: "vacuum_reset_side_brush_timer"
-                title: "Reset Timer"
-            tag: vacuum_timer_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Reset side brush timer:/reset_side_brush_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data:
-          target: [{ "name": "Panda Pad" }]
-          message:
-            [
-              {
-                "text": "Time to replace Mi Mi's side brush. Type 'Reset side brush timer' to reset.",
-              },
-            ]
-
-  - id: ResetVacuumSideBrushTimerNotificationClicked
-    alias: "Reset Vacuum Side Brush Notification Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: html5_notification.clicked
-        event_data:
-          action: vacuum_reset_side_brush_timer
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_side_brush_reset
+          title: 'Mi Mi'
+          message: 'Time to replace Mi Mi''s side brush.'
+          data:
+            inline_keyboard:
+              - 'Reset side brush timer:/reset_side_brush_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
 
   - id: ReplaceFilterNotification
     alias: "Replace Filter Notification"
@@ -642,36 +522,21 @@ automation:
           false
           {% endif %}
     action:
-      - service: script.store_message
-        data_template:
-          message: "Time to replace Mi Mi's filter"
-          topic: "notification"
-      - service: notify.html5_notify
+      - service: notify.telegram_nathan
         data:
-          message: "Time to replace Mi Mi's filter"
+          title: 'Mi Mi'
+          message: 'Time to replace Mi Mi''s filter.'
           data:
-            actions:
-              - action: "vacuum_reset_filter_timer"
-                title: "Reset Timer"
-            tag: vacuum_timer_notification
-      - service: hangouts.send_message
+            inline_keyboard:
+              - 'Reset filter timer:/reset_filter_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'
+      - service: notify.telegram_erin
         data:
-          target: [{ "name": "Panda Pad" }]
-          message:
-            [
-              {
-                "text": "Time to replace Mi Mi's filter. Type 'Reset filter timer' to reset.",
-              },
-            ]
-
-  - id: ResetVacuumFilterTimerNotificationClicked
-    alias: "Reset Vacuum Filter Notification Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: html5_notification.clicked
-        event_data:
-          action: vacuum_reset_filter_timer
-    action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_filter_reset
+          title: 'Mi Mi'
+          message: 'Time to replace Mi Mi''s filter.'
+          data:
+            inline_keyboard:
+              - 'Reset filter timer:/reset_filter_timer'
+              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+              - 'Return Home:/home_vacuum'

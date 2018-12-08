@@ -19,29 +19,6 @@ group:
       - sensor.garage_door_sensor
       - sensor.garagdet_connection
 
-hangouts:
-  intents:
-    OpenGarageDoor:
-      sentences:
-        - Open garage
-    CloseGarageDoor:
-      sentences:
-        - Close garage
-
-intent_script:
-  OpenGarageDoor:
-    speech:
-      text:                 'Opening the garage door.'
-    action:
-    - service:              cover.open_cover
-      entity_id:            cover.garage_door
-  CloseGarageDoor:
-    speech:
-      text:                 'Closing the garage door.'
-    action:
-    - service:              cover.close_cover
-      entity_id:            cover.garage_door
-
 sensor:
   - platform:               mqtt
     name:                   'Garage Door'
@@ -115,19 +92,20 @@ automation:
       data:
         message:            'The garage door was left open.'
         topic:              'notification'
-    - service:              notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The garage door was left open.'
+    - service: notify.telegram_nathan
       data:
+        title: 'Garage Door'
+        message: 'The garage door was left open.'
         data:
-          actions:
-            - action:       "close_garage_door"
-              title:        "Close Garage Door"
-          tag:              garage_door_notification
-    - service:              hangouts.send_message
+          inline_keyboard:
+            - 'Close:/do_garage_close'
+    - service: notify.telegram_erin
       data:
-        target:             [{"name":"Panda Pad"}]
-        message:            [{"text":"The garage door was left open. Type 'Close garage' to close."}]
+        title: 'Garage Door'
+        message: 'The garage door was left open.'
+        data:
+          inline_keyboard:
+            - 'Close:/do_garage_close'
 
   - id:                     GarageDoorOpen
     alias:                  "Garage Door Open"
@@ -144,19 +122,20 @@ automation:
       data:
         message:            'The garage door is open.'
         topic:              'notification'
-    - service:              notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The garage door is open.'
+    - service: notify.telegram_nathan
       data:
+        title: 'Garage Door'
+        message: 'The garage door is open.'
         data:
-          actions:
-            - action:       "close_garage_door"
-              title:        "Close Garage Door"
-          tag:              garage_door_notification
-    - service:              hangouts.send_message
+          inline_keyboard:
+            - 'Close:/do_garage_close'
+    - service: notify.telegram_erin
       data:
-        target:             [{"name":"Panda Pad"}]
-        message:            [{"text":"The garage door is open. Type 'Close garage' to close."}]
+        title: 'Garage Door'
+        message: 'The garage door is open.'
+        data:
+          inline_keyboard:
+            - 'Close:/do_garage_close'
 
   - id:                     GarageDoorClosed
     alias:                  "Garage Door Closed"
@@ -169,29 +148,57 @@ automation:
     - service:              script.speech_processing
       data_template:
         speech_message:     'The garage door is closed.'
-    - service:              script.store_message
+    - service: notify.telegram_nathan
       data:
-        message:            'The garage door is closed.'
-        topic:              'notification'
-    - service:              notify.html5_notify
-      data_template:
-        message:          '{{ states.sensor.date__time.state }}: The garage door is closed.'
-      data:
+        title: 'Garage Door'
+        message: 'The garage door is closed.'
         data:
-          tag:              garage_door_notification
-    - service:              hangouts.send_message
+          inline_keyboard:
+            - 'Close:/do_garage_open'
+    - service: notify.telegram_erin
       data:
-        target:             [{"name":"Panda Pad"}]
-        message:            [{"text":"The garage door is closed. Type 'Open garage' to open."}]
+        title: 'Garage Door'
+        message: 'The garage door is closed.'
+        data:
+          inline_keyboard:
+            - 'Close:/do_garage_open'
 
   - id:                     CloseGarageDoorClicked
     alias:                  "Close Garage Door Clicked"
     initial_state:          on
     trigger:
-    - platform:             event
-      event_type:           html5_notification.clicked
+    - platform: event
+      event_type: telegram_callback
       event_data:
-        action:             close_garage_door
+        data: '/do_garage_close'
     action:
     - service:              cover.close_cover
       entity_id:            'cover.garage_door'
+    - service: notify.telegram_nathan
+      data:
+        title: 'Garage Door'
+        message: 'Closing garage door.'
+    - service: notify.telegram_erin
+      data:
+        title: 'Garage Door'
+        message: 'Closing garage door.'
+
+  - id:                     OpenGarageDoorClicked
+    alias:                  "Open Garage Door Clicked"
+    initial_state:          on
+    trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/do_garage_open'
+    action:
+    - service:              cover.open_cover
+      entity_id:            'cover.garage_door'
+    - service: notify.telegram_nathan
+      data:
+        title: 'Garage Door'
+        message: 'Opening garage door.'
+    - service: notify.telegram_erin
+      data:
+        title: 'Garage Door'
+        message: 'Opening garage door.'

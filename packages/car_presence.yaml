@@ -1,115 +1,102 @@
 group:
   car_sensors:
-    name:                  Car sensors
+    name: Car sensors
     entities:
       - binary_sensor.carpresence
       - sensor.carpresencesignal
       - sensor.carpresenceuptime
-hangouts:
-  intents:
-    ArriveLate:
-      sentences:
-        - Turn off lights
-
-intent_script:
-  ArriveLate:
-    speech:
-      text:                'Turning off the lights'
-    action:
-    - service:             light.turn_off
-      entity_id:
-        - light.her_light
-        - light.his_light
-    - service:             light.turn_off
-      entity_id:           light.cabinets
 
 automation:
   # car sensor is connected and the garage door is closed
-  - alias:                 CarPresence_ON
-    initial_state:         on
+  - alias: CarPresence_ON
+    initial_state: on
     trigger:
-      platform:            state
-      entity_id:           binary_sensor.carpresence
-      to:                  'on'
+      platform: state
+      entity_id: binary_sensor.carpresence
+      to: "on"
     condition:
-    - condition:           state
-      entity_id:           'sensor.garage_door'
-      state:               'closed'
+      - condition: state
+        entity_id: "sensor.garage_door"
+        state: "closed"
     action:
-    - service:             cover.open_cover
-      entity_id:           'cover.garage_door'
+      - service: cover.open_cover
+        entity_id: "cover.garage_door"
 
   # car sensor is disconnected for and the garage door is open
-  - alias:                 CarPresence_OFF
-    initial_state:         on
+  - alias: CarPresence_OFF
+    initial_state: on
     trigger:
-      platform:            state
-      entity_id:           binary_sensor.carpresence
-      to:                  'off'
+      platform: state
+      entity_id: binary_sensor.carpresence
+      to: "off"
       for:
         minutes: 2
     condition:
-    - condition:           state
-      entity_id:           'sensor.garage_door'
-      state:               'open'
+      - condition: state
+        entity_id: "sensor.garage_door"
+        state: "open"
     action:
-    - service:             cover.close_cover
-      entity_id:           'cover.garage_door'
+      - service: cover.close_cover
+        entity_id: "cover.garage_door"
 
-  - alias:                 Arrive Home Late
-    initial_state:         on
+  - alias: Arrive Home Late
+    initial_state: on
     trigger:
-      - platform:          state
-        entity_id:         binary_sensor.carpresence
-        to:                'off'
+      - platform: state
+        entity_id: sensor.garage_door
+        to: "closed"
         for:
-          minutes:         2
+          minutes: 2
     condition:
-      - condition:         time
-        after:             '22:00:00'
-        before:            '06:00:00'
+      - condition: time
+        after: "22:00:00"
+        before: "06:00:00"
     action:
-      - service:           light.turn_on
-        entity_id:
-          - light.her_light
-          - light.his_light
+      - service: notify.telegram_erin
         data:
-          brightness_pct:  25
-      - service:           light.turn_on
-        entity_id:         light.cabinets
-      - delay:
-          minutes:         10
-      - service:           light.turn_off
-        entity_id:
-          - light.her_light
-          - light.his_light
-      - service:           light.turn_off
-        entity_id:         light.cabinets
-      - service:           notify.html5_notify
-        data:
-          message:         'Welcome home'
+          title: "Welcome Home"
+          message: "Welcome Home."
           data:
-            actions:
-              - action:    "turn_off_lights"
-                title:     "Turn Off Lights"
-            tag:           late_arrival_notification
-      - service:           hangouts.send_message
+            inline_keyboard:
+              - "Turn off lights:/do_light_off"
+      - service: notify.telegram_nathan
         data:
-          target:          [{"name":"Panda Pad"}]
-          message:         [{"text":"Welcome Home. Type 'Turn off lights' to turn off all lights."}]
+          title: "Welcome Home"
+          message: "Welcome Home."
+          data:
+            inline_keyboard:
+              - "Turn off lights:/do_light_off"
+      - service: light.turn_on
+        entity_id:
+          - light.her_light
+          - light.his_light
+        data:
+          brightness_pct: 25
+      - service: light.turn_on
+        entity_id: light.cabinets
+      - delay:
+          minutes: 10
+      - service: light.turn_off
+        entity_id:
+          - light.her_light
+          - light.his_light
+      - service: light.turn_off
+        entity_id: light.cabinets
 
-  - id:                    LateArrivalNotificationClicked
-    alias:                 "Late Arrival Notification Clicked"
-    initial_state:         on
+  - id: LateArrivalNotificationClicked
+    alias: "Late Arrival Notification Clicked"
+    initial_state: on
     trigger:
-    - platform:            event
-      event_type:          html5_notification.clicked
-      event_data:
-        action:            turn_off_lights
+      - platform: event
+        event_type: telegram_callback
+        event_data:
+          data: '/do_light_off'
     action:
-    - service:             light.turn_off
-      entity_id:
-        - light.her_light
-        - light.his_light
-    - service:             light.turn_off
-      entity_id:           light.cabinets
+      - service: notify.telegram_nathan
+        data:
+          title: 'Lights turned off'
+          message: 'Lights turned off.'
+      - service: notify.telegram_nathan
+        data:
+          title: 'Lights turned off'
+          message: 'Lights turned off.'
