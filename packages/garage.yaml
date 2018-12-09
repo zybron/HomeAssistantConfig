@@ -154,14 +154,14 @@ automation:
         message: 'The garage door is closed.'
         data:
           inline_keyboard:
-            - 'Close:/do_garage_open'
+            - 'Open:/do_garage_open'
     - service: notify.telegram_erin
       data:
         title: 'Garage Door'
         message: 'The garage door is closed.'
         data:
           inline_keyboard:
-            - 'Close:/do_garage_open'
+            - 'Open:/do_garage_open'
 
   - id:                     CloseGarageDoorClicked
     alias:                  "Close Garage Door Clicked"
