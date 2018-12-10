@@ -174,13 +174,9 @@ automation:
     action:
     - service:              cover.close_cover
       entity_id:            'cover.garage_door'
-    - service: notify.telegram_nathan
-      data:
-        title: 'Garage Door'
-        message: 'Closing garage door.'
-    - service: notify.telegram_erin
-      data:
-        title: 'Garage Door'
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
         message: 'Closing garage door.'
 
   - id:                     OpenGarageDoorClicked
@@ -194,11 +190,7 @@ automation:
     action:
     - service:              cover.open_cover
       entity_id:            'cover.garage_door'
-    - service: notify.telegram_nathan
-      data:
-        title: 'Garage Door'
-        message: 'Opening garage door.'
-    - service: notify.telegram_erin
-      data:
-        title: 'Garage Door'
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        callback_query_id: '{{ trigger.event.data.id }}'
         message: 'Opening garage door.'

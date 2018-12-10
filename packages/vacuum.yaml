@@ -300,6 +300,10 @@ automation:
     action:
       - service: vacuum.stop
         entity_id: vacuum.xiaomi_vacuum_cleaner
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Stopping vacuum.'
 
   - id: VacuumReturnHomeActionClicked
     alias: "Vacuum Return Home Action Clicked"
@@ -312,6 +316,10 @@ automation:
     action:
       - service: vacuum.return_to_base
         entity_id: vacuum.xiaomi_vacuum_cleaner
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Sending vacuum home.'
 
   - id: VacuumResumeCleaningActionClicked
     alias: "Vacuum Resume Cleaning Action Clicked"
@@ -324,6 +332,10 @@ automation:
     action:
       - service: vacuum.start
         entity_id: vacuum.xiaomi_vacuum_cleaner
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Starting vacuum.'
 
   - id: VacuumLocateActionClicked
     alias: "Vacuum Locate Action Clicked"
@@ -336,6 +348,10 @@ automation:
     action:
       - service: vacuum.locate
         entity_id: vacuum.xiaomi_vacuum_cleaner
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Locating vacuum.'
 
   - id: ResetVacuumSensorTimer
     alias: "Reset Vacuum Sensor Timer"
@@ -356,6 +372,10 @@ automation:
           entity_id: vacuum.xiaomi_vacuum_cleaner
           command: reset_consumable
           params: sensor_dirty_time
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Resetting sensor timer.'
 
   - id: CleanSensorNotification
     alias: "Clean Vacuum Sensors Notification"
@@ -407,6 +427,10 @@ automation:
           params: main_brush_work_time
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacuum_main_brush_reset
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Resetting main brush timer.'
 
   - id: ResetVacuumSideBrushTime
     alias: "Reset Vacuum Side Brush Time"
@@ -427,6 +451,10 @@ automation:
           params: side_brush_work_time
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacuum_side_brush_reset
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Resetting side brush timer.'
 
   - id: ResetVacuumFilterTime
     alias: "Reset Vacuum Filter Time"
@@ -447,6 +475,10 @@ automation:
           params: filter_work_time
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacuum_filter_reset
+      - service: telegram_bot.answer_callback_query
+        data_template:
+          callback_query_id: '{{ trigger.event.data.id }}'
+          message: 'Resetting filter timer.'
 
   - id: ReplaceMainBrushNotification
     alias: "Replace Main Brush Notification"
