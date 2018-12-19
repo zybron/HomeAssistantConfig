@@ -68,8 +68,8 @@ automation:
               - "Turn off lights:/do_light_off"
       - service: light.turn_on
         entity_id:
-          - light.her_light
-          - light.his_light
+          - light.her_light_light
+          - light.his_light_light
         data:
           brightness_pct: 25
       - service: light.turn_on
@@ -78,8 +78,8 @@ automation:
           minutes: 10
       - service: light.turn_off
         entity_id:
-          - light.her_light
-          - light.his_light
+          - light.her_light_light
+          - light.his_light_light
       - service: light.turn_off
         entity_id: light.cabinets
 

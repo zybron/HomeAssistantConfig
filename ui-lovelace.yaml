@@ -21,10 +21,10 @@ views:
         title: Bedroom
         show_header_toggle: true
         entities:
-          - light.her_light
-          - light.his_light
-          - light.bedroom_left
-          - light.bedroom_right
+          - light.her_light_light
+          - light.his_light_light
+          - light.bedroom_left_light
+          - light.bedroom_right_light
       - type: entities
         title: Kitchen
         show_header_toggle: true

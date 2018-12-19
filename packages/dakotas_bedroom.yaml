@@ -1,9 +1,14 @@
+homeassistant:
+  customize:
+    light.lamp_light:
+      friendly_name: 'Lamp'
+
 group:
   dakotas_room:
     name: Dakota's Room
     view: no
     entities:
-      - light.lamp
+      - light.lamp_light
 
 sensor:
   - platform: mqtt
@@ -33,4 +38,4 @@ automation:
         - fri
     action:
       service: light.turn_off
-      entity_id: light.lamp
+      entity_id: light.lamp_light

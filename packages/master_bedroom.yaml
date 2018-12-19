@@ -1,12 +1,12 @@
 homeassistant:
   customize:
-    light.her_light:
+    light.her_light_light:
       friendly_name:      Her Light
-    light.his_light:
+    light.his_light_light:
       friendly_name:      His Light
-    light.bedroom_left:
+    light.bedroom_left_light:
       friendly_name:      Bedroom Left
-    light.bedroom_right:
+    light.bedroom_right_light:
       friendly_name:      Bedroom Right
 
 group:
@@ -14,10 +14,10 @@ group:
     name:                 Bedroom
     view:                 no
     entities:
-      - light.her_light
-      - light.his_light
-      - light.bedroom_left
-      - light.bedroom_right
+      - light.her_light_light
+      - light.his_light_light
+      - light.bedroom_left_light
+      - light.bedroom_right_light
 
 sensor:
   - platform:             mqtt

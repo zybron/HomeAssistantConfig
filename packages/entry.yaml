@@ -1,10 +1,10 @@
 homeassistant:
   customize:
-    light.bottom_stairs:
+    light.bottom_stairs_light:
       friendly_name:                         Bottom Stairs
-    light.top_stairs:
+    light.top_stairs_light:
       friendly_name:                         Top Stairs
-    light.front_door:
+    light.front_door_light:
       friendly_name:                         Front Door Light
 
 group:
@@ -12,9 +12,9 @@ group:
     name:                                    Entry
     view:                                    no
     entities:
-      - light.front_door
-      - light.bottom_stairs
-      - light.top_stairs
+      - light.front_door_light
+      - light.bottom_stairs_light
+      - light.top_stairs_light
 
   entry_sensors:
     name:                                    Entry Sensors
@@ -93,8 +93,8 @@ automation:
     action:
       service:                               light.turn_on
       entity_id:
-        - light.bottom_stairs
-        - light.top_stairs
+        - light.bottom_stairs_light
+        - light.top_stairs_light
 
   - id:                                      LightOffEntryMotion
     alias:                                   "Turn Off Light After Entry - Motion"
@@ -108,8 +108,8 @@ automation:
     action:
       service:                               homeassistant.turn_off
       entity_id:
-        - light.bottom_stairs
-        - light.top_stairs
+        - light.bottom_stairs_light
+        - light.top_stairs_light
 
   - id:                                      LightOffEntryDoor
     alias:                                   "Turn Off Light After Entry - Door"
@@ -128,8 +128,8 @@ automation:
     action:
       service:                               homeassistant.turn_off
       entity_id:
-        - light.bottom_stairs
-        - light.top_stairs
+        - light.bottom_stairs_light
+        - light.top_stairs_light
 
   - id:                                      FrontDoorOpen
     alias:                                   "Front Door Open"
@@ -267,7 +267,7 @@ automation:
     action:
       - service:                             light.turn_on
         data:
-          entity_id:                         light.front_door
+          entity_id:                         light.front_door_light
 
   - id:                                      EveningLightOffFrontDoor
     alias:                                   "Turn Off Front Door Light Daily"
@@ -277,7 +277,7 @@ automation:
       at:                                    '22:00:00'
     action:
       - service:                             light.turn_off
-        entity_id:                           light.front_door
+        entity_id:                           light.front_door_light
 
   - id:                                      FrontDoorLightOffEntryMotion
     alias:                                   "Turn Off Front Door Light After Entry - Motion"
@@ -298,7 +298,7 @@ automation:
           state:                             'below_horizon'
     action:
       service:                               light.turn_off
-      entity_id:                             light.front_door
+      entity_id:                             light.front_door_light
 
   - id:                                      FrontDoorLightOffDoorClosed
     alias:                                   "Turn Off Front Door Light After Door Closed"
@@ -319,7 +319,7 @@ automation:
           state:                             'below_horizon'
     action:
       service:                               light.turn_off
-      entity_id:                             light.front_door
+      entity_id:                             light.front_door_light
 
   - id:                                      FrontDoorLightOnEntry
     alias:                                   "Turn On Front Door Light On Entry"
@@ -341,4 +341,4 @@ automation:
           state:                             'below_horizon'
     action:
       service:                               light.turn_on
-      entity_id:                             light.front_door
+      entity_id:                             light.front_door_light
