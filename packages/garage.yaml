@@ -13,11 +13,16 @@ group:
     name:                   Garage
     entities:
       - cover.garage_door
+      - input_boolean.hold_garage_open
       - sensor.garage_door
       - sensor.garage_door_changed
       - sensor.garage_brightness
       - sensor.garage_door_sensor
       - sensor.garagdet_connection
+
+input_boolean:
+  hold_garage_open:
+    name: 'Hold Garage Door Open'
 
 sensor:
   - platform:               mqtt
@@ -68,7 +73,7 @@ automation:
         minutes:            7
     condition:
     - condition:            state
-      entity_id:            'binary_sensor.carpresence'
+      entity_id:            'input_boolean.hold_garage_open'
       state:                'off'
     action:
     - service:              cover.close_cover
