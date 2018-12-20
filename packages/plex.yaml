@@ -5,6 +5,7 @@ group:
       - sensor.living_room_tv
       - sensor.master_bedroom_tv
       - sensor.dakota_bedroom_tv
+      - sensor.plex_recently_added
 
 sensor:
   - platform: plex
