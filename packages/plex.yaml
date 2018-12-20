@@ -1,18 +1,38 @@
 group:
   plex_sensors:
-    name:        TV sensors
+    name: TV sensors
     entities:
       - sensor.living_room_tv
       - sensor.master_bedroom_tv
       - sensor.dakota_bedroom_tv
 
 sensor:
-  - platform:    plex
-    host:        192.168.1.65
-    port:        32400
-    name:        Tower
-    username:    !secret plex_username
-    password:    !secret plex_password
+  - platform: plex
+    host: 192.168.1.65
+    port: 32400
+    name: Tower
+    username: !secret plex_username
+    password: !secret plex_password
   - platform: tautulli
     api_key: !secret tautulli_api_key
     host: 192.168.1.65
+  - platform: mqtt
+    name: 'Plex Recently Added'
+    state_topic: 'plex/tautulli/recently_added'
+    value_template: '{{ value_json.body }}'
+
+automation:
+  - id: 'PlexNewArrivalNotification'
+    alias: 'Plex New Arrival Notification'
+    trigger:
+      platform: state
+      entity_id: sensor.plex_recently_added
+    action:
+      - service: notify.telegram_erin
+        data_template:
+          title: 'Recently Added to Plex'
+          message: '{{ states.sensor.plex_recently_added.state }}'
+      - service: notify.telegram_nathan
+        data_template:
+          title: 'Recently Added to Plex'
+          message: '{{ states.sensor.plex_recently_added.state }}'

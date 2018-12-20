@@ -30,6 +30,7 @@ media:
   icon:           mdi:television
   name:           Media
   entities:
+    - sensor.plex_recently_added
     - media_player.kitchen_speaker
     - media_player.bedroom
     - media_player.dakotas_bedroom_speaker
