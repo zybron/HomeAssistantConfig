@@ -89,6 +89,10 @@ automation:
       to:                   open
       for:
         minutes:            5
+    condition:
+    - condition:            state
+      entity_id:            'input_boolean.hold_garage_open'
+      state:                'off'
     action:
     - service:              script.speech_processing
       data_template:
