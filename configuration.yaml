@@ -15,6 +15,7 @@ homeassistant:
 cloud:
 config:
 conversation:
+default_config:
 
 device_tracker:
   # Google Home Kitchen
@@ -82,6 +83,7 @@ panel_iframe:
     url:                                       'https://panda-node-red.duckdns.org/'
     icon:                                      mdi:sitemap
 
+person:
 recorder:
   db_url:                                      !secret db_url
   purge_interval:                              1
