@@ -6,9 +6,9 @@ group:
       - sensor.speedtest_ping
       - sensor.speedtest_download
       - sensor.speedtest_upload
-      - sensor.disk_use_percent_
-      - sensor.disk_use_
-      - sensor.disk_free_
+      - sensor.disk_use_percent
+      - sensor.disk_use
+      - sensor.disk_free
       - sensor.memory_use_percent
       - sensor.memory_use
       - sensor.memory_free
