@@ -54,9 +54,9 @@ automation:
   - alias:                  'Update Garage Brightness'
     initial_state:          on
     trigger:
-      platform:             time
+      platform:             time_pattern
       minutes:              '/2'
-      seconds:              00
+      seconds:              0
     action:
       service:              mqtt.publish
       data:
