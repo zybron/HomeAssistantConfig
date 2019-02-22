@@ -39,9 +39,9 @@ automation:
     alias:                     Grandfather Clock
     initial_state:             on
     trigger:
-      - platform:              time
-        minutes:               00
-        seconds:               00
+      - platform:              time_pattern
+        minutes:               '0'
+        seconds:               '0'
     condition:
       - condition:             time
         after:                 '08:00:00'
