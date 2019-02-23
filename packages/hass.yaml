@@ -27,6 +27,11 @@ group:
       - sensor.last_boot
       - sensor.since_last_boot
 
+rest_command:
+  google_backup:
+    url: 'http://localhost:8055/gb/doBackup'
+    timeout: '300'
+
 sensor:
   - platform:              command_line
     name:                  CPU Temp
@@ -84,10 +89,7 @@ automation:
     - platform:            time
       at:                  '04:00:00'
     action:
-      - service:           hassio.addon_stdin
-        data:
-          addon:           '7be23ff5_dropbox_sync'
-          input:           {"command":"upload"}
+      - service:           rest_command.google_backup
 
   - id:                    PullNewConfig
     alias:                 'Pull New Config'
