@@ -18,21 +18,6 @@ conversation:
 default_config:
 
 device_tracker:
-  # Google Home Kitchen
-  # - platform: googlehome
-  #   host: 192.168.1.158
-  #   new_device_defaults:
-  #     track_new_devices: False
-  # # Google Home Master
-  # - platform: googlehome
-  #   host: 192.168.1.163
-  #   new_device_defaults:
-  #     track_new_devices: False
-  # # Google Home Bedroom
-  # - platform: googlehome
-  #   host: 192.168.1.164
-  #   new_device_defaults:
-  #     track_new_devices: False
   - platform:                                  google_maps
     username:                                  !secret google_maps_username
     password:                                  !secret google_maps_password
@@ -46,6 +31,14 @@ discovery:
 ecobee:
   api_key: !secret ecobee_api_key
 frontend:                                      !include frontend.yaml
+googlehome:
+  devices:
+    - host: 192.168.1.158
+      track_alarms: True
+    - host: 192.168.1.163
+      track_alarms: True
+    - host: 192.168.1.164
+      track_alarms: True
 group:                                         !include groups.yaml
 history:
 
