@@ -3,8 +3,8 @@ group:
     name: Car sensors
     entities:
       - binary_sensor.carpresence
-      - sensor.carpresencesignal
-      - sensor.carpresenceuptime
+      - sensor.carpresence_signal
+      - sensor.carpresence_uptime
 
 automation:
   # car sensor is connected and the garage door is closed
