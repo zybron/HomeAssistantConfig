@@ -29,11 +29,7 @@ automation:
       platform: state
       entity_id: sensor.plex_recently_added
     action:
-      - service: notify.telegram_erin
+      - service: notify.discord_notify
         data_template:
-          title: 'Recently Added to Plex'
           message: '{{ states.sensor.plex_recently_added.state }}'
-      - service: notify.telegram_nathan
-        data_template:
-          title: 'Recently Added to Plex'
-          message: '{{ states.sensor.plex_recently_added.state }}'
+          target: '535493793538113537'
