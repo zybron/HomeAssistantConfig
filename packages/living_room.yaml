@@ -91,8 +91,9 @@ automation:
     alias:                                     "Turn Off Lights Daily - Weekday Evening"
     initial_state:                             on
     trigger:
-    - platform:                                time
-      at:                                      '22:00:00'
+    - platform:                                state
+      entity_id: binary_sensor.living_room_occupancy
+      to: 'off'
     condition:
       condition:                               and
       conditions:
@@ -101,6 +102,9 @@ automation:
         - condition:                           state
           entity_id:                           light.ge_14294_inwall_smart_dimmer_level
           state:                               'on'
+        - condition: time
+          after: '22:00:00'
+          before: '07:00:00'
     action:
       - service:                               light.turn_on
         data:
@@ -117,16 +121,20 @@ automation:
     alias:                                     "Turn Off Lights Daily - Weekend Evening"
     initial_state:                             on
     trigger:
-    - platform:                                time
-      at:                                      '23:00:00'
+    - platform:                                state
+      entity_id: binary_sensor.living_room_occupancy
+      to: 'off'
     condition:
       condition:                               and
       conditions:
         - condition:                           template
-          value_template:                      '{{ now().weekday() == 0 or now().weekday() >= 5 }}'
+          value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
         - condition:                           state
           entity_id:                           light.ge_14294_inwall_smart_dimmer_level
           state:                               'on'
+        - condition: time
+          after: '23:00:00'
+          before: '07:00:00'
     action:
       - service:                               light.turn_on
         data:
