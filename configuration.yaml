@@ -75,6 +75,10 @@ panel_iframe:
     title:                                     'Node-RED'
     url:                                       'https://panda-node-red.duckdns.org/'
     icon:                                      mdi:sitemap
+  esphome:
+    title: 'ESPHome'
+    url: 'http://192.168.1.200:6052/'
+    icon: mdi:car-esp
 
 person:
 recorder:
