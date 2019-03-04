@@ -87,8 +87,8 @@ automation:
           brightness_pct:                      50
           transition:                          300
 
-  - id:                                        EveningLightOffWeekday
-    alias:                                     "Turn Off Lights Daily - Weekday Evening"
+  - id:                                        EveningLightOffWeekdayOccupancy
+    alias:                                     "Turn Off Lights Daily - Weekday Evening Occupancy"
     initial_state:                             on
     trigger:
     - platform:                                state
@@ -117,7 +117,65 @@ automation:
         data:
           entity_id:                           light.ge_14294_inwall_smart_dimmer_level
 
-  - id:                                        EveningLightOffWeekend
+  - id:                                        EveningLightOffWeekday
+    alias:                                     "Turn Off Lights Daily - Weekday Evening"
+    initial_state:                             on
+    trigger:
+    - platform:                                time
+      at: '22:00:00'
+    condition:
+      condition:                               and
+      conditions:
+        - condition:                           template
+          value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
+        - condition:                           state
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          state:                               'on'
+        - condition: state
+          entity_id: binary_sensor.living_room_occupancy
+          state: 'off'
+    action:
+      - service:                               light.turn_on
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          brightness_pct:                      0
+          transition:                          300
+      - delay:
+          seconds:                             300
+      - service:                               light.turn_off
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+
+  - id:                                        EveningLightOffWeekendOccupancy
+    alias:                                     "Turn Off Lights Daily - Weekend Evening Occupancy"
+    initial_state:                             on
+    trigger:
+    - platform:                                time
+      at: '23:00:00'
+    condition:
+      condition:                               and
+      conditions:
+        - condition:                           template
+          value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
+        - condition:                           state
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          state:                               'on'
+        - condition: state
+          entity_id: binary_sensor.living_room_occupancy
+          state: 'off'
+    action:
+      - service:                               light.turn_on
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+          brightness_pct:                      0
+          transition:                          300
+      - delay:
+          seconds:                             300
+      - service:                               light.turn_off
+        data:
+          entity_id:                           light.ge_14294_inwall_smart_dimmer_level
+
+  - id: EveningLightOffWeekend
     alias:                                     "Turn Off Lights Daily - Weekend Evening"
     initial_state:                             on
     trigger:
