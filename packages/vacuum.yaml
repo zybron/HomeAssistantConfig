@@ -129,7 +129,9 @@ automation:
           state: 'on'
     action:
       - service: tts.google_say
-        entity_id: media_player.viziocastaudio3698
+        entity_id:
+          - media_player.master_bedroom_speaker
+          - media_player.kitchen_speaker
         data:
           message: 'Please empty Me Me''s trash bin.'
       - service: input_boolean.turn_off
