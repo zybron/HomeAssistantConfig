@@ -42,6 +42,8 @@ input_boolean:
     initial: off
   vacuum_auto_start:
     name: "Vacuum Auto Start"
+  empty_bin:
+    name: "Empty Vacuum Bin"
 
 input_number:
   vacuum_error_count:
@@ -108,6 +110,29 @@ automation:
     action:
       - service: vacuum.start
         entity_id: vacuum.xiaomi_vacuum_cleaner
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.empty_bin
+
+  - id: EmptyBinNotification
+    alias: "Empty Bin Notification"
+    initial_state: on
+    trigger:
+      platform: template
+      value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level >= 95 }}"
+    condition:
+      condition: and
+      conditions:
+        - condition: template
+          value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status == 'Charging' }}"
+        - condition: state
+          entity_id: input_boolean.empty_bin
+          state: 'on'
+    action:
+      - service: tts.google_say
+        entity_id: media_player.viziocastaudio3698
+        message: 'Please empty Me Me''s trash bin.'
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.empty_bin
 
   - id: VacuumStartNotification
     alias: "Vacuum Start Notification"
