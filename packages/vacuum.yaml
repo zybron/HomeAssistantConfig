@@ -136,6 +136,10 @@ automation:
           message: 'Please empty Me Me''s trash bin.'
       - service: input_boolean.turn_off
         entity_id: input_boolean.empty_bin
+      - service: notify.telegram_erin
+        data:
+          title: 'Mi Mi'
+          message: 'Please empty my trash bin, Erin.'
 
   - id: VacuumStartNotification
     alias: "Vacuum Start Notification"
