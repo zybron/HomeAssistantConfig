@@ -73,11 +73,11 @@ mqtt:
 panel_iframe:
   nodered:
     title:                                     'Node-RED'
-    url:                                       'https://ha.zybron.com/node-red'
+    url:                                       'https://node-red.zybron.com'
     icon:                                      mdi:sitemap
   esphome:
     title: 'ESPHome'
-    url: 'https://ha.zybron.com/esphome'
+    url: 'https://esphome.zybron.com'
     icon: mdi:car-esp
 
 person:
