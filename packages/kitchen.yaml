@@ -42,7 +42,7 @@ automation:
         data_template:
           entity_id:
             - media_player.kitchen_speaker
-          media_content_id:    https://panda-home.duckdns.org/local/grandfather-clock-chime-{{now().strftime("%I")}}.mp3
+          media_content_id:    https://ha.zybron.com/local/grandfather-clock-chime-{{now().strftime("%I")}}.mp3
           media_content_type:  music
 
   - id:                        EveningLightOnCabinets
