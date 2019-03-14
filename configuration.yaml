@@ -43,12 +43,14 @@ group:                                         !include groups.yaml
 history:
 
 http:
-  api_password:                                !secret http_password
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 172.30.32.0/23
+        - 127.0.0.1
+        - 192.168.1.0/24
   base_url:                                    ha.zybron.com
-  trusted_networks:
-    - 172.30.32.0/23
-    - 127.0.0.1
-    - 192.168.1.0/24
   ip_ban_enabled:                              True
   login_attempts_threshold:                    10
 
