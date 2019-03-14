@@ -8,9 +8,12 @@ homeassistant:
   time_zone:                                   America/New_York
   unit_system:                                 imperial
   auth_providers:
-    - type:                                    homeassistant
-    - type:                                    trusted_networks
-    - type:                                    legacy_api_password
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 172.30.32.0/23
+        - 127.0.0.1
+        - 192.168.1.0/24
 
 cloud:
 config:
@@ -43,13 +46,6 @@ group:                                         !include groups.yaml
 history:
 
 http:
-  auth_providers:
-    - type: homeassistant
-    - type: trusted_networks
-      trusted_networks:
-        - 172.30.32.0/23
-        - 127.0.0.1
-        - 192.168.1.0/24
   base_url:                                    ha.zybron.com
   ip_ban_enabled:                              True
   login_attempts_threshold:                    10
