@@ -67,8 +67,8 @@ automation:
       data:
         entity_id:          input_boolean.erin_away
 
-  - id: OpenGarageOnEnterHomeZone
-    alias: 'Open Garage On Enter Home Zone'
+  - id: OpenGarageOnErinEnterHomeZone
+    alias: 'Open Garage On Erin Enter Home Zone'
     initial_state: on
     trigger:
     - platform: zone
