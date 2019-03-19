@@ -3,6 +3,7 @@ homeassistant:
   elevation:                                   85
   latitude:                                    !secret latitude
   longitude:                                   !secret longitude
+  radius: 100
   name:                                        PandaPad
   packages:                                    !include_dir_named packages
   time_zone:                                   America/New_York
