@@ -3,7 +3,6 @@ homeassistant:
   elevation:                                   85
   latitude:                                    !secret latitude
   longitude:                                   !secret longitude
-  radius: 100
   name:                                        PandaPad
   packages:                                    !include_dir_named packages
   time_zone:                                   America/New_York
@@ -101,6 +100,13 @@ tts:
 
 updater:
   include_used_components:                     true
+  
+zone:
+  - name: 'Home'
+    latitude: !secret latitude
+    longitude: !secret longitude
+    radius: 200
+    icon: mdi:home
 
 zwave:
   usb_path:                                    /dev/serial/by-id/usb-0658_0200-if00
