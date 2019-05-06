@@ -63,8 +63,8 @@ logbook:
 
 logger:
   default:                                     info
-  logs:
-    homeassistant.components.mqtt:             debug
+  # logs:
+  #   homeassistant.components.mqtt:             debug
 
 map:
 
@@ -95,8 +95,8 @@ recorder:
 sun:
 system_health:
 
-tts:
-  - platform:                                  google
+# tts:
+#   - platform:                                  google
 
 updater:
   include_used_components:                     true
