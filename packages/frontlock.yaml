@@ -30,4 +30,5 @@ automation:
           key: 'Up'
     action:
       - service:  lock.lock
-        entity_id: lock.front_door
+        data:
+          entity_id: lock.front_door
