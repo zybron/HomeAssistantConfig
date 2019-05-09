@@ -1,0 +1,33 @@
+group:
+  locks:
+    name: Locks
+    view: no
+    entities:
+      - lock.front_door_lock
+
+automation:
+  - alias: 'Unlock sent from Harmony'
+    initial_state: on
+    trigger:
+      - platform: event
+        event_type: roku_command
+        event_data:
+          source_name: 'Home_Assistant'
+          type: keypress
+          key: 'Down'
+    action:
+      - service:  lock.unlock
+        entity_id: lock.front_door
+
+  - alias: 'Lock sent from Harmony'
+    initial_state: on
+    trigger:
+      - platform: event
+        event_type: roku_command
+        event_data:
+          source_name: 'Home_Assistant'
+          type: keypress
+          key: 'Up'
+    action:
+      - service:  lock.lock
+        entity_id: lock.front_door
