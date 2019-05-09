@@ -18,7 +18,7 @@ automation:
     action:
       - service:  lock.unlock
         data:
-          entity_id: lock.front_door
+          entity_id: lock.front_door_lock
 
   - alias: 'Lock sent from Harmony'
     initial_state: on
@@ -32,4 +32,4 @@ automation:
     action:
       - service:  lock.lock
         data:
-          entity_id: lock.front_door
+          entity_id: lock.front_door_lock
