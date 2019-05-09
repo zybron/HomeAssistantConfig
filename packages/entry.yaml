@@ -20,11 +20,10 @@ group:
     name:                                    Entry Sensors
     view:                                    no
     entities:
-      - zwave.front_door_sensor
+      - zwave.front_door_sensor`
       - sensor.front_door_sensor
       - sensor.front_door_sensor_battery
       - zwave.motion_sensor_downstairs
-      - sensor.alarm_level_2
       - sensor.motion_sensor_downstairs
       - sensor.motion_sensor_downstairs_temperature
       - sensor.motion_sensor_downstairs_battery
@@ -38,7 +37,7 @@ sensor:
       front_door_sensor:
         friendly_name:                       'Front Door Sensor'
         value_template:                      >-
-          {% if is_state('binary_sensor.sensor','on') %}
+          {% if is_state('binary_sensor.front_door_sensor','on') %}
             open
           {% else %}
             closed
@@ -50,15 +49,11 @@ sensor:
       motion_sensor_downstairs:
         friendly_name:                       'Motion Sensor Downstairs'
         value_template:                      >-
-          {% if states.sensor.alarm_level_2.state | float > 20 %}
+          {% if states.binary_sensor.motion_sensor_downstairs.state = 'on' %}
             active
           {% else %}
             inactive
           {% endif %}
-      motion_sensor_downstairs_temperature:
-        friendly_name:                       'Downstairs Temperature'
-        value_template:                      '{{ states.sensor.vision_zp3102_pir_motion_sensor_temperature.state | float }}'
-        unit_of_measurement:                 '°F'
       motion_sensor_downstairs_battery:
         friendly_name:                       'Motion Sensor Downstairs Battery'
         value_template:                      '{{ states.zwave.motion_sensor_downstairs.attributes.battery_level }}'
