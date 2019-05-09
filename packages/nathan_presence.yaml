@@ -20,7 +20,7 @@ group:
     name:                   Nathan
     view:                   no
     entities:
-      - sensor.nathan_home
+      - person.nathan
 
 input_boolean:
     nathan_away:
