@@ -20,7 +20,7 @@ group:
     name:                                    Entry Sensors
     view:                                    no
     entities:
-      - zwave.front_door_sensor`
+      - zwave.front_door_sensor
       - sensor.front_door_sensor
       - sensor.front_door_sensor_battery
       - zwave.motion_sensor_downstairs
