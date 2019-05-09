@@ -114,3 +114,4 @@ zwave:
     light.ge_14294_inwall_smart_dimmer_level:
       refresh_value:                           true
       delay:                                   5
+  network_key: !secret zwave_network_key
