@@ -77,15 +77,15 @@ mqtt:
   discovery:                                   true
   discovery_prefix:                            homeassistant
 
-panel_iframe:
-  nodered:
-    title:                                     'Node-RED'
-    url:                                       'https://node-red.zybron.com'
-    icon:                                      mdi:sitemap
-  esphome:
-    title: 'ESPHome'
-    url: 'https://esphome.zybron.com'
-    icon: mdi:car-esp
+# panel_iframe:
+#   nodered:
+#     title:                                     'Node-RED'
+#     url:                                       'https://node-red.zybron.com'
+#     icon:                                      mdi:sitemap
+#   esphome:
+#     title: 'ESPHome'
+#     url: 'https://esphome.zybron.com'
+#     icon: mdi:car-esp
 
 person:
 recorder:
