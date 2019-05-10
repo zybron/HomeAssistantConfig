@@ -49,7 +49,7 @@ sensor:
       motion_sensor_downstairs:
         friendly_name:                       'Motion Sensor Downstairs'
         value_template:                      >-
-          {% if is_state('binary_sensor.motion_sensor_downstairs','on') %}
+          {% if sensor.motion_sensor_downstairs_alarm_level > 200 %}
             active
           {% else %}
             inactive
