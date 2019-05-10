@@ -21,7 +21,7 @@ script:
         data_template:
           topic: "broadcast"
           message: "{{speech_message}}"
-      - service: tts.google_say
+      - service: tts.google_translate_say
         entity_id:
           - media_player.kitchen_speaker
           - media_player.master_bedroom_speaker

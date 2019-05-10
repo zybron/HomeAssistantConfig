@@ -128,7 +128,7 @@ automation:
           entity_id: input_boolean.empty_bin
           state: 'on'
     action:
-      - service: tts.google_say
+      - service: tts.google_translate_say
         entity_id:
           - media_player.master_bedroom_speaker
           - media_player.kitchen_speaker

@@ -59,7 +59,7 @@ automation:
         before:             '22:00:00'
         after:              '08:00:00'
     action:
-    - service:              tts.google_say
+    - service:              tts.google_translate_say
       entity_id:            media_player.kitchen_speaker
       data:
         message:            'Erin is arriving home.'
