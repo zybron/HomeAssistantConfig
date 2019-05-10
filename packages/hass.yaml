@@ -76,25 +76,25 @@ switch:
     payload_off:           'false'
 
 automation:
-  - id:                    DailyBackup
-    alias:                 'Daily Backup'
-    initial_state:         on
-    trigger:
-    - platform:            time
-      at:                  '03:00:00'
-    action:
-      - service:           hassio.snapshot_full
-        data_template:
-          name:            Automated Backup {{ now().strftime('%Y-%m-%d') }}
+  # - id:                    DailyBackup
+  #   alias:                 'Daily Backup'
+  #   initial_state:         on
+  #   trigger:
+  #   - platform:            time
+  #     at:                  '03:00:00'
+  #   action:
+  #     - service:           hassio.snapshot_full
+  #       data_template:
+  #         name:            Automated Backup {{ now().strftime('%Y-%m-%d') }}
 
-  - id:                    UploadBackup
-    alias:                 'Upload Backup'
-    initial_state:         on
-    trigger:
-    - platform:            time
-      at:                  '04:00:00'
-    action:
-      - service:           rest_command.google_backup
+  # - id:                    UploadBackup
+  #   alias:                 'Upload Backup'
+  #   initial_state:         on
+  #   trigger:
+  #   - platform:            time
+  #     at:                  '04:00:00'
+  #   action:
+  #     - service:           rest_command.google_backup
 
   - id:                    PullNewConfig
     alias:                 'Pull New Config'
