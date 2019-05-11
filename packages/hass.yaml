@@ -1,3 +1,7 @@
+homeassistant:
+  whitelist_external_dirs:
+    - /config
+
 folder_watcher:
   - folder: /config
     patterns:
