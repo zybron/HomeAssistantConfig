@@ -1,9 +1,9 @@
 homeassistant:
   whitelist_external_dirs:
-    - /config
+    - !secret config_path
 
 folder_watcher:
-  - folder: /config
+  - folder: !secret config_path
     patterns:
       - '*.yaml'
 
