@@ -68,6 +68,7 @@ shell_command:
   disco_off:               echo -e -n '\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51' > /dev/ttyACM0
   disco_on:                echo -e -n '\x01\x08\x00\xF2\x51\x01\x01\x05\x01\x50' > /dev/ttyACM0
   health_check:            curl --retry 3 https://hc-ping.com/33aee216-ff26-47ee-9627-1e29985f0336
+  pull_config: git pull
 
 switch:
   - platform:              mqtt
