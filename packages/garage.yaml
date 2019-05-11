@@ -43,12 +43,14 @@ sensor:
     name:                   'Garagdet Connection'
     state_topic:            'garadget/garage/status'
     unit_of_measurement:    'dB'
+    device_class: signal_strength
     value_template:         '{{ value_json.signal }}'
   - platform:               template
     sensors:
       garage_door_changed:
         friendly_name:      'Garage Door Changed'
         value_template:     '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
+        device_class: timestamp
 
 automation:
   - alias:                  'Update Garage Brightness'

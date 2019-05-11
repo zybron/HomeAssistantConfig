@@ -38,6 +38,7 @@ sensor:
     command:               'cat /sys/class/thermal/thermal_zone0/temp'
     unit_of_measurement:   '°C'
     value_template:        '{{ value | multiply(0.001) }}'
+    device_class: temperature
 
   - platform:              time_date
     display_options:
@@ -53,11 +54,6 @@ sensor:
       - state
     repository:
       - HomeAssistantConfig
-
-  - platform: mqtt
-    name: 'Google Backup Results'
-    state_topic: 'googlebackup/result'
-    json_attributes_topic: 'googlebackup/result'
 
 shell_command:
   disco_off:               echo -e -n '\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51' > /dev/ttyACM0
