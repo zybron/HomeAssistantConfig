@@ -7,10 +7,11 @@ group:
       - sensor.front_door_lock_battery
 
 sensor:
-  front_door_lock_battery:
-        friendly_name: 'Front Door Lock Battery'
-        value_template: '{{ states.zwave.front_door_lock.attributes.battery_level }}'
-        unit_of_measurement: '%'
+  template:
+    front_door_lock_battery:
+      friendly_name: 'Front Door Lock Battery'
+      value_template: '{{ states.zwave.front_door_lock.attributes.battery_level }}'
+      unit_of_measurement: '%'
 
 automation:
   - alias: 'Unlock sent from Harmony'
