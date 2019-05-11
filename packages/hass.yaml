@@ -1,6 +1,5 @@
 folder_watcher:
   - folder: /config
-    friendly_name: 'Config Watcher'
     patterns:
       - '*.yaml'
 
