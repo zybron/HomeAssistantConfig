@@ -116,6 +116,25 @@ automation:
       - service:           hassio.addon_start
         data:
           addon:           'core_git_pull'
+  
+  - id: NewOrChangedConfigFile
+    alias: 'New or Changed Config File'
+    initial_state: on
+    trigger:
+    - platform: event
+      event_type: folder_watcher
+      event_data: 
+        event_type: created
+    - platform: event
+      event_type: folder_watcher
+      event_data:
+        event_type: modified
+    action:
+      - service: notify.telegram_nathan
+        data:
+          title: 'Config Change'
+          message: 'Configuration files have changed, restarting server.'
+      - service:  homeassistant.restart
 
   # Notifications
   - id:                    HomeAssistantStartup
