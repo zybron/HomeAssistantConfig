@@ -1,11 +1,11 @@
-homeassistant:
-  whitelist_external_dirs:
-    - !secret config_path
+# homeassistant:
+#   whitelist_external_dirs:
+#     - !secret config_path
 
-folder_watcher:
-  - folder: !secret config_path
-    patterns:
-      - '*.yaml'
+# folder_watcher:
+#   - folder: !secret config_path
+#     patterns:
+#       - '*.yaml'
 
 group:
   system_monitor:
@@ -118,24 +118,24 @@ automation:
         data:
           addon:           'core_git_pull'
   
-  - id: NewOrChangedConfigFile
-    alias: 'New or Changed Config File'
-    initial_state: on
-    trigger:
-    - platform: event
-      event_type: folder_watcher
-      event_data: 
-        event_type: created
-    - platform: event
-      event_type: folder_watcher
-      event_data:
-        event_type: modified
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Config Change'
-          message: 'Configuration files have changed, restarting server.'
-      - service:  homeassistant.restart
+  # - id: NewOrChangedConfigFile
+  #   alias: 'New or Changed Config File'
+  #   initial_state: on
+  #   trigger:
+  #   - platform: event
+  #     event_type: folder_watcher
+  #     event_data: 
+  #       event_type: created
+  #   - platform: event
+  #     event_type: folder_watcher
+  #     event_data:
+  #       event_type: modified
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data:
+  #         title: 'Config Change'
+  #         message: 'Configuration files have changed, restarting server.'
+  #     - service:  homeassistant.restart
 
   # Notifications
   - id:                    HomeAssistantStartup
