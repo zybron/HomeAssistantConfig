@@ -50,7 +50,7 @@ sensor:
       motion_sensor_downstairs:
         friendly_name:                       'Motion Sensor Downstairs'
         value_template:                      >-
-          {% if states.sensor.motion_sensor_downstairs_alarm_level | float > 200 %}
+          {% if states.sensor.motion_sensor_downstairs_alarm_level.state | float > 200 %}
             active
           {% else %}
             inactive
