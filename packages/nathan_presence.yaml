@@ -15,13 +15,6 @@ binary_sensor:
         prob_given_true:    0.99
         prob_given_false:   0.6
 
-group:
-  nathan:
-    name:                   Nathan
-    view:                   no
-    entities:
-      - person.nathan
-
 input_boolean:
     nathan_away:
       name:                 Nathan is Away

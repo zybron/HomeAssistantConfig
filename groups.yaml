@@ -50,8 +50,8 @@ family:
   name:           Pandas
   view:           no
   entities:
-    - group.erin
-    - group.nathan
+    - person.erin
+    - person.nathan
 
 sensor_page:
   name:           Sensors
