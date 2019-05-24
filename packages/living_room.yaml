@@ -15,49 +15,49 @@ sensor:
       - library_name
 
 automation:
-  - id:                                        MorningLightOn
-    alias:                                     "Turn On Lights Daily - Morning"
-    initial_state:                             on
-    trigger:
-    - platform:                                time
-      at:                                      '07:00:00'
-    condition:
-      condition:                               state
-      entity_id:                               light.living_room_switch
-      state:                                   'off'
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      1
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      100
-          transition:                          600
+#   - id:                                        MorningLightOn
+#     alias:                                     "Turn On Lights Daily - Morning"
+#     initial_state:                             on
+#     trigger:
+#     - platform:                                time
+#       at:                                      '07:00:00'
+#     condition:
+#       condition:                               state
+#       entity_id:                               light.living_room_switch
+#       state:                                   'off'
+#     action:
+#       - service:                               light.turn_on
+#         data:
+#           entity_id:                           light.living_room_switch
+#           brightness_pct:                      1
+#       - service:                               light.turn_on
+#         data:
+#           entity_id:                           light.living_room_switch
+#           brightness_pct:                      100
+#           transition:                          600
 
-  - id:                                        MorningLightOff
-    alias:                                     "Turn Off Lights Daily - Morning"
-    initial_state:                             on
-    trigger:
-    - platform:                                sun
-      event:                                   sunrise
-      offset:                                  '00:45:00'
-    condition:
-      condition:                               state
-      entity_id:                               light.living_room_switch
-      state:                                   'on'
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      0
-          transition:                          600
-      - delay:
-          seconds:                             600
-      - service:                               light.turn_off
-        data:
-          entity_id:                           light.living_room_switch
+#   - id:                                        MorningLightOff
+#     alias:                                     "Turn Off Lights Daily - Morning"
+#     initial_state:                             on
+#     trigger:
+#     - platform:                                sun
+#       event:                                   sunrise
+#       offset:                                  '00:45:00'
+#     condition:
+#       condition:                               state
+#       entity_id:                               light.living_room_switch
+#       state:                                   'on'
+#     action:
+#       - service:                               light.turn_on
+#         data:
+#           entity_id:                           light.living_room_switch
+#           brightness_pct:                      0
+#           transition:                          600
+#       - delay:
+#           seconds:                             600
+#       - service:                               light.turn_off
+#         data:
+#           entity_id:                           light.living_room_switch
 
   - id:                                        EveningLightOn
     alias:                                     "Turn On Lights Daily - Evening"
