@@ -1,0 +1,49 @@
+
+- cal_id: e5i6aucua1d74vosvdupiqepnc@group.calendar.google.com
+  entities:
+  - device_id: home_assistant
+    ignore_availability: true
+    name: Home Assistant
+    track: true
+
+- cal_id: gb18jic59msnglq2lrocik9t2s@group.calendar.google.com
+  entities:
+  - device_id: rise_of_the_runelords
+    ignore_availability: true
+    name: Rise of the Runelords
+    track: false
+
+- cal_id: zybron@gmail.com
+  entities:
+  - device_id: zybron_gmail_com
+    ignore_availability: true
+    name: zybron@gmail.com
+    track: true
+
+- cal_id: family03855675060184288571@group.calendar.google.com
+  entities:
+  - device_id: family
+    ignore_availability: true
+    name: Family
+    track: true
+
+- cal_id: erinmpritchett@gmail.com
+  entities:
+  - device_id: brown_family_calendar
+    ignore_availability: true
+    name: Brown Family Calendar
+    track: true
+
+- cal_id: addressbook#contacts@group.v.calendar.google.com
+  entities:
+  - device_id: contacts
+    ignore_availability: true
+    name: Contacts
+    track: false
+
+- cal_id: en.usa#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_united_states
+    ignore_availability: true
+    name: Holidays in United States
+    track: false
