@@ -102,3 +102,52 @@ automation:
       - service: script.speech_processing
         data_template:
           speech_message: 'The front door lock battery is low.'
+
+  - alias: 'Set guest lock code'
+    initial_state: on
+    trigger:
+    - platform: state
+      entity_id: calendar.home_assistant
+      to: 'on'
+    action:
+      - service: lock.set_usercode
+        data_template:
+          node_id: '{{ states.lock.front_door_lock.attributes.node_id }}'
+          code_slot: '99'
+          usercode: !secret lock_guest_code
+      - service: notify.telegram_nathan
+        data:
+          title: 'Front Door Lock'
+          message: 'The front door guest code enabled.'
+      - service: notify.telegram_erin
+        data:
+          title: 'Front Door Lock'
+          message: 'The front door guest code enabled.'
+      - service: script.speech_processing
+        data_template:
+          speech_message: 'The front door guest code enabled.'
+
+  - alias: 'Clear guest lock code'
+    initial_state: on
+    trigger:
+    - platform: state
+      entity_id: calendar.home_assistant
+      from: 'on'
+      to: 'off'
+    action:
+      - service: lock.set_usercode
+        data_template:
+          node_id: '{{ states.lock.front_door_lock.attributes.node_id }}'
+          code_slot: '99'
+          usercode: '0000'
+      - service: notify.telegram_nathan
+        data:
+          title: 'Front Door Lock'
+          message: 'The front door guest code disabled.'
+      - service: notify.telegram_erin
+        data:
+          title: 'Front Door Lock'
+          message: 'The front door guest code disabled.'
+      - service: script.speech_processing
+        data_template:
+          speech_message: 'The front door guest code disabled.'
