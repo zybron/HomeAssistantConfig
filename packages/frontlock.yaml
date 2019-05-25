@@ -118,14 +118,14 @@ automation:
       - service: notify.telegram_nathan
         data:
           title: 'Front Door Lock'
-          message: 'The front door guest code enabled.'
+          message: 'The front door guest code is enabled.'
       - service: notify.telegram_erin
         data:
           title: 'Front Door Lock'
-          message: 'The front door guest code enabled.'
+          message: 'The front door guest code is enabled.'
       - service: script.speech_processing
         data_template:
-          speech_message: 'The front door guest code enabled.'
+          speech_message: 'The front door guest code is enabled.'
 
   - alias: 'Clear guest lock code'
     initial_state: on
@@ -143,11 +143,11 @@ automation:
       - service: notify.telegram_nathan
         data:
           title: 'Front Door Lock'
-          message: 'The front door guest code disabled.'
+          message: 'The front door guest code is disabled.'
       - service: notify.telegram_erin
         data:
           title: 'Front Door Lock'
-          message: 'The front door guest code disabled.'
+          message: 'The front door guest code is disabled.'
       - service: script.speech_processing
         data_template:
-          speech_message: 'The front door guest code disabled.'
+          speech_message: 'The front door guest code is disabled.'
