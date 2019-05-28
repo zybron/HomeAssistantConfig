@@ -106,18 +106,18 @@ automation:
       - service:               light.turn_off
         entity_id:             light.cabinets
 
-  - id:                        MorningLightOffCabinets
-    alias:                     "Turn Off Lights Daily Morning - Cabinets"
-    initial_state:             on
-    trigger:
-    - platform:                sun
-      event:                   sunrise
-      offset:                  '01:00:00'
-    action:
-      - service:               light.turn_off
-        data:
-          entity_id:           light.cabinets
-          transition:          60
+  # - id:                        MorningLightOffCabinets
+  #   alias:                     "Turn Off Lights Daily Morning - Cabinets"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                sun
+  #     event:                   sunrise
+  #     offset:                  '01:00:00'
+  #   action:
+  #     - service:               light.turn_off
+  #       data:
+  #         entity_id:           light.cabinets
+  #         transition:          60
 
   - id:                        MorningLightOnCabinets
     alias:                     "Turn On Lights Daily Morning - Cabinets"
