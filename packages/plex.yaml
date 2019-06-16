@@ -8,19 +8,16 @@ group:
       - sensor.plex_recently_added
 
 sensor:
-  - platform: plex
-    host: 192.168.1.65
-    port: 32400
-    name: Tower
-    username: !secret plex_username
-    password: !secret plex_password
-  - platform: tautulli
-    api_key: !secret tautulli_api_key
-    host: 192.168.1.65
-  - platform: mqtt
-    name: 'Plex Recently Added'
-    state_topic: 'plex/tautulli/recently_added'
-    value_template: '{{ value_json.body }}'
+  - platform: plex_recently_added
+    token: !secret plex_token
+    server_name: 'Tower'
+    ssl: false
+    max: 5
+    download_images: true
+    ssl_cert: false
+    section_types:
+      - movie
+      - show
 
 automation:
   - id: 'PlexNewArrivalNotification'
