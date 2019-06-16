@@ -5,6 +5,7 @@
 !*.xml
 !*.wav
 !*.mp3
+!custom_components
 !scenes
 !assets
 !automations
