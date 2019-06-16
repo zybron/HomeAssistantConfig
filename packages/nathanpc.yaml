@@ -8,6 +8,9 @@ automation:
     trigger:
       platform: state
       entity_id: sensor.myip
+    condition:
+      condition: template
+      value_template: "{{ trigger.to_state.state != 'unknown'}}"
     action:
       service: mqtt.publish
       data_template:
