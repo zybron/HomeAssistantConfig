@@ -46,6 +46,10 @@ googlehome:
     - host: 192.168.1.164
       track_alarms: True
 group:                                         !include groups.yaml
+
+hacs:
+  token: !secret hacs_token
+
 history:
 
 http:
