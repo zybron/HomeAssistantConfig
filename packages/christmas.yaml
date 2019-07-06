@@ -70,13 +70,13 @@ sensor:
         value_template: '{{ states.switch.balcony.attributes["today_energy_kwh"] | float }}'
         unit_of_measurement: "kWh"
 
-switch:
-  - platform: tplink
-    host: 192.168.1.228
-    name: "Christmas Tree"
-  - platform: tplink
-    host: 192.168.1.229
-    name: "Balcony"
+tplink:
+  discovery: False
+  switch:
+    - host: 192.168.1.228
+      name: "Christmas Tree"
+    - host: 192.168.1.229
+      name: "Balcony"
 
 automation:
   - alias: "Christmas Tree Visibility - On"
