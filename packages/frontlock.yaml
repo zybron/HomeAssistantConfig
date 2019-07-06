@@ -187,11 +187,7 @@ automation:
 # no other things should need to be changed
       - service: lock.set_usercode
         data_template:
-          node_id: >-
-            {% set object_id = trigger.to_state.object_id %}
-            {% set lock_name = "_".join(object_id.split("_")[3:-1]) %}
-            {% set lock_id = 'lock_' ~ lock_name ~ '_door_lock' %}
-            {{ states['lock'][lock_id].attributes.node_id }}
+          node_id: '{{ states.lock.front_door_lock.attributes.node_id }}'
             
           code_slot: >-
             {% set object_id = trigger.to_state.object_id %}
@@ -250,11 +246,7 @@ automation:
            {{ range(1000, 9999) | random }}
 # if your lock does not end in "door_lock" ie. often its "door_locked" change line 3 below to match
 # no other things should need to be changed
-         node_id: >-
-           {% set object_id = trigger.to_state.object_id %}
-           {% set lock_name = "_".join(object_id.split("_")[3:-1]) %}
-           {% set lock_id = 'lock_' ~ lock_name ~ '_door_lock' %}
-           {{ states['lock'][lock_id].attributes.node_id }}
+         node_id: '{{ states.lock.front_door_lock.attributes.node_id }}'
 
          code_slot: >-
            {% set object_id = trigger.to_state.object_id %}
@@ -262,11 +254,7 @@ automation:
            {{ code_slot }}
       # - service: lock.clear_usercode
       #   data_template:      
-      #     node_id: >-
-      #       {% set object_id = trigger.to_state.object_id %}
-      #       {% set lock_name = "_".join(object_id.split("_")[3:-1]) %}
-      #       {% set lock_id = 'lock_' ~ lock_name ~ '_door_lock' %}
-      #       {{ states['lock'][lock_id].attributes.node_id }}
+      #     node_id: '{{ states.lock.front_door_lock.attributes.node_id }}'
       #     code_slot: >-
       #       {% set object_id = trigger.to_state.object_id %}
       #       {% set code_slot = "_".join(object_id.split("_")[2:-2]) %}
@@ -310,8 +298,7 @@ automation:
             {% set input = 'door_keypad_' ~ code_slot ~ '_code' %}
             {{ states['input_text'][input].state }}
 
-          node_id: >-
-            {{ states['lock']['lock_front_door_lock'].attributes.node_id }}
+          node_id: '{{ states.lock.front_door_lock.attributes.node_id }}'
 
           code_slot: >-
             {% set object_id = trigger.to_state.object_id %}
