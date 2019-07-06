@@ -138,9 +138,9 @@ automation:
 #################################################################
 # Names in needed in entity registry:                           #
 # zwave.lock_front_door_deadbolt                                #
-# lock.lock_front_door_lock                                     #
-# sensor.lock_front_door_deadbolt_alarm_type,                   #
-# sensor.lock_front_door_deadbolt_alarm_level                   #
+# lock.front_door_lock                                     #
+# sensor.front_door_lock_alarm_type,                   #
+# sensor.front_door_lock_alarm_level                   #
 # If you have multiple locks like in the package below, name    #
 # accordingly.                                                  #
 # also recommend you use the recorder component in your         #
@@ -154,7 +154,7 @@ automation:
         to: 'on'
         entity_id:
 # Entities need to be named to match your lock name.  In this case
-# front, back, garage based on "lock.lock_front_door_lock", etc
+# front, back, garage based on "lock.front_door_lock", etc
           - input_boolean.door_keypad_1_front_switch
           - input_boolean.door_keypad_2_front_switch
           - input_boolean.door_keypad_3_front_switch
@@ -551,7 +551,7 @@ group:
     name: Front Door Info
     view: no
     entities:    
-      - lock.lock_front_door_lock
+      - lock.front_door_lock
       - sensor.front_door_report
       - sensor.frontdoor_code
 
@@ -559,7 +559,7 @@ group:
   door_lock_information:
     name: Door Locks
     entities:
-       - lock.lock_front_door_lock
+       - lock.front_door_lock
 
   door_keypad_1:
     control: hidden
@@ -1813,12 +1813,12 @@ sensor:
       front_door_report:
         friendly_name: 'Front Door Report'
         value_template: >
-          {% set number = states('sensor.lock_front_door_deadbolt_alarm_level') %}
-          {% set alarm_type_value = states('sensor.lock_front_door_deadbolt_alarm_type') %}
+          {% set number = states('sensor.front_door_lock_alarm_level') %}
+          {% set alarm_type_value = states('sensor.front_door_lock_alarm_type') %}
           {% set entity_id = 'input_text.door_keypad_' + number + '_name' %}
           {% set user = 'Master' if number == '0' else states(entity_id) %}
-          {% set alarm_type_value = '24' if (as_timestamp(now())-as_timestamp(states.lock.lock_front_door_lock.last_changed)) < 15 and (as_timestamp(now())-as_timestamp(states.sensor.lock_front_door_deadbolt_alarm_type.last_changed)) > 15  and (states.lock.lock_front_door_lock.state) == 'locked' else alarm_type_value %}
-          {% set alarm_type_value = '25' if (as_timestamp(now())-as_timestamp(states.lock.lock_front_door_lock.last_changed)) < 15 and (as_timestamp(now())-as_timestamp(states.sensor.lock_front_door_deadbolt_alarm_type.last_changed)) > 15  and (states.lock.lock_front_door_lock.state) == 'unlocked' else alarm_type_value %}
+          {% set alarm_type_value = '24' if (as_timestamp(now())-as_timestamp(states.lock.front_door_lock.last_changed)) < 15 and (as_timestamp(now())-as_timestamp(states.sensor.front_door_lock_alarm_type.last_changed)) > 15  and (states.lock.front_door_lock.state) == 'locked' else alarm_type_value %}
+          {% set alarm_type_value = '25' if (as_timestamp(now())-as_timestamp(states.lock.front_door_lock.last_changed)) < 15 and (as_timestamp(now())-as_timestamp(states.sensor.front_door_lock_alarm_type.last_changed)) > 15  and (states.lock.front_door_lock.state) == 'unlocked' else alarm_type_value %}
           {% set alarm_type_general_actions = {
             '0':'No Status Reported',          
             '9':'Lock Jammed',
@@ -1852,14 +1852,14 @@ sensor:
           {% elif alarm_type_value in alarm_type_general_actions %}
             {{ alarm_type_general_actions[alarm_type_value] }}
           {% else %}
-            Unknown Alarm Type Value {{ states('sensor.lock_front_door_deadbolt_alarm_type') }}
+            Unknown Alarm Type Value {{ states('sensor.front_door_lock_alarm_type') }}
           {% endif %}
 
 # This sensor will just be a friendly name of whoever unlocked the door,  Use for other automations if you want.
       frontdoor_code:
         friendly_name: 'Last Person to unlock with Keypad (Front Door)'
         value_template: >
-          {% set number = states('sensor.lock_front_door_deadbolt_alarm_level') %}
+          {% set number = states('sensor.front_door_lock_alarm_level') %}
           {% set entity_id = 'input_text.door_keypad_' + number + '_name' %}
           {% set user = 'Master' if number == '0' else states(entity_id) %}
           {{ user }}
@@ -1870,8 +1870,8 @@ sensor:
 #  if you notice any issues, try commenting this out
       door_lock_batteries_front_door:
         friendly_name: Front Door Lock Battery Level
-        value_template: "{% if states.zwave.lock_front_door_deadbolt %}
-            {{ states.zwave.lock_front_door_deadbolt.attributes.battery_level }}
+        value_template: "{% if states.zwave.front_door_lock %}
+            {{ states.zwave.front_door_lock.attributes.battery_level }}
           {% else %}
             unknown
           {% endif %}"
