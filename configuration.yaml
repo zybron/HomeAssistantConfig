@@ -38,14 +38,14 @@ frontend:                                      !include frontend.yaml
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
-googlehome:
-  devices:
-    - host: 192.168.1.158
-      track_alarms: True
-    - host: 192.168.1.163
-      track_alarms: True
-    - host: 192.168.1.164
-      track_alarms: True
+# googlehome:
+#   devices:
+#     - host: 192.168.1.158
+#       track_alarms: True
+#     - host: 192.168.1.163
+#       track_alarms: True
+#     - host: 192.168.1.164
+#       track_alarms: True
 group:                                         !include groups.yaml
 
 hacs:
