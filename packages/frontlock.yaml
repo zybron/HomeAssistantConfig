@@ -403,7 +403,7 @@ automation:
            {% set name_input = 'door_keypad_' ~ code_slot ~ '_name' %}
            {% set name = states['input_text'][name_input].state %}
            The pin code {{ usercode }} for {{ name }} has now been removed from all doors.
-         title: "Beach House: Temporary code disabled on all doors"        
+         title: "Temporary Code Disabled"        
 
      - condition: and
        conditions:
@@ -498,6 +498,7 @@ group:
     view: yes
     icon: mdi:lock-smart
     entities:
+      - group.front_door_info
       - group.door_keypad_1
       - group.door_keypad_2
       - group.door_keypad_3
@@ -517,7 +518,7 @@ group:
       - group.door_keypad_17
       - group.door_keypad_18
       - group.zwave_front_door_lock_options
-      - group.front_door_info
+      
 
   zwave_front_door_lock_options:
     name: Front Door Configuration Options
