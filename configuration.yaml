@@ -24,7 +24,7 @@ default_config:
 device_tracker:
   - platform:                                  google_maps
     username:                                  !secret google_maps_username
-    password:                                  !secret google_maps_password
+    #password:                                  !secret google_maps_password
   - platform:                                  ping
     count:                                     5
     hosts:
