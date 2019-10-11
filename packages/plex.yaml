@@ -2,6 +2,10 @@ group:
   plex_sensors:
     name: TV sensors
     entities:
-      - sensor.living_room_tv
-      - sensor.master_bedroom_tv
-      - sensor.dakota_bedroom_tv
+      - sensor.plex
+      - sensor.tautulli
+
+sensor:
+  - platform: tautulli
+    api_key: !secret tautulli_api_key
+    host: !secret tautulli_host
