@@ -5,6 +5,14 @@ group:
       - sensor.plex
       - sensor.tautulli
 
+ombi:
+  api_key: !secret ombi_api_key
+  host: !secret ombi_host
+  username: !secret ombi_username
+  port: 3579
+  urlbase: 'ombi/'
+  ssl: false
+
 sensor:
   - platform: tautulli
     api_key: !secret tautulli_api_key
