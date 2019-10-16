@@ -48,7 +48,7 @@ sensor:
         unit_of_measurement:                 '%'
         device_class: battery
       motion_sensor_downstairs:
-        friendly_name:                       'Motion Sensor Downstairs'
+        friendly_name:                       'Motion Sensor Entryway'
         value_template:                      >-
           {% if states.sensor.motion_sensor_downstairs_alarm_level.state | float > 200 %}
             active
@@ -56,7 +56,7 @@ sensor:
             inactive
           {% endif %}
       motion_sensor_downstairs_battery:
-        friendly_name:                       'Motion Sensor Downstairs Battery'
+        friendly_name:                       'Motion Sensor Entryway Battery'
         value_template:                      '{{ states.zwave.motion_sensor_downstairs.attributes.battery_level }}'
         unit_of_measurement:                 '%'
         device_class: battery
