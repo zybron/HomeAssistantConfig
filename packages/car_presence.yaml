@@ -1,102 +1,94 @@
-group:
-  car_sensors:
-    name: Car sensors
-    entities:
-      - binary_sensor.car_presence
-      - sensor.car_presence_signal_strength
-      - sensor.car_presence_uptime
+# automation:
+#   # car sensor is connected and the garage door is closed
+#   - alias: CarPresence_ON
+#     initial_state: on
+#     trigger:
+#       platform: state
+#       entity_id: binary_sensor.car_presence
+#       to: 'on'
+#     condition:
+#       - condition: state
+#         entity_id: 'sensor.garage_door'
+#         state: 'closed'
+#     action:
+#       - service: cover.open_cover
+#         entity_id: 'cover.garage_door'
 
-automation:
-  # car sensor is connected and the garage door is closed
-  - alias: CarPresence_ON
-    initial_state: on
-    trigger:
-      platform: state
-      entity_id: binary_sensor.car_presence
-      to: 'on'
-    condition:
-      - condition: state
-        entity_id: 'sensor.garage_door'
-        state: 'closed'
-    action:
-      - service: cover.open_cover
-        entity_id: 'cover.garage_door'
+#   # car sensor is disconnected for and the garage door is open
+#   - alias: CarPresence_OFF
+#     initial_state: on
+#     trigger:
+#       platform: state
+#       entity_id: binary_sensor.car_presence
+#       to: 'off'
+#       for:
+#         minutes: 2
+#     condition:
+#       - condition: state
+#         entity_id: 'sensor.garage_door'
+#         state: 'open'
+#     action:
+#       - service: cover.close_cover
+#         entity_id: 'cover.garage_door'
 
-  # car sensor is disconnected for and the garage door is open
-  - alias: CarPresence_OFF
-    initial_state: on
-    trigger:
-      platform: state
-      entity_id: binary_sensor.car_presence
-      to: 'off'
-      for:
-        minutes: 2
-    condition:
-      - condition: state
-        entity_id: 'sensor.garage_door'
-        state: 'open'
-    action:
-      - service: cover.close_cover
-        entity_id: 'cover.garage_door'
+#   - alias: Arrive Home Late
+#     initial_state: on
+#     trigger:
+#       - platform: state
+#         entity_id: sensor.garage_door
+#         to: 'closed'
+#         for:
+#           minutes: 2
+#     condition:
+#       - condition: time
+#         after: '22:00:00'
+#         before: '06:00:00'
+#     action:
+#       - service: notify.telegram_erin
+#         data:
+#           title: 'Welcome Home'
+#           message: 'Welcome Home.'
+#           data:
+#             inline_keyboard:
+#               - 'Turn off lights:/do_light_off'
+#       - service: notify.telegram_nathan
+#         data:
+#           title: 'Welcome Home'
+#           message: 'Welcome Home.'
+#           data:
+#             inline_keyboard:
+#               - 'Turn off lights:/do_light_off'
+#       - service: light.turn_on
+#         entity_id:
+#           - light.her_light_light
+#           - light.his_light_light
+#         data:
+#           brightness_pct: 25
+#       - service: light.turn_on
+#         entity_id: light.cabinets
+#       - delay:
+#           minutes: 10
+#       - service: light.turn_off
+#         entity_id:
+#           - light.her_light_light
+#           - light.his_light_light
+#       - service: light.turn_off
+#         entity_id: light.cabinets
 
-  - alias: Arrive Home Late
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: sensor.garage_door
-        to: 'closed'
-        for:
-          minutes: 2
-    condition:
-      - condition: time
-        after: '22:00:00'
-        before: '06:00:00'
-    action:
-      - service: notify.telegram_erin
-        data:
-          title: 'Welcome Home'
-          message: 'Welcome Home.'
-          data:
-            inline_keyboard:
-              - 'Turn off lights:/do_light_off'
-      - service: notify.telegram_nathan
-        data:
-          title: 'Welcome Home'
-          message: 'Welcome Home.'
-          data:
-            inline_keyboard:
-              - 'Turn off lights:/do_light_off'
-      - service: light.turn_on
-        entity_id:
-          - light.her_light_light
-          - light.his_light_light
-        data:
-          brightness_pct: 25
-      - service: light.turn_on
-        entity_id: light.cabinets
-      - delay:
-          minutes: 10
-      - service: light.turn_off
-        entity_id:
-          - light.her_light_light
-          - light.his_light_light
-      - service: light.turn_off
-        entity_id: light.cabinets
-
-  - id: LateArrivalNotificationClicked
-    alias: 'Late Arrival Notification Clicked'
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/do_light_off'
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Lights turned off'
-          message: 'Lights turned off.'
-      - service: notify.telegram_nathan
-        data:
-          title: 'Lights turned off'
-          message: 'Lights turned off.'
+#   - id: LateArrivalNotificationClicked
+#     alias: 'Late Arrival Notification Clicked'
+#     initial_state: on
+#     trigger:
+#       - platform: event
+#         event_type: telegram_callback
+#         event_data:
+#           data: '/do_light_off'
+#     action:
+#       - service: notify.telegram_nathan
+#         data:
+#           title: 'Lights turned off'
+#           message: 'Lights turned off.'
+#       - service: notify.telegram_nathan
+#         data:
+#           title: 'Lights turned off'
+#           message: 'Lights turned off.'
