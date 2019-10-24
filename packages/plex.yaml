@@ -1,10 +1,3 @@
-group:
-  plex_sensors:
-    name: TV sensors
-    entities:
-      - sensor.plex
-      - sensor.tautulli
-
 ombi:
   api_key: !secret ombi_api_key
   host: !secret ombi_host
@@ -17,3 +10,7 @@ sensor:
   - platform: tautulli
     api_key: !secret tautulli_api_key
     host: !secret tautulli_host
+
+input_boolean:
+  movie_mode:
+    name: 'Movie mode'
