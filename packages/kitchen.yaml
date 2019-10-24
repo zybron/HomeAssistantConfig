@@ -1,10 +1,3 @@
-group:
-  kitchen:
-    name:                      Kitchen
-    view:                      no
-    entities:
-      - light.cabinets
-
 light:
   - platform:                  flux_led
     devices:
@@ -45,66 +38,66 @@ automation:
           media_content_id:    https://ha.zybron.com/local/grandfather-clock-chime-{{now().strftime("%I")}}.mp3
           media_content_type:  music
 
-  - id:                        EveningLightOnCabinets
-    alias:                     "Turn On Lights Daily - Cabinets"
-    initial_state:             on
-    trigger:
-    - platform:                sun
-      event:                   sunset
-      offset:                  '-00:45:00'
-    condition:
-      condition:               template
-      value_template:          "{{ now().month != 10 and now().month != 12 }}"
-    action:
-      - service:               light.turn_on
-        data:
-          entity_id:           light.cabinets
-          rgb_color:           [0,255,255]
-          transition:          60
+  # - id:                        EveningLightOnCabinets
+  #   alias:                     "Turn On Lights Daily - Cabinets"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                sun
+  #     event:                   sunset
+  #     offset:                  '-00:45:00'
+  #   condition:
+  #     condition:               template
+  #     value_template:          "{{ now().month != 10 and now().month != 12 }}"
+  #   action:
+  #     - service:               light.turn_on
+  #       data:
+  #         entity_id:           light.cabinets
+  #         rgb_color:           [0,255,255]
+  #         transition:          60
 
-  - id:                        EveningLightOnCabinetsHalloween
-    alias:                     "Turn On Lights Daily - Cabinets - Halloween"
-    initial_state:             on
-    trigger:
-    - platform:                sun
-      event:                   sunset
-      offset:                  '-00:45:00'
-    condition:
-      condition:               template
-      value_template:          "{{ now().month == 10 }}"
-    action:
-      - service:               light.turn_on
-        data:
-          entity_id:           light.cabinets
-          rgb_color:           [255,40,0]
-          transition:          60
+  # - id:                        EveningLightOnCabinetsHalloween
+  #   alias:                     "Turn On Lights Daily - Cabinets - Halloween"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                sun
+  #     event:                   sunset
+  #     offset:                  '-00:45:00'
+  #   condition:
+  #     condition:               template
+  #     value_template:          "{{ now().month == 10 }}"
+  #   action:
+  #     - service:               light.turn_on
+  #       data:
+  #         entity_id:           light.cabinets
+  #         rgb_color:           [255,40,0]
+  #         transition:          60
 
-  - id:                        EveningLightOnCabinetsChristmas
-    alias:                     "Turn On Lights Daily - Cabinets - Christmas"
-    initial_state:             on
-    trigger:
-    - platform:                sun
-      event:                   sunset
-      offset:                  '-00:45:00'
-    condition:
-      condition:               template
-      value_template:          "{{ now().month == 12 }}"
-    action:
-      - service:               light.turn_on
-        data:
-          entity_id:           light.cabinets
-          rgb_color:           [0,0,255]
-          transition:          60
+  # - id:                        EveningLightOnCabinetsChristmas
+  #   alias:                     "Turn On Lights Daily - Cabinets - Christmas"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                sun
+  #     event:                   sunset
+  #     offset:                  '-00:45:00'
+  #   condition:
+  #     condition:               template
+  #     value_template:          "{{ now().month == 12 }}"
+  #   action:
+  #     - service:               light.turn_on
+  #       data:
+  #         entity_id:           light.cabinets
+  #         rgb_color:           [0,0,255]
+  #         transition:          60
 
-  - id:                        EveningLightOffCabinets
-    alias:                     "Turn Off Lights Daily - Cabinets"
-    initial_state:             on
-    trigger:
-    - platform:                time
-      at:                      '22:00:00'
-    action:
-      - service:               light.turn_off
-        entity_id:             light.cabinets
+  # - id:                        EveningLightOffCabinets
+  #   alias:                     "Turn Off Lights Daily - Cabinets"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                time
+  #     at:                      '22:00:00'
+  #   action:
+  #     - service:               light.turn_off
+  #       entity_id:             light.cabinets
 
   # - id:                        MorningLightOffCabinets
   #   alias:                     "Turn Off Lights Daily Morning - Cabinets"
@@ -119,50 +112,50 @@ automation:
   #         entity_id:           light.cabinets
   #         transition:          60
 
-  - id:                        MorningLightOnCabinets
-    alias:                     "Turn On Lights Daily Morning - Cabinets"
-    initial_state:             on
-    trigger:
-    - platform:                time
-      at:                      '07:00:00'
-    condition:
-      condition:               template
-      value_template:          "{{ now().month != 10 and now().month != 12 }}"
-    action:
-      - service:               light.turn_on
-        data:
-          entity_id:           light.cabinets
-          rgb_color:           [0,255,255]
-          transition:          60
+  # - id:                        MorningLightOnCabinets
+  #   alias:                     "Turn On Lights Daily Morning - Cabinets"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                time
+  #     at:                      '07:00:00'
+  #   condition:
+  #     condition:               template
+  #     value_template:          "{{ now().month != 10 and now().month != 12 }}"
+  #   action:
+  #     - service:               light.turn_on
+  #       data:
+  #         entity_id:           light.cabinets
+  #         rgb_color:           [0,255,255]
+  #         transition:          60
 
-  - id:                        MorningLightOnCabinetsHalloween
-    alias:                     "Turn On Lights Daily Morning - Cabinets - Halloween"
-    initial_state:             on
-    trigger:
-    - platform:                time
-      at:                      '07:00:00'
-    condition:
-      condition:               template
-      value_template:          "{{ now().month == 10 }}"
-    action:
-      - service:               light.turn_on
-        data:
-          entity_id:           light.cabinets
-          rgb_color:           [255,40,0]
-          transition:          60
+  # - id:                        MorningLightOnCabinetsHalloween
+  #   alias:                     "Turn On Lights Daily Morning - Cabinets - Halloween"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                time
+  #     at:                      '07:00:00'
+  #   condition:
+  #     condition:               template
+  #     value_template:          "{{ now().month == 10 }}"
+  #   action:
+  #     - service:               light.turn_on
+  #       data:
+  #         entity_id:           light.cabinets
+  #         rgb_color:           [255,40,0]
+  #         transition:          60
 
-  - id:                        MorningLightOnCabinetsChristmas
-    alias:                     "Turn On Lights Daily Morning - Cabinets - Christmas"
-    initial_state:             on
-    trigger:
-    - platform:                time
-      at:                      '07:00:00'
-    condition:
-      condition:               template
-      value_template:          "{{ now().month == 12 }}"
-    action:
-      - service:               light.turn_on
-        data:
-          entity_id:           light.cabinets
-          rgb_color:           [0,0,255]
-          transition:          60
+  # - id:                        MorningLightOnCabinetsChristmas
+  #   alias:                     "Turn On Lights Daily Morning - Cabinets - Christmas"
+  #   initial_state:             on
+  #   trigger:
+  #   - platform:                time
+  #     at:                      '07:00:00'
+  #   condition:
+  #     condition:               template
+  #     value_template:          "{{ now().month == 12 }}"
+  #   action:
+  #     - service:               light.turn_on
+  #       data:
+  #         entity_id:           light.cabinets
+  #         rgb_color:           [0,0,255]
+  #         transition:          60
