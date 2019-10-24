@@ -1,20 +1,4 @@
-group:
-  living_room:
-    name:                                      Living Room
-    entities:
-      - light.living_room_switch
-
-sensor:
-  - platform:                                  mqtt
-    name:                                      'Living Room TV'
-    state_topic:                               'plex/SHIELD Android TV'
-    value_template:                            '{{value_json.state}}'
-    json_attributes:
-      - user
-      - full_title
-      - library_name
-
-automation:
+# automation:
 #   - id:                                        MorningLightOn
 #     alias:                                     "Turn On Lights Daily - Morning"
 #     initial_state:                             on
@@ -59,182 +43,182 @@ automation:
 #         data:
 #           entity_id:                           light.living_room_switch
 
-  - id:                                        EveningLightOn
-    alias:                                     "Turn On Lights Daily - Evening"
-    initial_state:                             on
-    trigger:
-    - platform:                                sun
-      event:                                   sunset
-      offset:                                  '-00:45:00'
-    condition:
-      condition:                               state
-      entity_id:                               light.living_room_switch
-      state:                                   'off'
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      1
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      50
-          transition:                          300
+  # - id:                                        EveningLightOn
+  #   alias:                                     "Turn On Lights Daily - Evening"
+  #   initial_state:                             on
+  #   trigger:
+  #   - platform:                                sun
+  #     event:                                   sunset
+  #     offset:                                  '-00:45:00'
+  #   condition:
+  #     condition:                               state
+  #     entity_id:                               light.living_room_switch
+  #     state:                                   'off'
+  #   action:
+  #     - service:                               light.turn_on
+  #       data:
+  #         entity_id:                           light.living_room_switch
+  #         brightness_pct:                      1
+  #     - service:                               light.turn_on
+  #       data:
+  #         entity_id:                           light.living_room_switch
+  #         brightness_pct:                      50
+  #         transition:                          300
 
-  - id:                                        EveningLightOffWeekdayOccupancy
-    alias:                                     "Turn Off Lights Daily - Weekday Evening Occupancy"
-    initial_state:                             on
-    trigger:
-    - platform:                                state
-      entity_id: binary_sensor.living_room_occupancy
-      to: 'off'
-    condition:
-      condition:                               and
-      conditions:
-        - condition:                           template
-          value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
-        - condition:                           state
-          entity_id:                           light.living_room_switch
-          state:                               'on'
-        - condition: time
-          after: '22:00:00'
-          before: '07:00:00'
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      0
-          transition:                          300
-      - delay:
-          seconds:                             300
-      - service:                               light.turn_off
-        data:
-          entity_id:                           light.living_room_switch
+  # - id:                                        EveningLightOffWeekdayOccupancy
+  #   alias:                                     "Turn Off Lights Daily - Weekday Evening Occupancy"
+  #   initial_state:                             on
+  #   trigger:
+  #   - platform:                                state
+  #     entity_id: binary_sensor.living_room_occupancy
+  #     to: 'off'
+  #   condition:
+  #     condition:                               and
+  #     conditions:
+  #       - condition:                           template
+  #         value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
+  #       - condition:                           state
+  #         entity_id:                           light.living_room_switch
+  #         state:                               'on'
+  #       - condition: time
+  #         after: '22:00:00'
+  #         before: '07:00:00'
+  #   action:
+  #     - service:                               light.turn_on
+  #       data:
+  #         entity_id:                           light.living_room_switch
+  #         brightness_pct:                      0
+  #         transition:                          300
+  #     - delay:
+  #         seconds:                             300
+  #     - service:                               light.turn_off
+  #       data:
+  #         entity_id:                           light.living_room_switch
 
-  - id:                                        EveningLightOffWeekday
-    alias:                                     "Turn Off Lights Daily - Weekday Evening"
-    initial_state:                             on
-    trigger:
-    - platform:                                time
-      at: '22:00:00'
-    condition:
-      condition:                               and
-      conditions:
-        - condition:                           template
-          value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
-        - condition:                           state
-          entity_id:                           light.living_room_switch
-          state:                               'on'
-        - condition: state
-          entity_id: binary_sensor.living_room_occupancy
-          state: 'off'
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      0
-          transition:                          300
-      - delay:
-          seconds:                             300
-      - service:                               light.turn_off
-        data:
-          entity_id:                           light.living_room_switch
+  # - id:                                        EveningLightOffWeekday
+  #   alias:                                     "Turn Off Lights Daily - Weekday Evening"
+  #   initial_state:                             on
+  #   trigger:
+  #   - platform:                                time
+  #     at: '22:00:00'
+  #   condition:
+  #     condition:                               and
+  #     conditions:
+  #       - condition:                           template
+  #         value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
+  #       - condition:                           state
+  #         entity_id:                           light.living_room_switch
+  #         state:                               'on'
+  #       - condition: state
+  #         entity_id: binary_sensor.living_room_occupancy
+  #         state: 'off'
+  #   action:
+  #     - service:                               light.turn_on
+  #       data:
+  #         entity_id:                           light.living_room_switch
+  #         brightness_pct:                      0
+  #         transition:                          300
+  #     - delay:
+  #         seconds:                             300
+  #     - service:                               light.turn_off
+  #       data:
+  #         entity_id:                           light.living_room_switch
 
-  - id:                                        EveningLightOffWeekendOccupancy
-    alias:                                     "Turn Off Lights Daily - Weekend Evening Occupancy"
-    initial_state:                             on
-    trigger:
-    - platform:                                time
-      at: '23:00:00'
-    condition:
-      condition:                               and
-      conditions:
-        - condition:                           template
-          value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
-        - condition:                           state
-          entity_id:                           light.living_room_switch
-          state:                               'on'
-        - condition: state
-          entity_id: binary_sensor.living_room_occupancy
-          state: 'off'
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      0
-          transition:                          300
-      - delay:
-          seconds:                             300
-      - service:                               light.turn_off
-        data:
-          entity_id:                           light.living_room_switch
+  # - id:                                        EveningLightOffWeekendOccupancy
+  #   alias:                                     "Turn Off Lights Daily - Weekend Evening Occupancy"
+  #   initial_state:                             on
+  #   trigger:
+  #   - platform:                                time
+  #     at: '23:00:00'
+  #   condition:
+  #     condition:                               and
+  #     conditions:
+  #       - condition:                           template
+  #         value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
+  #       - condition:                           state
+  #         entity_id:                           light.living_room_switch
+  #         state:                               'on'
+  #       - condition: state
+  #         entity_id: binary_sensor.living_room_occupancy
+  #         state: 'off'
+  #   action:
+  #     - service:                               light.turn_on
+  #       data:
+  #         entity_id:                           light.living_room_switch
+  #         brightness_pct:                      0
+  #         transition:                          300
+  #     - delay:
+  #         seconds:                             300
+  #     - service:                               light.turn_off
+  #       data:
+  #         entity_id:                           light.living_room_switch
 
-  - id: EveningLightOffWeekend
-    alias:                                     "Turn Off Lights Daily - Weekend Evening"
-    initial_state:                             on
-    trigger:
-    - platform:                                state
-      entity_id: binary_sensor.living_room_occupancy
-      to: 'off'
-    condition:
-      condition:                               and
-      conditions:
-        - condition:                           template
-          value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
-        - condition:                           state
-          entity_id:                           light.living_room_switch
-          state:                               'on'
-        - condition: time
-          after: '23:00:00'
-          before: '07:00:00'
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      0
-          transition:                          300
-      - delay:
-          seconds:                             300
-      - service:                               light.turn_off
-        data:
-          entity_id:                           light.living_room_switch
+  # - id: EveningLightOffWeekend
+  #   alias:                                     "Turn Off Lights Daily - Weekend Evening"
+  #   initial_state:                             on
+  #   trigger:
+  #   - platform:                                state
+  #     entity_id: binary_sensor.living_room_occupancy
+  #     to: 'off'
+  #   condition:
+  #     condition:                               and
+  #     conditions:
+  #       - condition:                           template
+  #         value_template:                      '{{ now().weekday() > 0 and now().weekday() < 5 }}'
+  #       - condition:                           state
+  #         entity_id:                           light.living_room_switch
+  #         state:                               'on'
+  #       - condition: time
+  #         after: '23:00:00'
+  #         before: '07:00:00'
+  #   action:
+  #     - service:                               light.turn_on
+  #       data:
+  #         entity_id:                           light.living_room_switch
+  #         brightness_pct:                      0
+  #         transition:                          300
+  #     - delay:
+  #         seconds:                             300
+  #     - service:                               light.turn_off
+  #       data:
+  #         entity_id:                           light.living_room_switch
 
-  - id:                                        'TurnOffLightsWhenMoviePlaying'
-    alias:                                     'Turn off lights when a movie is playing'
-    initial_state:                             on
-    trigger:
-    - platform:                                state
-      entity_id:                               sensor.living_room_tv
-      to:                                      'playing'
-    condition:
-      condition:                               and
-      conditions:
-        - condition:                           state
-          entity_id:                           light.living_room_switch
-          state:                               'on'
-        - condition:                           sun
-          after:                               sunset
-    action:
-      - service:                               light.turn_off
-        entity_id:                             light.living_room_switch
+  # - id:                                        'TurnOffLightsWhenMoviePlaying'
+  #   alias:                                     'Turn off lights when a movie is playing'
+  #   initial_state:                             on
+  #   trigger:
+  #   - platform:                                state
+  #     entity_id:                               sensor.living_room_tv
+  #     to:                                      'playing'
+  #   condition:
+  #     condition:                               and
+  #     conditions:
+  #       - condition:                           state
+  #         entity_id:                           light.living_room_switch
+  #         state:                               'on'
+  #       - condition:                           sun
+  #         after:                               sunset
+  #   action:
+  #     - service:                               light.turn_off
+  #       entity_id:                             light.living_room_switch
 
-  - id:                                        'TurnOnLightsWhenMoviePaused'
-    alias:                                     'Turn on lights when a movie is paused'
-    initial_state:                             on
-    trigger:
-    - platform:                                state
-      entity_id:                               sensor.living_room_tv
-      to:                                      'paused'
-    condition:
-      condition:                               and
-      conditions:
-        - condition:                           state
-          entity_id:                           light.living_room_switch
-          state:                               'off'
-        - condition:                           sun
-          after:                               sunset
-    action:
-      - service:                               light.turn_on
-        data:
-          entity_id:                           light.living_room_switch
-          brightness_pct:                      30
+  # - id:                                        'TurnOnLightsWhenMoviePaused'
+  #   alias:                                     'Turn on lights when a movie is paused'
+  #   initial_state:                             on
+  #   trigger:
+  #   - platform:                                state
+  #     entity_id:                               sensor.living_room_tv
+  #     to:                                      'paused'
+  #   condition:
+  #     condition:                               and
+  #     conditions:
+  #       - condition:                           state
+  #         entity_id:                           light.living_room_switch
+  #         state:                               'off'
+  #       - condition:                           sun
+  #         after:                               sunset
+  #   action:
+  #     - service:                               light.turn_on
+  #       data:
+  #         entity_id:                           light.living_room_switch
+  #         brightness_pct:                      30
