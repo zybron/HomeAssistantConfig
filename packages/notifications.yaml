@@ -1,10 +1,3 @@
-group:
-  messages:
-    name: Messaging
-    entities:
-      - sensor.last_message
-      - sensor.last_notification
-
 notify:
   - name: Discord_Notify
     platform: discord
@@ -14,44 +7,44 @@ notify:
   #   gcm_api_key: !secret gcm_api_key
   #   gcm_sender_id: !secret gcm_sender_id
 
-script:
-  speech_processing:
-    sequence:
-      - service: script.store_message
-        data_template:
-          topic: "broadcast"
-          message: "{{speech_message}}"
-      - service: tts.google_translate_say
-        entity_id:
-          - media_player.kitchen_speaker
-          - media_player.master_bedroom_speaker
-          - media_player.dakotas_bedroom_speaker
-        data_template:
-          message: "{{speech_message}}"
+# script:
+#   speech_processing:
+#     sequence:
+#       - service: script.store_message
+#         data_template:
+#           topic: "broadcast"
+#           message: "{{speech_message}}"
+#       - service: tts.google_translate_say
+#         entity_id:
+#           - media_player.kitchen_speaker
+#           - media_player.master_bedroom_speaker
+#           - media_player.dakotas_bedroom_speaker
+#         data_template:
+#           message: "{{speech_message}}"
 
-  store_message:
-    sequence:
-      - service: mqtt.publish
-        data_template:
-          topic: "message/{{topic}}"
-          payload: >-
-            {
-              "message":"{{message}}",
-              "time":"{{now().strftime('%m/%d/%Y %I:%M %p') | string}}"
-            }
-          retain: True
+#   store_message:
+#     sequence:
+#       - service: mqtt.publish
+#         data_template:
+#           topic: "message/{{topic}}"
+#           payload: >-
+#             {
+#               "message":"{{message}}",
+#               "time":"{{now().strftime('%m/%d/%Y %I:%M %p') | string}}"
+#             }
+#           retain: True
 
-sensor:
-  - platform: mqtt
-    state_topic: "message/broadcast"
-    value_template: "{{value_json.message}}"
-    json_attributes:
-      - time
-    name: "Last Message"
+# sensor:
+#   - platform: mqtt
+#     state_topic: "message/broadcast"
+#     value_template: "{{value_json.message}}"
+#     json_attributes:
+#       - time
+#     name: "Last Message"
 
-  - platform: mqtt
-    state_topic: "message/notification"
-    value_template: "{{value_json.message}}"
-    json_attributes:
-      - time
-    name: "Last Notification"
+#   - platform: mqtt
+#     state_topic: "message/notification"
+#     value_template: "{{value_json.message}}"
+#     json_attributes:
+#       - time
+#     name: "Last Notification"
