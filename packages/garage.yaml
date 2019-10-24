@@ -8,18 +8,6 @@ cover:
     payload_stop:           "stop"
     value_template:         "{{ value_json.status }}"
 
-group:
-  garage:
-    name:                   Garage
-    entities:
-      - cover.garage_door
-      - input_boolean.hold_garage_open
-      - sensor.garage_door
-      - sensor.garage_door_changed
-      - sensor.garage_brightness
-      - sensor.garage_door_sensor
-      - sensor.garagdet_connection
-
 input_boolean:
   hold_garage_open:
     name: 'Hold Garage Door Open'
@@ -65,114 +53,114 @@ automation:
         topic:              "garadget/garage/command"
         payload:            "get-status"
 
-  - alias:                  'Auto Close Garage Door'
-    initial_state:          on
-    trigger:
-      platform:             state
-      entity_id:            sensor.garage_door
-      to:                   'open'
-      for:
-        minutes:            7
-    condition:
-    - condition:            state
-      entity_id:            'input_boolean.hold_garage_open'
-      state:                'off'
-    action:
-    - service:              cover.close_cover
-      entity_id:            'cover.garage_door'
+  # - alias:                  'Auto Close Garage Door'
+  #   initial_state:          on
+  #   trigger:
+  #     platform:             state
+  #     entity_id:            sensor.garage_door
+  #     to:                   'open'
+  #     for:
+  #       minutes:            7
+  #   condition:
+  #   - condition:            state
+  #     entity_id:            'input_boolean.hold_garage_open'
+  #     state:                'off'
+  #   action:
+  #   - service:              cover.close_cover
+  #     entity_id:            'cover.garage_door'
 
 # Notifications
-  - id:                     GarageDoorLeftOpen
-    alias:                  "Garage Door Left Open"
-    initial_state:          on
-    trigger:
-    - platform:             state
-      entity_id:            sensor.garage_door
-      to:                   open
-      for:
-        minutes:            5
-    condition:
-    - condition:            state
-      entity_id:            'input_boolean.hold_garage_open'
-      state:                'off'
-    action:
-    - service:              script.speech_processing
-      data_template:
-        speech_message:     'The garage door was left open.'
-    - service:              script.store_message
-      data:
-        message:            'The garage door was left open.'
-        topic:              'notification'
-    - service: notify.telegram_nathan
-      data:
-        title: 'Garage Door'
-        message: 'The garage door was left open.'
-        data:
-          inline_keyboard:
-            - 'Close:/do_garage_close'
-    - service: notify.telegram_erin
-      data:
-        title: 'Garage Door'
-        message: 'The garage door was left open.'
-        data:
-          inline_keyboard:
-            - 'Close:/do_garage_close'
+  # - id:                     GarageDoorLeftOpen
+  #   alias:                  "Garage Door Left Open"
+  #   initial_state:          on
+  #   trigger:
+  #   - platform:             state
+  #     entity_id:            sensor.garage_door
+  #     to:                   open
+  #     for:
+  #       minutes:            5
+  #   condition:
+  #   - condition:            state
+  #     entity_id:            'input_boolean.hold_garage_open'
+  #     state:                'off'
+  #   action:
+  #   - service:              script.speech_processing
+  #     data_template:
+  #       speech_message:     'The garage door was left open.'
+  #   - service:              script.store_message
+  #     data:
+  #       message:            'The garage door was left open.'
+  #       topic:              'notification'
+  #   - service: notify.telegram_nathan
+  #     data:
+  #       title: 'Garage Door'
+  #       message: 'The garage door was left open.'
+  #       data:
+  #         inline_keyboard:
+  #           - 'Close:/do_garage_close'
+  #   - service: notify.telegram_erin
+  #     data:
+  #       title: 'Garage Door'
+  #       message: 'The garage door was left open.'
+  #       data:
+  #         inline_keyboard:
+  #           - 'Close:/do_garage_close'
 
-  - id:                     GarageDoorOpen
-    alias:                  "Garage Door Open"
-    initial_state:          on
-    trigger:
-    - platform:             state
-      entity_id:            sensor.garage_door
-      to:                   open
-    action:
-    - service:              script.speech_processing
-      data_template:
-        speech_message:     'The garage door is open.'
-    - service:              script.store_message
-      data:
-        message:            'The garage door is open.'
-        topic:              'notification'
-    - service: notify.telegram_nathan
-      data:
-        title: 'Garage Door'
-        message: 'The garage door is open.'
-        data:
-          inline_keyboard:
-            - 'Close:/do_garage_close'
-    - service: notify.telegram_erin
-      data:
-        title: 'Garage Door'
-        message: 'The garage door is open.'
-        data:
-          inline_keyboard:
-            - 'Close:/do_garage_close'
+  # - id:                     GarageDoorOpen
+  #   alias:                  "Garage Door Open"
+  #   initial_state:          on
+  #   trigger:
+  #   - platform:             state
+  #     entity_id:            sensor.garage_door
+  #     to:                   open
+  #   action:
+  #   - service:              script.speech_processing
+  #     data_template:
+  #       speech_message:     'The garage door is open.'
+  #   - service:              script.store_message
+  #     data:
+  #       message:            'The garage door is open.'
+  #       topic:              'notification'
+  #   - service: notify.telegram_nathan
+  #     data:
+  #       title: 'Garage Door'
+  #       message: 'The garage door is open.'
+  #       data:
+  #         inline_keyboard:
+  #           - 'Close:/do_garage_close'
+  #   - service: notify.telegram_erin
+  #     data:
+  #       title: 'Garage Door'
+  #       message: 'The garage door is open.'
+  #       data:
+  #         inline_keyboard:
+  #           - 'Close:/do_garage_close'
 
-  - id:                     GarageDoorClosed
-    alias:                  "Garage Door Closed"
-    initial_state:          on
-    trigger:
-    - platform:             state
-      entity_id:            sensor.garage_door
-      to:                   closed
-    action:
-    - service:              script.speech_processing
-      data_template:
-        speech_message:     'The garage door is closed.'
-    - service: notify.telegram_nathan
-      data:
-        title: 'Garage Door'
-        message: 'The garage door is closed.'
-        data:
-          inline_keyboard:
-            - 'Open:/do_garage_open'
-    - service: notify.telegram_erin
-      data:
-        title: 'Garage Door'
-        message: 'The garage door is closed.'
-        data:
-          inline_keyboard:
-            - 'Open:/do_garage_open'
+  # - id:                     GarageDoorClosed
+  #   alias:                  "Garage Door Closed"
+  #   initial_state:          on
+  #   trigger:
+  #   - platform:             state
+  #     entity_id:            sensor.garage_door
+  #     to:                   closed
+  #   action:
+  #   - service:              script.speech_processing
+  #     data_template:
+  #       speech_message:     'The garage door is closed.'
+  #   - service: notify.telegram_nathan
+  #     data:
+  #       title: 'Garage Door'
+  #       message: 'The garage door is closed.'
+  #       data:
+  #         inline_keyboard:
+  #           - 'Open:/do_garage_open'
+  #   - service: notify.telegram_erin
+  #     data:
+  #       title: 'Garage Door'
+  #       message: 'The garage door is closed.'
+  #       data:
+  #         inline_keyboard:
+  #           - 'Open:/do_garage_open'
 
   - id:                     CloseGarageDoorClicked
     alias:                  "Close Garage Door Clicked"

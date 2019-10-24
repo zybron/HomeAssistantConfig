@@ -1,11 +1,3 @@
-group:
-  gaming:
-    name:                  Gaming Modes
-    view:                  no
-    entities:
-      - input_boolean.game_night
-      - input_boolean.vampire_mode
-
 input_boolean:
   game_night:
     name:                  'Game Night'
@@ -38,7 +30,7 @@ script:
             - light.cabinets
             - light.main_balcony
             - light.ge_14294_inwall_smart_dimmer_level
-      - service: climate.ecobee_resume_program
+      - service: ecobee.resume_program
         data:
           entity_id: climate.thermostat
           resume_all: true
@@ -67,7 +59,7 @@ script:
             - automation.turn_off_lights_daily__cabinets
             - automation.turn_off_lights_daily__weekday_evening
             - automation.turn_off_lights_daily__weekend_evening
-      - service: climate.ecobee_resume_program
+      - service: ecobee.resume_program
         data:
           entity_id: climate.thermostat
           resume_all: true
