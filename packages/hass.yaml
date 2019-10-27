@@ -36,16 +36,16 @@ shell_command:
   health_check:            curl --retry 3 https://hc-ping.com/33aee216-ff26-47ee-9627-1e29985f0336
   pull_config: cd /config && git pull
 
-switch:
-  - platform:              mqtt
-    command_topic:         'zigbee2mqtt/bridge/config/permit_join'
-    state_topic:           'zigbee2mqtt/bridge/config/permit_join'
-    availability_topic:    'zigbee2mqtt/bridge/state'
-    name:                  'Zigbee Pairing'
-    qos:                   2
-    retain:                true
-    payload_on:            'true'
-    payload_off:           'false'
+# switch:
+#   - platform:              mqtt
+#     command_topic:         'zigbee2mqtt/bridge/config/permit_join'
+#     state_topic:           'zigbee2mqtt/bridge/config/permit_join'
+#     availability_topic:    'zigbee2mqtt/bridge/state'
+#     name:                  'Zigbee Pairing'
+#     qos:                   2
+#     retain:                true
+#     payload_on:            'true'
+#     payload_off:           'false'
 
 automation:
   # - id:                    DailyBackup
