@@ -22,12 +22,12 @@ input_boolean:
   empty_bin:
     name: "Empty Vacuum Bin"
 
-input_number:
-  vacuum_error_count:
-    name: Vacuum Error Count
-    min: 0
-    max: 10
-    step: 1
+# input_number:
+#   vacuum_error_count:
+#     name: Vacuum Error Count
+#     min: 0
+#     max: 10
+#     step: 1
 
 sensor:
   - platform: template
@@ -69,9 +69,9 @@ vacuum:
     host: 192.168.1.186
     token: !secret vacuum_token
 
-timer:
-  vacuum_error_timer:
-    duration: "00:03:00"
+# timer:
+#   vacuum_error_timer:
+#     duration: "00:03:00"
 
 automation:
   - id: DailyVacuumStart
@@ -209,79 +209,79 @@ automation:
               - 'Start:/start_vacuum, Locate:/locate_vacuum'
               - 'Return Home:/home_vacuum'
 
-  - id: FirstVacuumCleanBrushError
-    alias: "First Vacuum Clean Brush Error"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: sensor.vacuum_cleaner_error_sensor
-        to: Clean main brush
-    condition:
-      condition: numeric_state
-      entity_id: input_number.vacuum_error_count
-      below: 1
-    action:
-      - service: timer.start
-        data:
-          entity_id: timer.vacuum_error_timer
-      - service: input_number.increment
-        entity_id: input_number.vacuum_error_count
-      - service: vacuum.start
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+  # - id: FirstVacuumCleanBrushError
+  #   alias: "First Vacuum Clean Brush Error"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: sensor.vacuum_cleaner_error_sensor
+  #       to: Clean main brush
+  #   condition:
+  #     condition: numeric_state
+  #     entity_id: input_number.vacuum_error_count
+  #     below: 1
+  #   action:
+  #     - service: timer.start
+  #       data:
+  #         entity_id: timer.vacuum_error_timer
+  #     - service: input_number.increment
+  #       entity_id: input_number.vacuum_error_count
+  #     - service: vacuum.start
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
 
-  - id: SecondVacuumCleanBrushError
-    alias: "Second Vacuum Clean Brush Error"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: sensor.vacuum_cleaner_error_sensor
-        to: Clean main brush
-    condition:
-      condition: numeric_state
-      entity_id: input_number.vacuum_error_count
-      above: 0
-      below: 3
-    action:
-      - service: input_number.increment
-        entity_id: input_number.vacuum_error_count
-      - service: vacuum.start
-        entity_id: vacuum.xiaomi_vacuum_cleaner
+  # - id: SecondVacuumCleanBrushError
+  #   alias: "Second Vacuum Clean Brush Error"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: sensor.vacuum_cleaner_error_sensor
+  #       to: Clean main brush
+  #   condition:
+  #     condition: numeric_state
+  #     entity_id: input_number.vacuum_error_count
+  #     above: 0
+  #     below: 3
+  #   action:
+  #     - service: input_number.increment
+  #       entity_id: input_number.vacuum_error_count
+  #     - service: vacuum.start
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
 
-  - id: FinalVacuumCleanBrushError
-    alias: "Final Vacuum Clean Brush Error"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: sensor.vacuum_cleaner_error_sensor
-        to: Clean main brush
-    condition:
-      condition: numeric_state
-      entity_id: input_number.vacuum_error_count
-      above: 2
-      below: 4
-    action:
-      - service: timer.cancel
-        entity_id: timer.vacuum_error_timer
-      - service: input_number.set_value
-        data:
-          entity_id: input_number.vacuum_error_count
-          value: 0
-      - service: notify.telegram_nathan
-        data_template:
-          title: 'Mi Mi'
-          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
-          data:
-            inline_keyboard:
-              - 'Start:/start_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data_template:
-          title: 'Mi Mi'
-          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
-          data:
-            inline_keyboard:
-              - 'Start:/start_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: FinalVacuumCleanBrushError
+  #   alias: "Final Vacuum Clean Brush Error"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: sensor.vacuum_cleaner_error_sensor
+  #       to: Clean main brush
+  #   condition:
+  #     condition: numeric_state
+  #     entity_id: input_number.vacuum_error_count
+  #     above: 2
+  #     below: 4
+  #   action:
+  #     - service: timer.cancel
+  #       entity_id: timer.vacuum_error_timer
+  #     - service: input_number.set_value
+  #       data:
+  #         entity_id: input_number.vacuum_error_count
+  #         value: 0
+  #     - service: notify.telegram_nathan
+  #       data_template:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Start:/start_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data_template:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Start:/start_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
 
   - id: VacuumErrorTimerEnds
     alias: "VacuumErrorTimerEnds"
