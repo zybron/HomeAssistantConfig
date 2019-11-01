@@ -19,8 +19,8 @@ input_boolean:
     initial: off
   vacuum_auto_start:
     name: "Vacuum Auto Start"
-  empty_bin:
-    name: "Empty Vacuum Bin"
+  # empty_bin:
+  #   name: "Empty Vacuum Bin"
 
 # input_number:
 #   vacuum_error_count:
@@ -74,140 +74,140 @@ vacuum:
 #     duration: "00:03:00"
 
 automation:
-  - id: DailyVacuumStart
-    alias: "Daily Vacuum Start"
-    initial_state: on
-    trigger:
-      platform: template
-      value_template: "{{ states.sensor.time.state == states.input_datetime.vacuum_start_time.state[0:5] }}"
-    condition:
-      condition: state
-      entity_id: input_boolean.vacuum_auto_start
-      state: 'on'
-    action:
-      - service: vacuum.start
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.empty_bin
+  # - id: DailyVacuumStart
+  #   alias: "Daily Vacuum Start"
+  #   initial_state: on
+  #   trigger:
+  #     platform: template
+  #     value_template: "{{ states.sensor.time.state == states.input_datetime.vacuum_start_time.state[0:5] }}"
+  #   condition:
+  #     condition: state
+  #     entity_id: input_boolean.vacuum_auto_start
+  #     state: 'on'
+  #   action:
+  #     - service: vacuum.start
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
+  #     - service: input_boolean.turn_on
+  #       entity_id: input_boolean.empty_bin
 
-  - id: EmptyBinNotification
-    alias: "Empty Bin Notification"
-    initial_state: on
-    trigger:
-      platform: template
-      value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level >= 95 }}"
-    condition:
-      condition: and
-      conditions:
-        - condition: template
-          value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status == 'Charging' }}"
-        - condition: state
-          entity_id: input_boolean.empty_bin
-          state: 'on'
-    action:
-      - service: tts.google_translate_say
-        entity_id:
-          - media_player.master_bedroom_speaker
-          - media_player.kitchen_speaker
-        data:
-          message: 'Please empty Me Me''s trash bin.'
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.empty_bin
-      - service: notify.telegram_erin
-        data:
-          title: 'Mi Mi'
-          message: 'Please empty my trash bin, Erin.'
+  # - id: EmptyBinNotification
+  #   alias: "Empty Bin Notification"
+  #   initial_state: on
+  #   trigger:
+  #     platform: template
+  #     value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level >= 95 }}"
+  #   condition:
+  #     condition: and
+  #     conditions:
+  #       - condition: template
+  #         value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status == 'Charging' }}"
+  #       - condition: state
+  #         entity_id: input_boolean.empty_bin
+  #         state: 'on'
+  #   action:
+  #     - service: tts.google_translate_say
+  #       entity_id:
+  #         - media_player.master_bedroom_speaker
+  #         - media_player.kitchen_speaker
+  #       data:
+  #         message: 'Please empty Me Me''s trash bin.'
+  #     - service: input_boolean.turn_off
+  #       entity_id: input_boolean.empty_bin
+  #     - service: notify.telegram_erin
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Please empty my trash bin, Erin.'
 
-  - id: VacuumStartNotification
-    alias: "Vacuum Start Notification"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        to: "cleaning"
-    condition:
-      condition: numeric_state
-      entity_id: input_number.vacuum_error_count
-      below: 1
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Mi Mi'
-          message: 'Mi Mi has started cleaning.'
-          data:
-            inline_keyboard:
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data:
-          title: 'Mi Mi'
-          message: 'Mi Mi has started cleaning.'
-          data:
-            inline_keyboard:
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: VacuumStartNotification
+  #   alias: "Vacuum Start Notification"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
+  #       to: "cleaning"
+  #   condition:
+  #     condition: numeric_state
+  #     entity_id: input_number.vacuum_error_count
+  #     below: 1
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi has started cleaning.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi has started cleaning.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
 
-  - id: VacuumStopNotification
-    alias: "Vacuum Stop Notification"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-        to: "returning"
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Mi Mi'
-          message: 'Mi Mi is returning to the dock.'
-          data:
-            inline_keyboard:
-              - 'Start:/start_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data:
-          title: 'Mi Mi'
-          message: 'Mi Mi is returning to the dock.'
-          data:
-            inline_keyboard:
-              - 'Start:/start_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: VacuumStopNotification
+  #   alias: "Vacuum Stop Notification"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
+  #       to: "returning"
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi is returning to the dock.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Start:/start_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi is returning to the dock.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Start:/start_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
 
-  - id: VacuumErrorNotification
-    alias: "Vacuum Error Notification"
-    initial_state: on
-    trigger:
-      - platform: template
-        value_template: >-
-          {% if is_state('sensor.vacuum_cleaner_error_sensor', 'No Error') %}
-            false
-          {% else %}
-            true
-          {% endif %}
-    condition:
-      condition: template
-      value_template: >-
-        {% if is_state('sensor.vacuum_cleaner_error_sensor','Clean main brush') %}
-          false
-        {% else %}
-          true
-        {% endif %}
-    action:
-      - service: notify.telegram_nathan
-        data_template:
-          title: 'Mi Mi'
-          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
-          data:
-            inline_keyboard:
-              - 'Start:/start_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data_template:
-          title: 'Mi Mi'
-          message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
-          data:
-            inline_keyboard:
-              - 'Start:/start_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: VacuumErrorNotification
+  #   alias: "Vacuum Error Notification"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: template
+  #       value_template: >-
+  #         {% if is_state('sensor.vacuum_cleaner_error_sensor', 'No Error') %}
+  #           false
+  #         {% else %}
+  #           true
+  #         {% endif %}
+  #   condition:
+  #     condition: template
+  #     value_template: >-
+  #       {% if is_state('sensor.vacuum_cleaner_error_sensor','Clean main brush') %}
+  #         false
+  #       {% else %}
+  #         true
+  #       {% endif %}
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data_template:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Start:/start_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data_template:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi has an error: {{ states.sensor.vacuum_cleaner_error_sensor.state }}.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Start:/start_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
 
   # - id: FirstVacuumCleanBrushError
   #   alias: "First Vacuum Clean Brush Error"
@@ -283,301 +283,301 @@ automation:
   #             - 'Start:/start_vacuum, Locate:/locate_vacuum'
   #             - 'Return Home:/home_vacuum'
 
-  - id: VacuumErrorTimerEnds
-    alias: "VacuumErrorTimerEnds"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: timer.finished
-        event_data:
-          entity_id: timer.vacuum_error_timer
-    action:
-      - service: input_number.set_value
-        data:
-          entity_id: input_number.vacuum_error_count
-          value: 0
+  # - id: VacuumErrorTimerEnds
+  #   alias: "VacuumErrorTimerEnds"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: event
+  #       event_type: timer.finished
+  #       event_data:
+  #         entity_id: timer.vacuum_error_timer
+  #   action:
+  #     - service: input_number.set_value
+  #       data:
+  #         entity_id: input_number.vacuum_error_count
+  #         value: 0
 
   
-  - id: VacuumStopCleaningActionClicked
-    alias: "Vacuum Stop Cleaning Action Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/stop_vacuum'
-    action:
-      - service: vacuum.stop
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Stopping vacuum.'
+  # - id: VacuumStopCleaningActionClicked
+  #   alias: "Vacuum Stop Cleaning Action Clicked"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/stop_vacuum'
+  #   action:
+  #     - service: vacuum.stop
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Stopping vacuum.'
 
-  - id: VacuumReturnHomeActionClicked
-    alias: "Vacuum Return Home Action Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/home_vacuum'
-    action:
-      - service: vacuum.return_to_base
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Sending vacuum home.'
+  # - id: VacuumReturnHomeActionClicked
+  #   alias: "Vacuum Return Home Action Clicked"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/home_vacuum'
+  #   action:
+  #     - service: vacuum.return_to_base
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Sending vacuum home.'
 
-  - id: VacuumResumeCleaningActionClicked
-    alias: "Vacuum Resume Cleaning Action Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/start_vacuum'
-    action:
-      - service: vacuum.start
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Starting vacuum.'
+  # - id: VacuumResumeCleaningActionClicked
+  #   alias: "Vacuum Resume Cleaning Action Clicked"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/start_vacuum'
+  #   action:
+  #     - service: vacuum.start
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Starting vacuum.'
 
-  - id: VacuumLocateActionClicked
-    alias: "Vacuum Locate Action Clicked"
-    initial_state: on
-    trigger:
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/locate_vacuum'
-    action:
-      - service: vacuum.locate
-        entity_id: vacuum.xiaomi_vacuum_cleaner
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Locating vacuum.'
+  # - id: VacuumLocateActionClicked
+  #   alias: "Vacuum Locate Action Clicked"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/locate_vacuum'
+  #   action:
+  #     - service: vacuum.locate
+  #       entity_id: vacuum.xiaomi_vacuum_cleaner
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Locating vacuum.'
 
-  - id: ResetVacuumSensorTimer
-    alias: "Reset Vacuum Sensor Timer"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: input_boolean.vacuum_sensor_timer_reset
-        to: "on"
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/reset_sensor_timer'
-    action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.vacuum_sensor_timer_reset
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: reset_consumable
-          params: sensor_dirty_time
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Resetting sensor timer.'
+  # - id: ResetVacuumSensorTimer
+  #   alias: "Reset Vacuum Sensor Timer"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.vacuum_sensor_timer_reset
+  #       to: "on"
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/reset_sensor_timer'
+  #   action:
+  #     - service: input_boolean.turn_off
+  #       entity_id: input_boolean.vacuum_sensor_timer_reset
+  #     - service: vacuum.send_command
+  #       data:
+  #         entity_id: vacuum.xiaomi_vacuum_cleaner
+  #         command: reset_consumable
+  #         params: sensor_dirty_time
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Resetting sensor timer.'
 
-  - id: CleanSensorNotification
-    alias: "Clean Vacuum Sensors Notification"
-    initial_state: on
-    trigger:
-      - platform: template
-        value_template: >-
-          {% if states.sensor.vacuum_sensor_timer.state | float <= 0 %}
-          true
-          {% else %}
-          false
-          {% endif %}
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Mi Mi'
-          message: 'Time to clean Mi Mi''s sensors.'
-          data:
-            inline_keyboard:
-              - 'Reset sensor timer:/reset_sensor_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data:
-          title: 'Mi Mi'
-          message: 'Mi Mi is returning to the dock.'
-          data:
-            inline_keyboard:
-              - 'Reset sensor timer:/reset_sensor_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: CleanSensorNotification
+  #   alias: "Clean Vacuum Sensors Notification"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: template
+  #       value_template: >-
+  #         {% if states.sensor.vacuum_sensor_timer.state | float <= 0 %}
+  #         true
+  #         {% else %}
+  #         false
+  #         {% endif %}
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Time to clean Mi Mi''s sensors.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset sensor timer:/reset_sensor_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Mi Mi is returning to the dock.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset sensor timer:/reset_sensor_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
 
-  - id: ResetVacuumMainBrushTime
-    alias: "Reset Vacuum Main Brush Time"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: input_boolean.vacuum_main_brush_reset
-        to: "on"
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/reset_main_brush_timer'
-    action:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: reset_consumable
-          params: main_brush_work_time
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.vacuum_main_brush_reset
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Resetting main brush timer.'
+  # - id: ResetVacuumMainBrushTime
+  #   alias: "Reset Vacuum Main Brush Time"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.vacuum_main_brush_reset
+  #       to: "on"
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/reset_main_brush_timer'
+  #   action:
+  #     - service: vacuum.send_command
+  #       data:
+  #         entity_id: vacuum.xiaomi_vacuum_cleaner
+  #         command: reset_consumable
+  #         params: main_brush_work_time
+  #     - service: input_boolean.turn_off
+  #       entity_id: input_boolean.vacuum_main_brush_reset
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Resetting main brush timer.'
 
-  - id: ResetVacuumSideBrushTime
-    alias: "Reset Vacuum Side Brush Time"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: input_boolean.vacuum_side_brush_reset
-        to: "on"
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/reset_side_brush_timer'
-    action:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: reset_consumable
-          params: side_brush_work_time
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.vacuum_side_brush_reset
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Resetting side brush timer.'
+  # - id: ResetVacuumSideBrushTime
+  #   alias: "Reset Vacuum Side Brush Time"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.vacuum_side_brush_reset
+  #       to: "on"
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/reset_side_brush_timer'
+  #   action:
+  #     - service: vacuum.send_command
+  #       data:
+  #         entity_id: vacuum.xiaomi_vacuum_cleaner
+  #         command: reset_consumable
+  #         params: side_brush_work_time
+  #     - service: input_boolean.turn_off
+  #       entity_id: input_boolean.vacuum_side_brush_reset
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Resetting side brush timer.'
 
-  - id: ResetVacuumFilterTime
-    alias: "Reset Vacuum Filter Time"
-    initial_state: on
-    trigger:
-      - platform: state
-        entity_id: input_boolean.vacuum_filter_reset
-        to: "on"
-      - platform: event
-        event_type: telegram_callback
-        event_data:
-          data: '/reset_filter_timer'
-    action:
-      - service: vacuum.send_command
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          command: reset_consumable
-          params: filter_work_time
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.vacuum_filter_reset
-      - service: telegram_bot.answer_callback_query
-        data_template:
-          callback_query_id: '{{ trigger.event.data.id }}'
-          message: 'Resetting filter timer.'
+  # - id: ResetVacuumFilterTime
+  #   alias: "Reset Vacuum Filter Time"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.vacuum_filter_reset
+  #       to: "on"
+  #     - platform: event
+  #       event_type: telegram_callback
+  #       event_data:
+  #         data: '/reset_filter_timer'
+  #   action:
+  #     - service: vacuum.send_command
+  #       data:
+  #         entity_id: vacuum.xiaomi_vacuum_cleaner
+  #         command: reset_consumable
+  #         params: filter_work_time
+  #     - service: input_boolean.turn_off
+  #       entity_id: input_boolean.vacuum_filter_reset
+  #     - service: telegram_bot.answer_callback_query
+  #       data_template:
+  #         callback_query_id: '{{ trigger.event.data.id }}'
+  #         message: 'Resetting filter timer.'
 
-  - id: ReplaceMainBrushNotification
-    alias: "Replace Main Brush Notification"
-    initial_state: on
-    trigger:
-      - platform: template
-        value_template: >-
-          {% if states.sensor.vacuum_main_brush_timer.state | float <= 0 %}
-          true
-          {% else %}
-          false
-          {% endif %}
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Mi Mi'
-          message: 'Time to replace Mi Mi''s main brush.'
-          data:
-            inline_keyboard:
-              - 'Reset main brush timer:/reset_main_brush_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data:
-          title: 'Mi Mi'
-          message: 'Time to replace Mi Mi''s main brush.'
-          data:
-            inline_keyboard:
-              - 'Reset main brush timer:/reset_main_brush_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: ReplaceMainBrushNotification
+  #   alias: "Replace Main Brush Notification"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: template
+  #       value_template: >-
+  #         {% if states.sensor.vacuum_main_brush_timer.state | float <= 0 %}
+  #         true
+  #         {% else %}
+  #         false
+  #         {% endif %}
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Time to replace Mi Mi''s main brush.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset main brush timer:/reset_main_brush_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Time to replace Mi Mi''s main brush.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset main brush timer:/reset_main_brush_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
 
-  - id: ReplaceSideBrushNotification
-    alias: "Replace Side Brush Notification"
-    initial_state: on
-    trigger:
-      - platform: template
-        value_template: >-
-          {% if states.sensor.vacuum_side_brush_timer.state | float <= 0 %}
-          true
-          {% else %}
-          false
-          {% endif %}
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Mi Mi'
-          message: 'Time to replace Mi Mi''s side brush.'
-          data:
-            inline_keyboard:
-              - 'Reset side brush timer:/reset_side_brush_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data:
-          title: 'Mi Mi'
-          message: 'Time to replace Mi Mi''s side brush.'
-          data:
-            inline_keyboard:
-              - 'Reset side brush timer:/reset_side_brush_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: ReplaceSideBrushNotification
+  #   alias: "Replace Side Brush Notification"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: template
+  #       value_template: >-
+  #         {% if states.sensor.vacuum_side_brush_timer.state | float <= 0 %}
+  #         true
+  #         {% else %}
+  #         false
+  #         {% endif %}
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Time to replace Mi Mi''s side brush.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset side brush timer:/reset_side_brush_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Time to replace Mi Mi''s side brush.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset side brush timer:/reset_side_brush_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
 
-  - id: ReplaceFilterNotification
-    alias: "Replace Filter Notification"
-    initial_state: on
-    trigger:
-      - platform: template
-        value_template: >-
-          {% if states.sensor.vacuum_filter_timer.state | float <= 0 %}
-          true
-          {% else %}
-          false
-          {% endif %}
-    action:
-      - service: notify.telegram_nathan
-        data:
-          title: 'Mi Mi'
-          message: 'Time to replace Mi Mi''s filter.'
-          data:
-            inline_keyboard:
-              - 'Reset filter timer:/reset_filter_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
-      - service: notify.telegram_erin
-        data:
-          title: 'Mi Mi'
-          message: 'Time to replace Mi Mi''s filter.'
-          data:
-            inline_keyboard:
-              - 'Reset filter timer:/reset_filter_timer'
-              - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
-              - 'Return Home:/home_vacuum'
+  # - id: ReplaceFilterNotification
+  #   alias: "Replace Filter Notification"
+  #   initial_state: on
+  #   trigger:
+  #     - platform: template
+  #       value_template: >-
+  #         {% if states.sensor.vacuum_filter_timer.state | float <= 0 %}
+  #         true
+  #         {% else %}
+  #         false
+  #         {% endif %}
+  #   action:
+  #     - service: notify.telegram_nathan
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Time to replace Mi Mi''s filter.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset filter timer:/reset_filter_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
+  #     - service: notify.telegram_erin
+  #       data:
+  #         title: 'Mi Mi'
+  #         message: 'Time to replace Mi Mi''s filter.'
+  #         data:
+  #           inline_keyboard:
+  #             - 'Reset filter timer:/reset_filter_timer'
+  #             - 'Stop:/stop_vacuum, Locate:/locate_vacuum'
+  #             - 'Return Home:/home_vacuum'
