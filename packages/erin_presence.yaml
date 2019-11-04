@@ -20,6 +20,14 @@ input_boolean:
     name:                   Erin is Away
     initial:                off
 
+sensor:
+    sensors:
+      erin_location:
+        friendly_name: "Erin's Location"
+        value_template: >-
+        '{{ [states.device_tracker.google_maps_111510462305838841156.attributes.latitude, 
+        states.device_tracker.google_maps_111510462305838841156.attributes.longitude] }}'
+
 automation:
   # - id:                     ToggleErinAway
   #   alias:                  Toggle Erin Away
