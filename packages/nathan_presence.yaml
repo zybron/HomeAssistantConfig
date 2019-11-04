@@ -19,6 +19,13 @@ input_boolean:
     nathan_away:
       name:                 Nathan is Away
 
+sensor:
+  - platform: template
+    sensors:
+      nathan_location:
+        friendly_name: "Nathan's Location"
+        value_template: "{{ [states.device_tracker.google_maps_108648636233625132646.attributes.latitude, states.device_tracker.google_maps_108648636233625132646.attributes.longitude] }}"
+
 automation:
   # - id:                     ToggleNathanAway
   #   alias:                  Toggle Nathan Away
