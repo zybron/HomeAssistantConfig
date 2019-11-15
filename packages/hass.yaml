@@ -80,9 +80,7 @@ automation:
         data:
           title: 'Pull Config'
           message: 'Pulling new config from GitHub.'
-      - service:           hassio.addon_start
-        data:
-          addon:           'core_git_pull'
+      - service: shell_command.pull_config
   
   # - id: NewOrChangedConfigFile
   #   alias: 'New or Changed Config File'
