@@ -20,7 +20,7 @@ config:
 conversation:
 deconz:
   host: 192.168.1.66
-  port: 666
+  port: 667
 
 default_config:
 
