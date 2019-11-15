@@ -18,6 +18,10 @@ homeassistant:
 cloud:
 config:
 conversation:
+deconz:
+  host: 192.168.1.66
+  port: 666
+
 default_config:
 
 device_tracker:
