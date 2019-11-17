@@ -108,6 +108,7 @@ automation:
     trigger:
     - event:               start
       platform:            homeassistant
+    action:
     - service: notify.telegram_nathan
       data:
         title: 'Home Assistant'
