@@ -12,46 +12,46 @@ input_boolean:
   hold_garage_open:
     name: 'Hold Garage Door Open'
 
-sensor:
-  - platform:               mqtt
-    name:                   'Garage Door'
-    state_topic:            'garadget/garage/status'
-    value_template:         '{{ value_json.status }}'
-  - platform:               mqtt
-    name:                   'Garage Brightness'
-    state_topic:            'garadget/garage/status'
-    unit_of_measurement:    '%'
-    value_template:         '{{ value_json.bright }}'
-  - platform:               mqtt
-    name:                   'Garage Door Sensor'
-    state_topic:            'garadget/garage/status'
-    unit_of_measurement:    '%'
-    value_template:         '{{ value_json.sensor }}'
-  - platform:               mqtt
-    name:                   'Garagdet Connection'
-    state_topic:            'garadget/garage/status'
-    unit_of_measurement:    'dB'
-    device_class: signal_strength
-    value_template:         '{{ value_json.signal }}'
-  - platform:               template
-    sensors:
-      garage_door_changed:
-        friendly_name:      'Garage Door Changed'
-        value_template:     '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
-        device_class: timestamp
+# sensor:
+#   - platform:               mqtt
+#     name:                   'Garage Door'
+#     state_topic:            'garadget/garage/status'
+#     value_template:         '{{ value_json.status }}'
+#   - platform:               mqtt
+#     name:                   'Garage Brightness'
+#     state_topic:            'garadget/garage/status'
+#     unit_of_measurement:    '%'
+#     value_template:         '{{ value_json.bright }}'
+#   - platform:               mqtt
+#     name:                   'Garage Door Sensor'
+#     state_topic:            'garadget/garage/status'
+#     unit_of_measurement:    '%'
+#     value_template:         '{{ value_json.sensor }}'
+#   - platform:               mqtt
+#     name:                   'Garagdet Connection'
+#     state_topic:            'garadget/garage/status'
+#     unit_of_measurement:    'dB'
+#     device_class: signal_strength
+#     value_template:         '{{ value_json.signal }}'
+#   - platform:               template
+#     sensors:
+#       garage_door_changed:
+#         friendly_name:      'Garage Door Changed'
+#         value_template:     '{{ as_timestamp(states.sensor.garage_door.last_updated) | timestamp_custom("%m-%d-%Y %H:%M:%S", true) }}'
+#         device_class: timestamp
 
-automation:
-  - alias:                  'Update Garage Brightness'
-    initial_state:          on
-    trigger:
-      platform:             time_pattern
-      minutes:              '/2'
-      seconds:              0
-    action:
-      service:              mqtt.publish
-      data:
-        topic:              "garadget/garage/command"
-        payload:            "get-status"
+# automation:
+#   - alias:                  'Update Garage Brightness'
+#     initial_state:          on
+#     trigger:
+#       platform:             time_pattern
+#       minutes:              '/2'
+#       seconds:              0
+#     action:
+#       service:              mqtt.publish
+#       data:
+#         topic:              "garadget/garage/command"
+#         payload:            "get-status"
 
   # - alias:                  'Auto Close Garage Door'
   #   initial_state:          on
@@ -162,34 +162,34 @@ automation:
   #         inline_keyboard:
   #           - 'Open:/do_garage_open'
 
-  - id:                     CloseGarageDoorClicked
-    alias:                  "Close Garage Door Clicked"
-    initial_state:          on
-    trigger:
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/do_garage_close'
-    action:
-    - service:              cover.close_cover
-      entity_id:            'cover.garage_door'
-    - service: telegram_bot.answer_callback_query
-      data_template:
-        callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Closing garage door.'
+  # - id:                     CloseGarageDoorClicked
+  #   alias:                  "Close Garage Door Clicked"
+  #   initial_state:          on
+  #   trigger:
+  #   - platform: event
+  #     event_type: telegram_callback
+  #     event_data:
+  #       data: '/do_garage_close'
+  #   action:
+  #   - service:              cover.close_cover
+  #     entity_id:            'cover.garage_door'
+  #   - service: telegram_bot.answer_callback_query
+  #     data_template:
+  #       callback_query_id: '{{ trigger.event.data.id }}'
+  #       message: 'Closing garage door.'
 
-  - id:                     OpenGarageDoorClicked
-    alias:                  "Open Garage Door Clicked"
-    initial_state:          on
-    trigger:
-    - platform: event
-      event_type: telegram_callback
-      event_data:
-        data: '/do_garage_open'
-    action:
-    - service:              cover.open_cover
-      entity_id:            'cover.garage_door'
-    - service: telegram_bot.answer_callback_query
-      data_template:
-        callback_query_id: '{{ trigger.event.data.id }}'
-        message: 'Opening garage door.'
+  # - id:                     OpenGarageDoorClicked
+  #   alias:                  "Open Garage Door Clicked"
+  #   initial_state:          on
+  #   trigger:
+  #   - platform: event
+  #     event_type: telegram_callback
+  #     event_data:
+  #       data: '/do_garage_open'
+  #   action:
+  #   - service:              cover.open_cover
+  #     entity_id:            'cover.garage_door'
+  #   - service: telegram_bot.answer_callback_query
+  #     data_template:
+  #       callback_query_id: '{{ trigger.event.data.id }}'
+  #       message: 'Opening garage door.'
