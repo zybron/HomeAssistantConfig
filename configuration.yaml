@@ -18,16 +18,10 @@ homeassistant:
 cloud:
 config:
 conversation:
-deconz:
-  host: 192.168.1.66
-  port: 667
 
 default_config:
 
 device_tracker:
-  - platform:                                  google_maps
-    username:                                  !secret google_maps_username
-    #password:                                  !secret google_maps_password
   - platform:                                  ping
     count:                                     5
     hosts:
@@ -35,10 +29,6 @@ device_tracker:
       galaxy_s5:                               192.168.1.166
 
 discovery:
-  ignore:
-    - homekit
-ecobee:
-  api_key: !secret ecobee_api_key
 frontend:                                      !include frontend.yaml
 google:
   client_id: !secret google_client_id
