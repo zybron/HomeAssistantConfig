@@ -10,7 +10,9 @@ sensor:
   - platform: tautulli
     api_key: !secret tautulli_api_key
     host: !secret tautulli_host
-
+  - platform: plex_recently_added
+    token: !secret plex_token
+    host: 192.168.1.65
 input_boolean:
   movie_mode:
     name: 'Movie mode'
