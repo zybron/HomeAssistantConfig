@@ -94,7 +94,7 @@ recorder:
 sensor:
   - platform: waze_travel_time
     origin: zone.home
-    destination: '501 Brooker Creek Blvd, Oldsmar, FL 34677'
+    destination: zone.work
     region: 'US'
     name: 'Work Travel Time'
 
