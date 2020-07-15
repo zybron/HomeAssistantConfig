@@ -1,3 +1,8 @@
+media_player:
+  - platform: androidtv
+    name: Nvidia Shield
+    device_class: androidtv
+    host: 192.168.1.128
 ombi:
   api_key: !secret ombi_api_key
   host: !secret ombi_host
