@@ -3,13 +3,6 @@ media_player:
     name: Nvidia Shield
     device_class: androidtv
     host: 192.168.1.128
-ombi:
-  api_key: !secret ombi_api_key
-  host: !secret ombi_host
-  username: !secret ombi_username
-  port: 3579
-  urlbase: 'ombi/'
-  ssl: false
 
 sensor:
   - platform: tautulli
