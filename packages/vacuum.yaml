@@ -68,10 +68,10 @@ sensor:
         value_template: "{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}"
         unit_of_measurement: percent
 
-vacuum:
-  - platform: xiaomi_miio
-    host: 192.168.1.186
-    token: !secret vacuum_token
+#vacuum:
+#  - platform: xiaomi_miio
+#    host: 192.168.1.186
+#    token: !secret vacuum_token
 
 # timer:
 #   vacuum_error_timer:
