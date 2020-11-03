@@ -1,0 +1,4 @@
+litter_robot:
+  username: !secret litter_robot_username
+  password: !secret litter_robot_password
+  scan_interval: 120
