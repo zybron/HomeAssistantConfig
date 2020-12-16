@@ -29,9 +29,9 @@ device_tracker:
 
 discovery:
 #frontend:                                      !include frontend.yaml
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
+#google:
+#  client_id: !secret google_client_id
+#  client_secret: !secret google_client_secret
 # googlehome:
 #   devices:
 #     - host: 192.168.1.158
