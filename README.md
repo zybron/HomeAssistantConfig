@@ -1,2 +1,2 @@
 # HomeAssistantConfig
-[![Build Status](https://travis-ci.org/zybron/HomeAssistantConfig.svg?branch=master)](https://travis-ci.org/zybron/HomeAssistantConfig)
+[![zybron](https://circleci.com/gh/zybron/HomeAssistantConfig.svg?style=svg)](https://app.circleci.com/pipelines/github/zybron)
