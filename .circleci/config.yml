@@ -28,10 +28,7 @@ jobs:
           name: Install curl
       - run:
           command: >
-            curl -X POST -H "Authorization: Bearer ${HAToken}" \
-            -H "Content-Type: application/json" \
-            -d '{"payload": "${CIRCLE_BUILD_NUM} PASS", "topic": "circleci/status", "retain": "True"}' \
-            ${HOST}/api/services/mqtt/publish
+            curl -X POST -H "Authorization: Bearer $HATOKEN" -H "Content-Type: application/json" -d '{"entity_id":"automation.pull_new_config"}' $HOST/api/services/automation/trigger
           name: Publish Success
 
 workflows:
