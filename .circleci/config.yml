@@ -15,7 +15,7 @@ jobs:
           command: pip install homeassistant
           name: Install Home Assistant
       - run:
-          command: hass -version
+          command: hass --version
           name: Version check
       - run:
           command: hass -c . --script check_config
