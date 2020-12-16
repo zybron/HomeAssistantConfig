@@ -20,8 +20,18 @@ jobs:
       - run:
           command: hass -c . --script check_config
           name: Config check
+  deploy:
+    steps:
+      - run:
+          command: sudo apt-get install -y curl
+          name: Install curl
+      - run:
+          command: curl -X POST -H "Authorization: Bearer $HAToken" -H "Content-Type: application/json" -d '{"payload": "$CIRCLE_BUILD_NUM PASS", "topic": "circleci/status", "retain": "True"}' $HOST/api/services/mqtt/publish
+          name: Publish Success
 
 workflows:
   main:
     jobs:
       - build-and-test
+      - deploy
+          requires: build-and-test
