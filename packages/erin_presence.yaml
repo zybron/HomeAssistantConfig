@@ -25,7 +25,7 @@ sensor:
     sensors:
       erin_location:
         friendly_name: "Erin's Location"
-        value_template: "{{ [states.device_tracker.life360_erin_brown.attributes.latitude, states.device_tracker.life360_erin_brown.attributes.longitude] }}"
+        value_template: "{{ [states.person.erin.attributes.latitude, states.person.erin.attributes.longitude] }}"
 
 automation:
   # - id:                     ToggleErinAway
