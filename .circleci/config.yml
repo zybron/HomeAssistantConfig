@@ -1,0 +1,27 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-test:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          command: mv travis_secrets.yaml secrets.yaml
+          name: Rename secrets file
+      - run:
+          command: pip install home-assistant
+          name: Install Home Assistant
+      - run:
+          command: hass -version
+          name: Version check
+      - run:
+          command: hass -c . --script check_config
+          name: Config check
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
