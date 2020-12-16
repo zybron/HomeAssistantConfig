@@ -1,5 +1,0 @@
-notify:
-  - name: Discord_Notify
-    platform: discord
-    token: !secret discord_token
-  
