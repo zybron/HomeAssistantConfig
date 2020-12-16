@@ -12,7 +12,7 @@ jobs:
           command: mv travis_secrets.yaml secrets.yaml
           name: Rename secrets file
       - run:
-          command: pip install home-assistant
+          command: pip install homeassistant
           name: Install Home Assistant
       - run:
           command: hass -version
