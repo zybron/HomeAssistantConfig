@@ -8,6 +8,8 @@ cover:
     payload_open: "open"
     payload_close: "close"
     payload_stop: "stop"
+    state_closed: "CLOSED"
+    state_open: "OPEN"
     json_attributes_topic: "Garage/OUT/JSON"
 
 input_boolean:
