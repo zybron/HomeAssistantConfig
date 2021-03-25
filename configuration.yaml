@@ -10,7 +10,7 @@ homeassistant:
 
 camera:
   - platform: ffmpeg
-    input: !secret enryway_cam_url
+    input: !secret entryway_cam_url
     name: 'Entryway Direct'
   - platform: ffmpeg
     input: !secret kitchen_cam_url
