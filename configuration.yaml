@@ -1,103 +1,57 @@
 homeassistant:
-  customize:                                   !include customize.yaml
-  elevation:                                   85
-  latitude:                                    !secret latitude
-  longitude:                                   !secret longitude
-  name:                                        PandaPad
-  packages:                                    !include_dir_named packages
-  time_zone:                                   America/New_York
-  unit_system:                                 imperial
-  auth_providers:
-    - type: homeassistant
-    - type: trusted_networks
-      trusted_networks:
-        - 172.17.0.0/24
-        - 127.0.0.1
-        - 192.168.1.0/24
+  customize: !include customize.yaml
+  elevation: 85
+  latitude: !secret latitude
+  longitude: !secret longitude
+  name: PandaPad
+  packages: !include_dir_named packages
+  time_zone: America/New_York
+  unit_system: imperial
+
+camera:
+  - platform: ffmpeg
+    input: !secret enryway_cam_url
+    name: 'Entryway Direct'
+  - platform: ffmpeg
+    input: !secret kitchen_cam_url
+    name: 'Kitchen Direct'
+  - platform: ffmpeg
+    input: !secret master_cam_url
+    name: 'Master Bedroom Direct'
 
 config:
 conversation:
 
 default_config:
 
-device_tracker:
-  - platform:                                  ping
-    count:                                     5
-    hosts:
-      oneplus_one:                             192.168.1.64
-      galaxy_s5:                               192.168.1.166
-
 discovery:
-#frontend:                                      !include frontend.yaml
-#google:
-#  client_id: !secret google_client_id
-#  client_secret: !secret google_client_secret
-# googlehome:
-#   devices:
-#     - host: 192.168.1.158
-#       track_alarms: True
-#     - host: 192.168.1.163
-#       track_alarms: True
-#     - host: 192.168.1.164
-#       track_alarms: True
-# group:                                         !include groups.yaml
 
 history:
 
 http:
-  base_url:                                    ha.zybron.com
-  ip_ban_enabled:                              True
-  login_attempts_threshold:                    10
-
-# influxdb:
-#   host: a0d7b954-influxdb
-#   port: 8086
-#   database: homeassistant
-#   username: homeassistant
-#   password: !secret influxdb_password
-#   max_retries: 3
-#   default_measurement: state
+  base_url: ha.zybron.com
+  ip_ban_enabled: True
+  login_attempts_threshold: 10
 
 logbook:
 
 logger:
-  default:                                     info
-  # logs:
-  #   homeassistant.components.mqtt:             debug
+  default: info
 
 map:
 
-# mqtt:
-#   broker:                                      192.168.1.200
-#   port:                                        1883
-#   client_id:                                   PandaPad_Main
-#   username:                                    !secret mqtt_user
-#   password:                                    !secret mqtt_password
-#   discovery:                                   true
-#   discovery_prefix:                            homeassistant
-
-# panel_iframe:
-#   nodered:
-#     title:                                     'Node-RED'
-#     url:                                       'https://node-red.zybron.com'
-#     icon:                                      mdi:sitemap
-#   esphome:
-#     title: 'ESPHome'
-#     url: 'https://esphome.zybron.com'
-#     icon: mdi:car-esp
-
 person:
 recorder:
-  purge_interval:                              1
-  purge_keep_days:                             7
+  purge_interval: 1
+  purge_keep_days: 7
 
 sensor:
   - platform: waze_travel_time
     origin: zone.home
     destination: zone.work
-    region: 'US'
-    name: 'Work Travel Time'
-    
+    region: "US"
+    name: "Work Travel Time"
+
 sun:
 system_health:
 
@@ -105,12 +59,11 @@ tts:
   - platform: google_translate
 
 updater:
-  include_used_components:                     true
-  
+  include_used_components: true
+
 zone:
-  - name: 'Home'
+  - name: "Home"
     latitude: !secret latitude
     longitude: !secret longitude
     radius: 200
     icon: mdi:home
-
