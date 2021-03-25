@@ -1,14 +1,15 @@
 cover:
-  - platform:               mqtt
-    name:                   "Garage Door"
-    command_topic:          "garadget/garage/command"
-    state_topic:            "garadget/garage/status"
-    payload_open:           "open"
-    payload_close:          "close"
-    payload_stop:           "stop"
-    value_template:         "{{ value_json.status }}"
+  - platform: mqtt
+    name: "Garage Door"
+    availability:
+      - topic: "Garage/OUT/STATUS"
+    command_topic: "Garage/IN/STATE"
+    state_topic: "Garage/OUT/STATE"
+    payload_open: "open"
+    payload_close: "close"
+    payload_stop: "stop"
+    json_attributes_topic: "Garage/OUT/JSON"
 
 input_boolean:
   hold_garage_open:
-    name: 'Hold Garage Door Open'
-
+    name: "Hold Garage Door Open"
