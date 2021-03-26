@@ -18,6 +18,9 @@ camera:
   - platform: ffmpeg
     input: !secret master_cam_url
     name: 'Master Bedroom Direct'
+  - platform: ffmpeg
+    input: !secret garage_cam_url
+    name: 'Garage Direct'
 
 config:
 conversation:
