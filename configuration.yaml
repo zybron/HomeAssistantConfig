@@ -21,6 +21,9 @@ camera:
   - platform: ffmpeg
     input: !secret garage_cam_url
     name: 'Garage Direct'
+  - platform: ffmpeg
+    input: !secret livingroom_cam_url
+    name: 'Livingroom Direct'
 
 config:
 conversation:
