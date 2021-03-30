@@ -45,6 +45,7 @@ logger:
   default: info
 
 map:
+mobile_app:
 
 person:
 recorder:
