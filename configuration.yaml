@@ -16,7 +16,7 @@ camera:
     mjpeg_url: !secret kitchen_cam_url
     name: 'Kitchen'
   - platform: mjpeg
-    mjpeg.url: !secret master_cam_url
+    mjpeg_url: !secret master_cam_url
     name: 'Master Bedroom'
   - platform: mjpeg
     mjpeg_url: !secret garage_cam_url
