@@ -9,21 +9,21 @@ homeassistant:
   unit_system: imperial
 
 camera:
-  - platform: ffmpeg
-    input: !secret entryway_cam_url
-    name: 'Entryway Direct'
-  - platform: ffmpeg
-    input: !secret kitchen_cam_url
-    name: 'Kitchen Direct'
-  - platform: ffmpeg
-    input: !secret master_cam_url
-    name: 'Master Bedroom Direct'
-  - platform: ffmpeg
-    input: !secret garage_cam_url
-    name: 'Garage Direct'
-  - platform: ffmpeg
-    input: !secret livingroom_cam_url
-    name: 'Livingroom Direct'
+  - platform: mjpeg
+    mjpeg_url: !secret entryway_cam_url
+    name: 'Entryway'
+  - platform: mjpeg
+    mjpeg_url: !secret kitchen_cam_url
+    name: 'Kitchen'
+  - platform: mjpeg
+    mjpeg.url: !secret master_cam_url
+    name: 'Master Bedroom'
+  - platform: mjpeg
+    mjpeg_url: !secret garage_cam_url
+    name: 'Garage'
+  - platform: mjpeg
+    mjpeg_url: !secret livingroom_cam_url
+    name: 'Livingroom'
 
 config:
 conversation:
@@ -35,9 +35,24 @@ discovery:
 history:
 
 http:
-  base_url: ha.zybron.com
   ip_ban_enabled: True
   login_attempts_threshold: 10
+
+image_processing:
+  - platform: tensorflow
+    source:
+      - entity_id: camera.entryway
+      - entity_id: camera.living_room
+      - entity_id: camera.master_bedroom
+      - entity_id: camera.garage
+      - entity_id: camera.kitchen
+    file_out:
+      - "/tmp/{{ camera_entity.split('.')[1] }}_latest.jpg"
+      - "/tmp/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
+    model:
+      graph: /config/tensorflow/models/efficientdet_d7_coco17_tpu-32/
+      categories:
+        - category: person
 
 logbook:
 
