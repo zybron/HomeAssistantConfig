@@ -40,6 +40,7 @@ http:
 
 image_processing:
   - platform: tensorflow
+    scan_interval: 604800
     source:
       - entity_id: camera.entryway
       - entity_id: camera.living_room
