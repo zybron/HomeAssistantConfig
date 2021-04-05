@@ -8,23 +8,6 @@ homeassistant:
   time_zone: America/New_York
   unit_system: imperial
 
-camera:
-  - platform: mjpeg
-    mjpeg_url: !secret entryway_cam_url
-    name: 'Entryway'
-  - platform: mjpeg
-    mjpeg_url: !secret kitchen_cam_url
-    name: 'Kitchen'
-  - platform: mjpeg
-    mjpeg_url: !secret master_cam_url
-    name: 'Master Bedroom'
-  - platform: mjpeg
-    mjpeg_url: !secret garage_cam_url
-    name: 'Garage'
-  - platform: mjpeg
-    mjpeg_url: !secret livingroom_cam_url
-    name: 'Living Room'
-
 config:
 conversation:
 
@@ -37,23 +20,6 @@ history:
 http:
   ip_ban_enabled: True
   login_attempts_threshold: 10
-
-image_processing:
-  - platform: tensorflow
-    scan_interval: 604800
-    source:
-      - entity_id: camera.entryway
-      - entity_id: camera.living_room
-      - entity_id: camera.master_bedroom
-      - entity_id: camera.garage
-      - entity_id: camera.kitchen
-    file_out:
-      - "/config/www/motion/{{ camera_entity.split('.')[1] }}_latest.jpg"
-      - "/config/www/motion/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
-    model:
-      graph: !secret image_processing_graph_folder
-      categories:
-        - category: person
 
 logbook:
 
