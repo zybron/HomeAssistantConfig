@@ -1,12 +1,5 @@
 homeassistant:
-  customize: !include customize.yaml
-  elevation: 85
-  latitude: !secret latitude
-  longitude: !secret longitude
-  name: PandaPad
   packages: !include_dir_named packages
-  time_zone: America/New_York
-  unit_system: imperial
   allowlist_external_dirs:
     - "/config"
     - "/config/motion"
@@ -34,7 +27,6 @@ mobile_app:
 
 person:
 recorder:
-  purge_interval: 1
   purge_keep_days: 7
 
 sensor:
