@@ -23,7 +23,7 @@ camera:
     name: 'Garage'
   - platform: mjpeg
     mjpeg_url: !secret livingroom_cam_url
-    name: 'Livingroom'
+    name: 'Living Room'
 
 config:
 conversation:
