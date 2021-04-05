@@ -7,6 +7,9 @@ homeassistant:
   packages: !include_dir_named packages
   time_zone: America/New_York
   unit_system: imperial
+  allowlist_external_dirs:
+    - "/config"
+    - "/config/motion"
 
 config:
 conversation:
