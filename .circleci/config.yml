@@ -10,6 +10,9 @@ jobs:
           command: mv travis_secrets.yaml secrets.yaml
           name: Rename secrets file
       - run:
+          command: mkdir -p /config/tensorflow/models/efficientdet_d7_coco17_tpu-32/
+          name: Create checked directory for tensorflow
+      - run:
           command: pip install homeassistant
           name: Install Home Assistant
       - run:
