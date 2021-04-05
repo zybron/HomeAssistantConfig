@@ -51,7 +51,7 @@ image_processing:
       - "/tmp/{{ camera_entity.split('.')[1] }}_latest.jpg"
       - "/tmp/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
     model:
-      graph: /config/tensorflow/models/efficientdet_d7_coco17_tpu-32/
+      graph: !secret image_processing_graph_folder
       categories:
         - category: person
 
