@@ -6,8 +6,8 @@ jobs:
       - image: circleci/python:3.8.7
     steps:
       - run:
-          command: ls /config
-          name: List current /config folder
+          command: mkdir /config
+          name: Make /config folder
       - checkout
       - run:
           command: mv travis_secrets.yaml secrets.yaml
