@@ -48,8 +48,8 @@ image_processing:
       - entity_id: camera.garage
       - entity_id: camera.kitchen
     file_out:
-      - "/tmp/{{ camera_entity.split('.')[1] }}_latest.jpg"
-      - "/tmp/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
+      - "/config/www/motion/{{ camera_entity.split('.')[1] }}_latest.jpg"
+      - "/config/www/motion/{{ camera_entity.split('.')[1] }}_{{ now().strftime('%Y%m%d_%H%M%S') }}.jpg"
     model:
       graph: !secret image_processing_graph_folder
       categories:
