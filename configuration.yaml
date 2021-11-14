@@ -4,6 +4,7 @@ homeassistant:
     - "/config"
     - "/config/motion"
 
+automations: !include my_animations.yaml
 config:
 conversation:
 
@@ -33,21 +34,13 @@ person:
 recorder:
   purge_keep_days: 7
 
-sensor:
-  - platform: waze_travel_time
-    origin: zone.home
-    destination: zone.work
-    region: "US"
-    name: "Work Travel Time"
-
+scripts: !include my_scripts.yaml
 sun:
 system_health:
 
 tts:
   - platform: google_translate
 
-updater:
-  include_used_components: true
 
 zone:
   - name: "Home"

@@ -1,0 +1,115 @@
+- id: main_balcony_open
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.main_balcony_sensor
+      to: "on"
+      for: "00:05:00"
+  condition:
+    alias: "Thermostat_not_off"
+    condition: not
+    conditions:    
+      - condition: state
+        entity_id: climate.thermostat
+        state: "off"
+  action:
+    - service: climate.turn_off
+      target:
+        entity_id: climate.thermostat
+
+- id: main_balcony_close
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.main_balcony_sensor
+      from: "on"
+      to: "off"
+  condition:
+    - alias: "thermostat_on"
+      condition: state
+      entity_id: climate.thermostat
+      state: "off"
+  action:
+    - service: climate.turn_on
+      target:
+        entity_id: climate.thermostat
+
+- id: battery_level_low_daily_notification
+  trigger:
+    - platform: time
+      at: "08:00:00"
+  action:
+    choose:
+    - conditions:
+        - condition: numeric_state
+          entity_id: sensor.front_door_sensor_battery_level
+          below: 25
+          above: 0
+      sequence:
+        - service: notify.telegram_nathan
+          data:
+            message_template: "The front door sensor's battery is low. Current level is {{ states.sensor.front_door_sensor_batter_level }}."
+            title: "Front Door Sensor"
+    - conditions:
+        - condition: numeric_state
+          entity_id: sensor.main_balcony_battery_level
+          below: 25
+          above: 0
+      sequence:
+        - service: notify.telegram_nathan
+          data:
+            message_template: "The main balcony door sensor's battery is low. Current level is {{ states.sensor.main_balcony_battery_level }}."
+            title: "Main Balcony Door Sensor"
+    - conditions:
+        - condition: numeric_state
+          entity_id: sensor.motion_sensor_entryway_battery_level
+          below: 25
+          above: 0
+      sequence:
+        - service: notify.telegram_nathan
+          data:
+            message_template: "The entryway motion sensor's battery is low. Current level is {{ states.sensor.motion_sensor_entryway_battery_level }}."
+            title: "Entryway Motion Sensor"
+    - conditions:
+        - condition: numeric_state
+          entity_id: sensor.door_lock_batteries_front_door
+          below: 25
+          above: 0
+      sequence:
+        - service: notify.telegram_nathan
+          data:
+            message_template: "The entryway motion sensor's battery is low. Current level is {{ states.sensor.door_lock_batteries_front_door }}."
+            title: "Entryway Motion Sensor"
+
+- id: "turn_on_entryway_lights_automation"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_entryway_motion_sensor_status
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_door_state
+      from: "off"
+      to: "on"
+  action:
+    sequence:
+      - service: script.turn_off
+        target:
+          entity_id: script.turn_off_entryway_lights
+      - service: script.turn_on
+        target:
+          entity_id: script.turn_on_entryway_lights
+
+- id: "turn_off_entryway_lights_automation"  
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_sensor_entryway_motion_sensor_status
+      from: "on"
+      to: "off"
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_door_state
+      from: "on"
+      to: "off"
+  action:
+    sequence:
+      - service: script.turn_on
+        target:
+          entity_id: script.turn_off_entryway_lights
