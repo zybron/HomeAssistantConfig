@@ -4,7 +4,7 @@ homeassistant:
     - "/config"
     - "/config/motion"
 
-automations: !include my_automations.yaml
+automation: !include my_automations.yaml
 config:
 conversation:
 
