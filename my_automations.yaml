@@ -90,13 +90,12 @@
       from: "off"
       to: "on"
   action:
-    sequence:
-      - service: script.turn_off
-        target:
-          entity_id: script.turn_off_entryway_lights
-      - service: script.turn_on
-        target:
-          entity_id: script.turn_on_entryway_lights
+    - service: script.turn_off
+      target:
+        entity_id: script.turn_off_entryway_lights
+    - service: script.turn_on
+      target:
+        entity_id: script.turn_on_entryway_lights
 
 - id: "turn_off_entryway_lights_automation"  
   trigger:
@@ -109,7 +108,6 @@
       from: "on"
       to: "off"
   action:
-    sequence:
-      - service: script.turn_on
-        target:
-          entity_id: script.turn_off_entryway_lights
+    - service: script.turn_on
+      target:
+        entity_id: script.turn_off_entryway_lights
