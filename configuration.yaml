@@ -39,6 +39,11 @@ recorder:
   purge_keep_days: 7
 
 script: !include my_scripts.yaml
+sensor:
+  - platform: github
+    access_token: !secret github_token
+    repositories:
+      - path: "zybron/HomeAssistantConfig"
 sun:
 system_health:
 
