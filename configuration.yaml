@@ -1,6 +1,6 @@
 homeassistant:
   packages: !include_dir_named packages
-  external_url: "https://ha.zybron.com"
+  external_url: !secret external_url
   allowlist_external_dirs:
     - "/config"
     - "/config/motion"
