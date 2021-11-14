@@ -16,6 +16,9 @@ folder_watcher:
   - folder: /config
     patterns:
       - '*.yaml'
+  - folder: /config/packages
+    patterns:
+      - '*.yaml'
 history:
 
 http:
