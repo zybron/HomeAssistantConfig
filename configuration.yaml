@@ -12,7 +12,10 @@ conversation:
 default_config:
 
 discovery:
-
+folder_watcher:
+  - folder: /config
+    patterns:
+      - '*.yaml'
 history:
 
 http:
