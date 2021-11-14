@@ -130,3 +130,7 @@
         event_type: modified
   action:
     - service: homeassistant.reload_core_config
+    - service: notify.telegram_nathan
+      data:
+        message_template: "Home Assistant config has been reloaded."
+        title: "Home Assistant Config"
