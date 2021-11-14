@@ -15,7 +15,7 @@ turn_on_entryway_lights:
 turn_off_entryway_lights:
   sequence:
     - delay:
-      minutes: 5
+        minutes: 5
     - service: light.turn_off
       target:
         - entity_id: light.top_stairs
