@@ -8,8 +8,6 @@ automation: !include my_automations.yaml
 binary_sensor:
   - platform: mqtt
     name: "Car Presence"
-    availability: 
-      - topic: "car_presence/status"
     state_topic: "car_presence/status"
 config:
 conversation:
