@@ -133,11 +133,11 @@
       event_data:
         event_type: deleted
   action:
-    - service: homeassistant.reload_core_config
     - service: notify.telegram_nathan
       data:
-        message_template: "Home Assistant config has been reloaded."
+        message: "Home Assistant config has changed."
         title: "Home Assistant Config"
+    - service: homeassistant.restart
 
 - id: "front_door_unlocked"
   alias: "Front Door unlocked"
