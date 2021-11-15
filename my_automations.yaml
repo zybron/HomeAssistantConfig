@@ -397,3 +397,69 @@
           - media_player.master_bedroom_wifi
         cache: true
         message: "The garage door is closed."
+
+- id: "turn_on_cabinet_lights"
+  alias: "Turn on Cabinet Lights"
+  trigger:
+    - platform: time
+      at: "07:00:00"
+  action:
+    - alias: "Choose color by time of year"
+      choose:
+      - conditions:
+          - alias: "October"
+            condition: template
+            value_template: "{{  now().month == 10 }}"
+        sequence:
+          - service: light.turn_on
+            target:
+              entity_id: light.cabinets
+            data:
+              rgb_color: [255,40,0]
+      - conditions:
+          - alias: "December"
+            condition: template
+            value_template: "{{  now().month == 12 }}"
+        sequence:
+          - service: light.turn_on
+            target:
+              entity_id: light.cabinets
+            data:
+              rgb_color: [0,0,255]
+      default:
+        - service: light.turn_on
+          target:
+            entity_id: light.cabinets
+          data:
+            rgb_color: [0,255,255]
+
+- id: "turn_off_cabinet_lights"
+  alias: "Turn off Cabinet Lights"
+  trigger:
+    - platform: time
+      at: "22:00:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.hosting_mode
+      state: "off"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.cabinets
+
+- id: "turn_off_cabinet_lights_guests"
+  alias: "Turn off Cabinet Lights Guests"
+  trigger:
+    - platform: time
+      at: "00:00:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.hosting_mode
+      state: "on"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: light.cabinets
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.hosting_mode
