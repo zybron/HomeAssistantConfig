@@ -138,3 +138,63 @@
       data:
         message_template: "Home Assistant config has been reloaded."
         title: "Home Assistant Config"
+
+- id: "front_door_unlocked"
+  alias: "Front Door unlocked"
+  trigger:
+    - platform: state
+      entity_id: lock.front_door_lock
+      from: "locked"
+      to: "unlocked"
+      for: "00:03:00"
+  action:
+    - service: notify.telegram_nathan
+      data:
+        message: "The front door is unlocked."
+        title: "Front Door Lock"
+    - service: notify.telegram_nathan
+      data:
+        message: "The front door is unlocked."
+        title: "Front Door Lock"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.living_room
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: "The front door is unlocked."
+    - wait_for_trigger:
+        - platform: state
+          entity_id: binary_sensor.front_door_sensor_door_state
+          to: "off"
+    - service: lock.lock
+      target:
+        entity_id: lock.front_door_lock
+
+- id: "front_door_locked"
+  alias: "Front Door locked"
+  trigger:
+    - platform: state
+      entity_id: lock.front_door_lock
+      from: "unlocked"
+      to: "locked"
+  action:
+    - service: notify.telegram_nathan
+      data:
+        message: "The front door is locked."
+        title: "Front Door Lock"
+    - service: notify.telegram_nathan
+      data:
+        message: "The front door is locked."
+        title: "Front Door Lock"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.living_room
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: "The front door is locked."
