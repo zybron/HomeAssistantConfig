@@ -286,3 +286,114 @@
       data:
         title: 'Success Title'
         message: 'Success message.'
+
+- id: "open_garage_door_leaving"
+  alias: "Open Garage Door Leaving"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.car_on
+      from: "off"
+      to: "on"
+  action:
+    - service: cover.open_cover
+      target:
+        entity_id: cover.garage_door
+
+- id: "open_garage_door_arriving"
+  alias: "Open Garage Door Arriving"
+  trigger:
+    - platform: state
+      entity_id: person.erin
+      from: "away"
+      to: "home"
+    - platform: state
+      entity_id: person.nathan
+      from: "away"
+      to: "home"
+  condition:
+    - condition: state
+      entity_id: binary_sensor.car_parked
+      state: "off"
+  action:
+    - service: cover.open_cover
+      target:
+        entity_id: cover.garage_door
+
+- id: "open_garage_door_notification"
+  alias: "Open Garage Door Notification"
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: "open"
+  action:
+    - service: notify.telegram_nathan
+      data:
+        message: "The garage door is open."
+        title: "Garage Door"
+    - service: notify.telegram_erin
+      data:
+        message: "The garage door is open."
+        title: "Garage Door"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.living_room
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: "The garage door is open."
+
+- id: "close_garage_door"
+  alias: "Close Garage Door"
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: "open"
+    - platform: state
+      entity_id: input_boolean.hold_garage_open
+      from: "on"
+      to: "off"
+  condition:
+    - condition: state
+      entity_id: cover.garage_door
+      state: "open"
+  action:
+    - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{  trigger.entity_id == input_boolean.hold_garage_open }}"
+        sequence:
+          - service: cover.close_cover
+            target:
+              entity_id: cover.garage_door
+      default:
+        - delay: "00:05:00"
+        - service: cover.close_cover
+          target:
+            entity_id: cover.garage_door
+
+- id: "close_garage_door_notification"
+  alias: "Close Garage Door Notification"
+  trigger:
+    - platform: state
+      entity_id: cover.garage_door
+      to: "closed"
+  action:
+    - service: notify.telegram_nathan
+      data:
+        message: "The garage door is closed."
+        title: "Garage Door"
+    - service: notify.telegram_erin
+      data:
+        message: "The garage door is closed."
+        title: "Garage Door"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.living_room
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: "The garage door is closed."
