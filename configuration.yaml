@@ -11,7 +11,7 @@ binary_sensor:
     state_topic: "car_presence/status"
   - platform: template
     sensors:
-      sensor name:
+      car_parked:
         friendly_name: "Car Parked"
         value_template: "{{ states.cover.garage_door.attributes.vehicle == 1 }}"
 config:
