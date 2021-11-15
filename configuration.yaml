@@ -5,6 +5,11 @@ homeassistant:
     - "/config/motion"
 
 automation: !include my_automations.yaml
+binary_sensor:
+  - platform: mqtt
+    name: "Car Presence"
+    availability: car_presence/status
+    state_topic: car_presence/status
 config:
 conversation:
 cover:
