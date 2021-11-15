@@ -1,6 +1,0 @@
-input_boolean:
-  game_night:
-    name:                  'Game Night'
-  vampire_mode:
-    name:                  'Vampire Mode'
-
