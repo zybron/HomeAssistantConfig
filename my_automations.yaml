@@ -152,7 +152,7 @@
       data:
         message: "The front door is unlocked."
         title: "Front Door Lock"
-    - service: notify.telegram_nathan
+    - service: notify.telegram_erin
       data:
         message: "The front door is unlocked."
         title: "Front Door Lock"
@@ -185,7 +185,7 @@
       data:
         message: "The front door is locked."
         title: "Front Door Lock"
-    - service: notify.telegram_nathan
+    - service: notify.telegram_erin
       data:
         message: "The front door is locked."
         title: "Front Door Lock"
@@ -265,7 +265,7 @@
       event_data:
         command: '/test'
   action:
-    - service: notify.telegram_pandahome
+    - service: notify.telegram_nathan
       data:
         title: 'Test Title'
         message: 'Test message.'
@@ -282,7 +282,7 @@
       event_data:
         data: '/do_test'
   action:
-    - service: notify.telegram_pandahome
+    - service: notify.telegram_nathan
       data:
         title: 'Success Title'
         message: 'Success message.'
