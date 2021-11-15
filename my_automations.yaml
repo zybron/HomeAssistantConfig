@@ -161,7 +161,6 @@
         entity_id: 
           - media_player.entryway_wifi
           - media_player.kitchen_display
-          - media_player.living_room
           - media_player.master_bedroom_wifi
         cache: true
         message: "The front door is unlocked."
@@ -194,7 +193,6 @@
         entity_id: 
           - media_player.entryway_wifi
           - media_player.kitchen_display
-          - media_player.living_room
           - media_player.master_bedroom_wifi
         cache: true
         message: "The front door is locked."
@@ -339,7 +337,6 @@
         entity_id: 
           - media_player.entryway_wifi
           - media_player.kitchen_display
-          - media_player.living_room
           - media_player.master_bedroom_wifi
         cache: true
         message: "The garage door is open."
@@ -393,7 +390,6 @@
         entity_id: 
           - media_player.entryway_wifi
           - media_player.kitchen_display
-          - media_player.living_room
           - media_player.master_bedroom_wifi
         cache: true
         message: "The garage door is closed."
@@ -463,3 +459,59 @@
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.hosting_mode
+
+- id: "turn_on_living_room_light"
+  alias: "Turn on Living Room Light"
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: "-00:45:00"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.living_room_switch
+      data:
+        transition: 60
+
+- id: "turn_off_living_room_light_weekdays"
+  alias: "Turn off Living Room Light Weekdays"
+  trigger:
+    - platform: time
+      at: "22:00:00"
+  condition:
+    - alias: "Weekdays"
+      condition: template
+      value_template: "{{ now().weekday != 'Friday' and now().weekday != 'Saturday' }}"
+  action:
+    - wait_for_trigger:
+        - platform: state
+          entity_id: binary_sensor.living_room_occupancy
+          from: "on"
+          to: "off"
+    - service: light.turn_off
+      target:
+        entity_id: light.living_room_switch
+      data:
+        transition: 60
+
+- id: "turn_off_living_room_light_weekends"
+  alias: "Turn off Living Room Light Weekends"
+  trigger:
+    - platform: time
+      at: "23:00:00"
+  condition:
+    - alias: "Weekend"
+      condition: template
+      value_template: "{{ now().weekday == 'Friday' or now().weekday == 'Saturday' }}"
+  action:
+    - wait_for_trigger:
+        - platform: state
+          entity_id: binary_sensor.living_room_occupancy
+          from: "on"
+          to: "off"
+    - service: light.turn_off
+      target:
+        entity_id: light.living_room_switch
+      data:
+        transition: 60
+
