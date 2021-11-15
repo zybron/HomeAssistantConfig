@@ -137,6 +137,7 @@
       data:
         message: "Home Assistant config has changed."
         title: "Home Assistant Config"
+    - delay: "00:01:00"
     - service: homeassistant.restart
 
 - id: "front_door_unlocked"
@@ -146,7 +147,6 @@
       entity_id: lock.front_door_lock
       from: "locked"
       to: "unlocked"
-      for: "00:03:00"
   action:
     - service: notify.telegram_nathan
       data:
