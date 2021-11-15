@@ -7,8 +7,13 @@ homeassistant:
 automation: !include my_automations.yaml
 binary_sensor:
   - platform: mqtt
-    name: "Car Presence"
+    name: "Car On"
     state_topic: "car_presence/status"
+  - platform: template
+    sensors:
+      sensor name:
+        friendly_name: "Car Parked"
+        value_template: "{{ states.cover.garage_door.attributes.vehicle == 1 }}"
 config:
 conversation:
 cover:
