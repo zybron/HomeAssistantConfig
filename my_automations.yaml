@@ -619,14 +619,6 @@
           - "Stop:/stop_vacuum,Start:/start_vacuum"
           - "Locate:/locate_vacuum"
 
-- id: "vaccum_error"
-  alias: "Vacuum Error"
-  trigger:
-    - platform: state
-      entity_id: vacuum.roombie
-      from: "from state"
-      to: "to state"
-
 - id: 'telegram_open_garage_callback'
   alias: 'Open Garage Telegram Callback'
   initial_state: on
