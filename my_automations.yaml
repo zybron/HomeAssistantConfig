@@ -328,10 +328,12 @@
       data:
         message: "The garage door is open."
         title: "Garage Door"
+        inline_keyboard: [["Close", "/do_close_garage"]]
     - service: notify.telegram_erin
       data:
         message: "The garage door is open."
         title: "Garage Door"
+        inline_keyboard: [["Close", "/do_close_garage"]]
     - service: tts.cloud_say
       data:
         entity_id: 
@@ -381,10 +383,12 @@
       data:
         message: "The garage door is closed."
         title: "Garage Door"
+        inline_keyboard: [["Open", "/do_open_garage"]]
     - service: notify.telegram_erin
       data:
         message: "The garage door is closed."
         title: "Garage Door"
+        inline_keyboard: [["Open", "/do_open_garage"]]
     - service: tts.cloud_say
       data:
         entity_id: 
@@ -515,3 +519,144 @@
       data:
         transition: 60
 
+- id: 'telegram_start_vacuum_callback'
+  alias: 'Start Vacuum Telegram Callback'
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/start_vacuum'
+  action:
+    - service: vacuum.toggle
+      target:
+        entity_id: vacuum.roombie
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        message: "Starting Vacuum"
+        callback_query_id: "{{ trigger.event.data.id }}"
+    - service: telegram_bot.send_message
+      data:
+        message: "Roombie is starting."
+        title: "Roombie"
+        chat_id: "{{ trigger.event.data.chat_id }}"
+        inline_keyboard: 
+          - "Stop:/stop_vacuum"
+          - "Locate:/locate_vacuum,Return Home:/home_vacuum"
+
+- id: 'telegram_stop_vacuum_callback'
+  alias: 'Stop Vacuum Telegram Callback'
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/stop_vacuum'
+  action:
+    - service: vacuum.toggle
+      target:
+        entity_id: vacuum.roombie
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        message: "Stopping Vacuum"
+        callback_query_id: "{{ trigger.event.data.id }}"
+    - service: telegram_bot.send_message
+      data:
+        message: "Roombie is stopping."
+        title: "Roombie"
+        chat_id: "{{ trigger.event.data.chat_id }}"
+        inline_keyboard: 
+          - "Start:/start_vacuum"
+          - "Locate:/locate_vacuum,Return Home:/home_vacuum"
+
+- id: 'telegram_locate_vacuum_callback'
+  alias: 'Locate Vacuum Telegram Callback'
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/locate_vacuum'
+  action:
+    - service: vacuum.locate
+      target:
+        entity_id: vacuum.roombie
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        message: "Locating Vacuum"
+        callback_query_id: "{{ trigger.event.data.id }}"
+    - service: telegram_bot.send_message
+      data:
+        message: "Roombie is announcing it's location."
+        title: "Roombie"
+        chat_id: "{{ trigger.event.data.chat_id }}"
+        inline_keyboard: 
+          - "Stop:/stop_vacuum,Start:/start_vacuum"
+          - "Locate:/locate_vacuum,Return Home:/home_vacuum"
+
+- id: 'telegram_go_home_vacuum_callback'
+  alias: 'Vacuum Go Home Telegram Callback'
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/home_vacuum'
+  action:
+    - service: vacuum.return_to_base
+      target:
+        entity_id: vacuum.roombie
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        message: "Sending Home"
+        callback_query_id: "{{ trigger.event.data.id }}"
+    - service: telegram_bot.send_message
+      data:
+        message: "Roombie is returning home."
+        title: "Roombie"
+        chat_id: "{{ trigger.event.data.chat_id }}"
+        inline_keyboard: 
+          - "Stop:/stop_vacuum,Start:/start_vacuum"
+          - "Locate:/locate_vacuum"
+
+- id: "vaccum_error"
+  alias: "Vacuum Error"
+  trigger:
+    - platform: state
+      entity_id: vacuum.roombie
+      from: "from state"
+      to: "to state"
+
+- id: 'telegram_open_garage_callback'
+  alias: 'Open Garage Telegram Callback'
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/do_open_garage'
+  action:
+    - service: cover.open_cover
+      target:
+        entity_id: cover.garage_door
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        message: "Opening Garage Door"
+        callback_query_id: "{{ trigger.event.data.id }}"
+
+- id: 'telegram_close_garage_callback'
+  alias: 'Close Garage Telegram Callback'
+  initial_state: on
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        data: '/do_close_garage'
+  action:
+    - service: cover.close_cover
+      target:
+        entity_id: cover.garage_door
+    - service: telegram_bot.answer_callback_query
+      data_template:
+        message: "Closing Garage Door"
+        callback_query_id: "{{ trigger.event.data.id }}"
