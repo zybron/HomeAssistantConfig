@@ -829,3 +829,22 @@
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.hosting_mode
+
+- id: "grandfather_clock"
+  alias: "Granfather Clock"
+  trigger:
+    - platform: time_pattern
+      hours: "/1"
+      minutes: "0"
+      seconds: "0"
+  condition:
+    - condition: time
+      after: "08:00:00"
+      before: "22:00:00"
+  action:
+    - service: media_player.play_media
+      target:
+        entity_id: media_player.kitchen_display
+      data:
+        media_content_type: "Music"
+        media_content_id: "https://ha.zybron.com/local/grandfather-clock-chime-{{ now().strftime('%I') }}.mp3"
