@@ -784,3 +784,48 @@
         - service: script.turn_on
           target:
             entity_id: script.turn_on_entryway_lights
+
+- id: "hosting_mode_on"
+  alias: "Hosting Mode On"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.hosting_mode
+      from: "off"
+      to: "on"
+  condition:
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: climate.thermostat
+          state: "off" 
+  action:
+    - service: climate.set_temperature
+      target:
+        entity_id: climate.thermostat
+      data:
+        target_temp_high: 75
+        target_temp_low: 68
+
+- id: "hosting_mode_off"
+  alias: "Hosting Mode Off"
+  trigger:
+    - platform: state
+      entity_id: input_boolean.hosting_mode
+      from: "on"
+      to: "off"
+  action:
+    - service: ecobee.resume_program
+      target:
+        entity_id: climate.thermostat
+      data:
+        resume_all: true
+
+- id: "reset_hosting_mode"
+  alias: "Reset Hosting Mode"
+  trigger:
+    - platform: time
+      at: "00:00:00"
+  action:
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.hosting_mode
