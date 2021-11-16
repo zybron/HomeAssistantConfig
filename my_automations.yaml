@@ -660,3 +660,135 @@
       data_template:
         message: "Closing Garage Door"
         callback_query_id: "{{ trigger.event.data.id }}"
+
+- id: "erin_away"
+  alias: "Erin Away"
+  trigger:
+    - platform: state
+      entity_id: person.erin
+      from: "home"
+      to: "away"
+      for: "00:05:00"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.erin_away
+
+- id: "nathan_away"
+  alias: "Nathan Away"
+  trigger:
+    - platform: state
+      entity_id: person.nathan
+      from: "home"
+      to: "away"
+      for: "00:05:00"
+  action:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.nathan_away
+
+- id: "erin_arrives"
+  alias: "Erin Arrives"
+  trigger:
+    - platform: state
+      entity_id: person.erin
+      from: "away"
+      to: "home"
+  condition:
+    - condition: state
+      entity_id: input_boolean.erin_away
+      state: "on"
+  action:
+    - choose:
+      - conditions:
+          - condition: state
+            entity_id: binary_sensor.car_parked
+            state: "off"
+        sequence:
+          - service: cover.open_cover
+            target:
+              entity_id: cover.garage_door
+          - service: notify.telegram_nathan
+            data:
+              message: "Erin is arriving home."
+              title: "Erin"
+          - service: tts.cloud_say
+            data:
+              entity_id: 
+                - media_player.entryway_wifi
+                - media_player.kitchen_display
+                - media_player.master_bedroom_wifi
+              cache: true
+              message: "Erin is arriving home."
+          - service: script.turn_on
+            target:
+              entity_id: script.turn_on_entryway_lights
+      default:
+        - service: notify.telegram_nathan
+          data:
+            message: "Erin is arriving home."
+            title: "Erin"
+        - service: tts.cloud_say
+          data:
+            entity_id: 
+              - media_player.entryway_wifi
+              - media_player.kitchen_display
+              - media_player.master_bedroom_wifi
+            cache: true
+            message: "Erin is arriving home."
+        - service: script.turn_on
+          target:
+            entity_id: script.turn_on_entryway_lights
+
+- id: "nathan_arrives"
+  alias: "Nathan Arrives"
+  trigger:
+    - platform: state
+      entity_id: person.nathan
+      from: "away"
+      to: "home"
+  condition:
+    - condition: state
+      entity_id: input_boolean.nathan_away
+      state: "on"
+  action:
+    - choose:
+      - conditions:
+          - condition: state
+            entity_id: binary_sensor.car_parked
+            state: "off"
+        sequence:
+          - service: cover.open_cover
+            target:
+              entity_id: cover.garage_door
+          - service: notify.telegram_erin
+            data:
+              message: "Nathan is arriving home."
+              title: "Nathan"
+          - service: tts.cloud_say
+            data:
+              entity_id: 
+                - media_player.entryway_wifi
+                - media_player.kitchen_display
+                - media_player.master_bedroom_wifi
+              cache: true
+              message: "Nathan is arriving home."
+          - service: script.turn_on
+            target:
+              entity_id: script.turn_on_entryway_lights
+      default:
+        - service: notify.telegram_erin
+          data:
+            message: "Nathan is arriving home."
+            title: "Nathan"
+        - service: tts.cloud_say
+          data:
+            entity_id: 
+              - media_player.entryway_wifi
+              - media_player.kitchen_display
+              - media_player.master_bedroom_wifi
+            cache: true
+            message: "Nathan is arriving home."
+        - service: script.turn_on
+          target:
+            entity_id: script.turn_on_entryway_lights
