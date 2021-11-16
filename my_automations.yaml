@@ -532,7 +532,7 @@
       target:
         entity_id: vacuum.roombie
     - service: telegram_bot.answer_callback_query
-      data_template:
+      data:
         message: "Starting Vacuum"
         callback_query_id: "{{ trigger.event.data.id }}"
     - service: telegram_bot.send_message
@@ -557,7 +557,7 @@
       target:
         entity_id: vacuum.roombie
     - service: telegram_bot.answer_callback_query
-      data_template:
+      data:
         message: "Stopping Vacuum"
         callback_query_id: "{{ trigger.event.data.id }}"
     - service: telegram_bot.send_message
@@ -582,7 +582,7 @@
       target:
         entity_id: vacuum.roombie
     - service: telegram_bot.answer_callback_query
-      data_template:
+      data:
         message: "Locating Vacuum"
         callback_query_id: "{{ trigger.event.data.id }}"
     - service: telegram_bot.send_message
@@ -607,7 +607,7 @@
       target:
         entity_id: vacuum.roombie
     - service: telegram_bot.answer_callback_query
-      data_template:
+      data:
         message: "Sending Home"
         callback_query_id: "{{ trigger.event.data.id }}"
     - service: telegram_bot.send_message
@@ -640,7 +640,7 @@
       target:
         entity_id: cover.garage_door
     - service: telegram_bot.answer_callback_query
-      data_template:
+      data:
         message: "Opening Garage Door"
         callback_query_id: "{{ trigger.event.data.id }}"
 
@@ -657,7 +657,7 @@
       target:
         entity_id: cover.garage_door
     - service: telegram_bot.answer_callback_query
-      data_template:
+      data:
         message: "Closing Garage Door"
         callback_query_id: "{{ trigger.event.data.id }}"
 
