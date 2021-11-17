@@ -328,14 +328,12 @@
       data:
         message: "The garage door is open."
         title: "Garage Door"
-        inline_keyboard: 
-          - "Close:/do_close_garage"
+        inline_keyboard: "Close:/do_close_garage"
     - service: notify.telegram_erin
       data:
         message: "The garage door is open."
         title: "Garage Door"
-        inline_keyboard: 
-          - "Close:/do_close_garage"
+        inline_keyboard: "Close:/do_close_garage"
     - service: tts.cloud_say
       data:
         entity_id: 
@@ -363,7 +361,7 @@
     - choose:
       - conditions:
           - condition: template
-            value_template: "{{  trigger.entity_id == input_boolean.hold_garage_open }}"
+            value_template: "{{  trigger.entity_id == 'input_boolean.hold_garage_open' }}"
         sequence:
           - service: cover.close_cover
             target:
@@ -385,14 +383,12 @@
       data:
         message: "The garage door is closed."
         title: "Garage Door"
-        inline_keyboard: 
-          - "Open:/do_open_garage"
+        inline_keyboard: "Open:/do_open_garage"
     - service: notify.telegram_erin
       data:
         message: "The garage door is closed."
         title: "Garage Door"
-        inline_keyboard: 
-          - "Open:/do_open_garage"
+        inline_keyboard: "Open:/do_open_garage"
     - service: tts.cloud_say
       data:
         entity_id: 
