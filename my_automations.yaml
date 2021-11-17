@@ -855,6 +855,7 @@
 
 - id: "chia_sensors_notification"
   alias: "Chia Sensors Notification"
+  run_mode: parallel
   trigger:
     - platform: mqtt
       topic: chia
