@@ -549,7 +549,7 @@
         title: "Roombie"
         chat_id: "{{ trigger.event.data.chat_id }}"
         data:
-          inline_keyboard::
+          inline_keyboard:
           - "Stop:/stop_vacuum"
           - "Locate:/locate_vacuum,Return Home:/home_vacuum"
 
