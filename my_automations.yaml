@@ -867,4 +867,4 @@
     - service: notify.telegram_nathan
       data:
         message: "{{ trigger.payload_json.msg }}"
-        title: "{{ trigger.topic }} Notification"
+        title: "{{ trigger.topic | title }} Notification"
