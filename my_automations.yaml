@@ -848,3 +848,18 @@
       data:
         media_content_type: "Music"
         media_content_id: "https://ha.zybron.com/local/grandfather-clock-chime-{{ now().strftime('%I') }}.mp3"
+
+- id: "chia_sensors_notification"
+  alias: "Chia Sensors Notification"
+  trigger:
+    - platform: state
+      entity_id: sensor.chia
+    - platform: state
+      entity_id: sensor.chives
+    - platform: state
+      entity_id: sensor.stor
+  action:
+    - service: notify.telegram_nathan
+      data:
+        message: "{{ trigger.to_state }}"
+        title: "Chia Notification"
