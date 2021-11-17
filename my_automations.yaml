@@ -328,12 +328,16 @@
       data:
         message: "The garage door is open."
         title: "Garage Door"
-        inline_keyboard: "Close:/do_close_garage"
+        data:
+          inline_keyboard: 
+            - "Close:/do_close_garage"
     - service: notify.telegram_erin
       data:
         message: "The garage door is open."
         title: "Garage Door"
-        inline_keyboard: "Close:/do_close_garage"
+        data:
+          inline_keyboard: 
+            - "Close:/do_close_garage"
     - service: tts.cloud_say
       data:
         entity_id: 
@@ -383,12 +387,16 @@
       data:
         message: "The garage door is closed."
         title: "Garage Door"
-        inline_keyboard: "Open:/do_open_garage"
+        data:
+          inline_keyboard: 
+            - "Open:/do_open_garage"
     - service: notify.telegram_erin
       data:
         message: "The garage door is closed."
         title: "Garage Door"
-        inline_keyboard: "Open:/do_open_garage"
+        data:
+          inline_keyboard: 
+            - "Open:/do_open_garage"
     - service: tts.cloud_say
       data:
         entity_id: 
@@ -540,7 +548,8 @@
         message: "Roombie is starting."
         title: "Roombie"
         chat_id: "{{ trigger.event.data.chat_id }}"
-        inline_keyboard: 
+        data:
+          inline_keyboard::
           - "Stop:/stop_vacuum"
           - "Locate:/locate_vacuum,Return Home:/home_vacuum"
 
@@ -565,7 +574,8 @@
         message: "Roombie is stopping."
         title: "Roombie"
         chat_id: "{{ trigger.event.data.chat_id }}"
-        inline_keyboard: 
+        data:
+          inline_keyboard: 
           - "Start:/start_vacuum"
           - "Locate:/locate_vacuum,Return Home:/home_vacuum"
 
@@ -590,7 +600,8 @@
         message: "Roombie is announcing it's location."
         title: "Roombie"
         chat_id: "{{ trigger.event.data.chat_id }}"
-        inline_keyboard: 
+        data:
+          inline_keyboard: 
           - "Stop:/stop_vacuum,Start:/start_vacuum"
           - "Locate:/locate_vacuum,Return Home:/home_vacuum"
 
@@ -615,7 +626,8 @@
         message: "Roombie is returning home."
         title: "Roombie"
         chat_id: "{{ trigger.event.data.chat_id }}"
-        inline_keyboard: 
+        data:
+          inline_keyboard: 
           - "Stop:/stop_vacuum,Start:/start_vacuum"
           - "Locate:/locate_vacuum"
 
