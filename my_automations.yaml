@@ -49,7 +49,7 @@
       sequence:
         - service: notify.telegram_nathan
           data:
-            message_template: "The front door sensor's battery is low. Current level is {{ states.sensor.front_door_sensor_batter_level }}."
+            message_template: "The front door sensor's battery is low. Current level is {{ states.sensor.front_door_sensor_battery_level }}."
             title: "Front Door Sensor"
     - conditions:
         - condition: numeric_state
@@ -856,14 +856,14 @@
 - id: "chia_sensors_notification"
   alias: "Chia Sensors Notification"
   trigger:
-    - platform: state
-      entity_id: sensor.chia
-    - platform: state
-      entity_id: sensor.chives
-    - platform: state
-      entity_id: sensor.stor
+    - platform: mqtt
+      topic: chia
+    - platform: mqtt
+      topic: chives
+    - platform: mqtt
+      topic: stor
   action:
     - service: notify.telegram_nathan
       data:
-        message: "{{ trigger.to_state }}"
-        title: "Chia Notification"
+        message: "{{ trigger.payload_json.msg }}"
+        title: "{{ trigger.topic }} Notification"

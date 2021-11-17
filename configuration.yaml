@@ -105,21 +105,6 @@ sensor:
   - platform: tautulli
     api_key: !secret tautulli_api_key
     host: !secret tautulli_host
-  - platform: mqtt
-    name: "ChiaDog"
-    state_topic: chia
-    value_template: "{{ value_json.msg }}"
-    json_attributes_topic: chia
-  - platform: mqtt
-    name: "ChivesDog"
-    state_topic: chives
-    value_template: "{{ value_json.msg }}"
-    json_attributes_topic: chives
-  - platform: mqtt
-    name: "StorDog"
-    state_topic: stor
-    value_template: "{{ value_json.msg }}"
-    json_attributes_topic: stor
 
 shell_command:
   disco_off: echo -e -n '\x01\x08\x00\xF2\x51\x01\x00\x05\x01\x51' > /dev/ttyACM0
