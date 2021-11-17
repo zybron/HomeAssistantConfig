@@ -328,12 +328,14 @@
       data:
         message: "The garage door is open."
         title: "Garage Door"
-        inline_keyboard: [["Close", "/do_close_garage"]]
+        inline_keyboard: 
+          - "Close:/do_close_garage"
     - service: notify.telegram_erin
       data:
         message: "The garage door is open."
         title: "Garage Door"
-        inline_keyboard: [["Close", "/do_close_garage"]]
+        inline_keyboard: 
+          - "Close:/do_close_garage"
     - service: tts.cloud_say
       data:
         entity_id: 
@@ -383,12 +385,14 @@
       data:
         message: "The garage door is closed."
         title: "Garage Door"
-        inline_keyboard: [["Open", "/do_open_garage"]]
+        inline_keyboard: 
+          - "Open:/do_open_garage"
     - service: notify.telegram_erin
       data:
         message: "The garage door is closed."
         title: "Garage Door"
-        inline_keyboard: [["Open", "/do_open_garage"]]
+        inline_keyboard: 
+          - "Open:/do_open_garage"
     - service: tts.cloud_say
       data:
         entity_id: 
