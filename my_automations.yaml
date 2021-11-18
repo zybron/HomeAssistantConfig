@@ -302,11 +302,11 @@
   trigger:
     - platform: state
       entity_id: person.erin
-      from: "away"
+      from: "not_home"
       to: "home"
     - platform: state
       entity_id: person.nathan
-      from: "away"
+      from: "not_home"
       to: "home"
   condition:
     - condition: state
@@ -671,7 +671,7 @@
     - platform: state
       entity_id: person.erin
       from: "home"
-      to: "away"
+      to: "not_home"
       for: "00:05:00"
   action:
     - service: input_boolean.turn_on
@@ -684,7 +684,7 @@
     - platform: state
       entity_id: person.nathan
       from: "home"
-      to: "away"
+      to: "not_home"
       for: "00:05:00"
   action:
     - service: input_boolean.turn_on
@@ -696,7 +696,7 @@
   trigger:
     - platform: state
       entity_id: person.erin
-      from: "away"
+      from: "not_home"
       to: "home"
   condition:
     - condition: state
@@ -749,7 +749,7 @@
   trigger:
     - platform: state
       entity_id: person.nathan
-      from: "away"
+      from: "not_home"
       to: "home"
   condition:
     - condition: state
