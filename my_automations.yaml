@@ -381,6 +381,7 @@
   trigger:
     - platform: state
       entity_id: cover.garage_door
+      from: "open"
       to: "closed"
   action:
     - service: notify.telegram_nathan
