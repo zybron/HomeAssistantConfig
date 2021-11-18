@@ -632,6 +632,31 @@
           - "Stop:/stop_vacuum,Start:/start_vacuum"
           - "Locate:/locate_vacuum"
 
+- id: "vacuum_starting_notification"
+  alias: "Vacuum Starting Notification"
+  trigger:
+    - platform: state
+      entity_id: vacuum.roombie
+      from: "docked"
+      to: "cleaning"
+  action:
+    - service: notify.telegram_nathan
+      data:
+        message: "Roombie is starting to vacuum."
+        title: "Roombie"
+        data:
+          inline_keyboard: 
+          - "Stop:/stop_vacuum"
+          - "Locate:/locate_vacuum,Return Home:/home_vacuum"
+    - service: notify.telegram_erin
+      data:
+        message: "Roombie is starting to vacuum"
+        title: "Roombie"
+        data:
+          inline_keyboard: 
+          - "Stop:/stop_vacuum"
+          - "Locate:/locate_vacuum,Return Home:/home_vacuum"
+
 - id: 'telegram_open_garage_callback'
   alias: 'Open Garage Telegram Callback'
   initial_state: on
