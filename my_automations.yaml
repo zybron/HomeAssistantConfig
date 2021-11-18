@@ -871,6 +871,8 @@
       topic: chives
     - platform: mqtt
       topic: stor
+    - platform: mqtt
+      topic: staicoin
   action:
     - service: notify.telegram_nathan
       data:
