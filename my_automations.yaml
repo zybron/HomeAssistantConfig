@@ -637,7 +637,6 @@
   trigger:
     - platform: state
       entity_id: vacuum.roombie
-      from: "docked"
       to: "cleaning"
   action:
     - service: notify.telegram_nathan
