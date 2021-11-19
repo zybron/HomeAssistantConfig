@@ -101,6 +101,37 @@
       target:
         entity_id: script.turn_on_entryway_lights
 
+- id: "front_door_open_notification"
+  alias: "Front Door Open Notification"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.front_door_sensor_door_state
+      from: "off"
+      to: "on"
+      for:
+        minutes: 3
+  action:
+    - service: notify.telegram_nathan
+      data:
+        message: "The front door was left open."
+        title: "Front Door"
+    - service: notify.telegram_erin
+      data:
+        message: "The front door was left open."
+        title: "Front Door"
+    - service: notify.shield
+      data:
+        message: "The front door was left open."
+        title: "Front Door"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: "The front door was left open."
+
 - id: "turn_off_entryway_lights_automation"
   alias: "Turn Off Entryway Lights"
   trigger:
@@ -338,6 +369,10 @@
         data:
           inline_keyboard: 
             - "Close:/do_close_garage"
+    - service: notify.shield
+      data:
+        message: "The garage door is open."
+        title: "Garage Door"
     - service: tts.cloud_say
       data:
         entity_id: 
