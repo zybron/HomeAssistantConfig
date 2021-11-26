@@ -15,11 +15,9 @@ binary_sensor:
         friendly_name: "Car Parked"
         value_template: "{{ states.cover.garage_door.attributes.vehicle == 1 }}"
 camera:
-  - platform: generic
-    name: "Living Room Camera"
-    stream_source: !secret livingroom_cam_url
-    verify_ssl: false
-    authentication: digest
+  - platform: ffmpeg
+    name: "Living Room"
+    input: !secret livingroom_cam_url
 config:
 conversation:
 cover:
