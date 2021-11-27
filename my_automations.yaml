@@ -939,6 +939,12 @@
       topic: cryptodoge
     - platform: mqtt
       topic: flax
+    - platform: mqtt
+      topic: flora
+    - platform: mqtt
+      topic: hddcoin
+    - platform: mqtt
+      topic: nchain
   action:
     - service: notify.telegram_nathan
       data:
