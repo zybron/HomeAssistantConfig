@@ -9,6 +9,8 @@ binary_sensor:
   - platform: mqtt
     name: "Car On"
     state_topic: "car_presence/status"
+    payload_off: "offline"
+    payload_on: "online"
   - platform: template
     sensors:
       car_parked:
