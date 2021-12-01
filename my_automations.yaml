@@ -787,6 +787,9 @@
           - service: script.turn_on
             target:
               entity_id: script.turn_on_entryway_lights
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.erin_away
       default:
         - service: notify.telegram_nathan
           data:
@@ -803,6 +806,9 @@
         - service: script.turn_on
           target:
             entity_id: script.turn_on_entryway_lights
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.erin_away
 
 - id: "nathan_arrives"
   alias: "Nathan Arrives"
@@ -840,6 +846,9 @@
           - service: script.turn_on
             target:
               entity_id: script.turn_on_entryway_lights
+          - service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.nathan_away
       default:
         - service: notify.telegram_erin
           data:
@@ -856,6 +865,9 @@
         - service: script.turn_on
           target:
             entity_id: script.turn_on_entryway_lights
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.nathan_away
 
 - id: "hosting_mode_on"
   alias: "Hosting Mode On"
