@@ -1031,9 +1031,9 @@
       data:
         entity_id: input_number.last_stinky_timer_duration
     - service: timer.start
-      data_template:
+      data:
         entity_id: timer.stinky_wait_timer
-        duration: {{ float(states('input_number.last_stinky_timer_duration')) * 60 }}
+        duration: "{{ float(states('input_number.last_stinky_timer_duration')) * 60 }}"
 
 - id: "litter_box_full_start_timer"
   alias: "Litter Box Full Start Timer"
