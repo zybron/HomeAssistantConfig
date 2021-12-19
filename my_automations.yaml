@@ -962,3 +962,90 @@
       data:
         message: "{{ trigger.payload_json.msg }}"
         title: "{{ trigger.topic | title }} Notification"
+
+- id: "litter_box_full_start_timer"
+  alias: "Litter Box Full Start Timer"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.stinky_waste_drawer
+      above: 94
+  condition:
+    - condition: state
+      entity_id: timer.stinky_wait_timer
+      state: "idle"
+  action:
+    - service: notify.telegram_erin
+      data:
+        message: "Stinky needs to be emptied."
+        title: "Stinky"
+    - service: notify.shield
+      data:
+        message: "The litter robot needs to be emptied."
+        title: "Litter Robot"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: "The Litter Robot needs to be emptied."
+    - service: timer.start
+      data:
+        entity_id: timer.stinky_wait_timer
+        duration: "01:00:00"
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.last_stinky_timer_duration
+        value: 60
+
+- id: "litter_box_timer_finished"
+  alias: "Litter Box Timer Finished"
+  trigger:
+    - platform: event
+      event_type: timer.finished
+      event_data:
+        entity_id: timer.stinky_wait_timer
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.stinky_waste_drawer
+      above: 94
+  action:
+    - service: notify.telegram_erin
+      data:
+        message: "Stinky needs to be emptied."
+        title: "Stinky"
+    - service: notify.shield
+      data:
+        message: "The litter robot needs to be emptied."
+        title: "Litter Robot"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: "The Litter Robot needs to be emptied."
+    - service: input_number.decrement
+      data:
+        entity_id: input_number.last_stinky_timer_duration
+    - service: timer.start
+      data:
+        entity_id: timer.stinky_wait_timer
+        duration: {{ float(states('input_number.last_stinky_timer_duration')) * 60 }}
+
+- id: "litter_box_full_start_timer"
+  alias: "Litter Box Full Start Timer"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.stinky_waste_drawer
+      below: 95
+  action:
+    - service: timer.cancel
+      data:
+        entity_id: timer.stinky_wait_timer
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.last_stinky_timer_duration
+        value: 60
