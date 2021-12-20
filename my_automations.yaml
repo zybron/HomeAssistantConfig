@@ -938,25 +938,32 @@
   mode: parallel
   trigger:
     - platform: mqtt
-      topic: chia
+      topic: crypto/btcgreen
     - platform: mqtt
-      topic: chives
+      topic: crypto/cactus
     - platform: mqtt
-      topic: stor
+      topic: crypto/chia
     - platform: mqtt
-      topic: staicoin
+      topic: crypto/cryptodoge
     - platform: mqtt
-      topic: cactus
+      topic: crypto/flax
     - platform: mqtt
-      topic: cryptodoge
+      topic: crypto/flora
     - platform: mqtt
-      topic: flax
+      topic: crypto/hddcoin
     - platform: mqtt
-      topic: flora
+      topic: crypto/nchain
     - platform: mqtt
-      topic: hddcoin
+      topic: crypto/stor
     - platform: mqtt
-      topic: nchain
+      topic: crypto/staicoin
+  condition:
+    - condition: or
+      conditions:
+        - condition: template
+          value_template: "{{  trigger.payload_json.service == 'WALLET' }}"
+        - condition: template
+          value_template: "{{  trigger.payload_json.service == 'DAILY' }}"
   action:
     - service: notify.telegram_nathan
       data:
