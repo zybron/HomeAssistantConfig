@@ -1,9 +1,8 @@
->
-'{{ 
-["The Litter Robot needs to be emptied.", 
-"The litter robot would like to be emptied, please.",
-"The litter robot says, I'm too full, please empty me.",
-"I'm so full, would you please empty me?", 
-"I'm really starting to smell, would you please empty me?"
-] | random
-}}'
+  >
+  {{ ["The Litter Robot needs to be emptied.", 
+  "The litter robot would like to be emptied, please.", 
+  "The litter robot says, I'm too full, please empty me.",
+  "I'm so full, would you please empty me?", 
+  "I'm really starting to smell, would you please empty me?"
+  ] | random
+  }}
