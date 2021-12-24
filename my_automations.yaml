@@ -1042,8 +1042,8 @@
         entity_id: timer.stinky_wait_timer
         duration: "{{ float(states('input_number.last_stinky_timer_duration')) * 60 }}"
 
-- id: "litter_box_full_start_timer"
-  alias: "Litter Box Full Start Timer"
+- id: "litter_box_full_stop_timer"
+  alias: "Litter Box Full Stop Timer"
   trigger:
     - platform: numeric_state
       entity_id: sensor.stinky_waste_drawer
