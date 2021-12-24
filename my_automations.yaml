@@ -983,11 +983,11 @@
   action:
     - service: notify.telegram_erin
       data:
-        message: "Stinky needs to be emptied."
+        message: !include litter_robot_phrases.yaml
         title: "Stinky"
     - service: notify.shield
       data:
-        message: "The litter robot needs to be emptied."
+        message: !include litter_robot_phrases.yaml
         title: "Litter Robot"
     - service: tts.cloud_say
       data:
@@ -996,7 +996,7 @@
           - media_player.kitchen_display
           - media_player.master_bedroom_wifi
         cache: true
-        message: "The Litter Robot needs to be emptied."
+        message: !include litter_robot_phrases.yaml
     - service: timer.start
       data:
         entity_id: timer.stinky_wait_timer
@@ -1020,11 +1020,11 @@
   action:
     - service: notify.telegram_erin
       data:
-        message: "Stinky needs to be emptied."
+        message: !include litter_robot_phrases.yaml
         title: "Stinky"
     - service: notify.shield
       data:
-        message: "The litter robot needs to be emptied."
+        message: !include litter_robot_phrases.yaml
         title: "Litter Robot"
     - service: tts.cloud_say
       data:
@@ -1033,7 +1033,7 @@
           - media_player.kitchen_display
           - media_player.master_bedroom_wifi
         cache: true
-        message: "The Litter Robot needs to be emptied."
+        message: !include litter_robot_phrases.yaml
     - service: input_number.decrement
       data:
         entity_id: input_number.last_stinky_timer_duration
