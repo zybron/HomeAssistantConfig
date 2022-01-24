@@ -24,3 +24,42 @@ turn_off_entryway_lights:
       before_offset: "-00:30:00"
     - service: light.turn_off
       entity_id: light.front_door
+litterbox_timer_start:
+  sequence:
+    - service: timer.start
+      data:
+        entity_id: timer.stinky_wait_timer
+        duration: "01:00:00"
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.last_stinky_timer_duration
+        value: 60
+    - service: script.litterbox_notifications
+litterbox_timer_elapsed:
+  sequence:
+    - service: input_number.decrement
+      data:
+        entity_id: input_number.last_stinky_timer_duration
+    - service: timer.start
+      data:
+        entity_id: timer.stinky_wait_timer
+        duration: "{{ float(states('input_number.last_stinky_timer_duration')) * 60 }}"
+    - service: script.litterbox_notifications
+litterbox_notifications:
+  sequence:
+    - service: notify.telegram_erin
+      data:
+        message: !include litter_robot_phrases.yaml
+        title: "Stinky"
+    - service: tts.cloud_say
+      data:
+        entity_id: 
+          - media_player.entryway_wifi
+          - media_player.kitchen_display
+          - media_player.master_bedroom_wifi
+        cache: true
+        message: !include litter_robot_phrases.
+    - service: notify.shield
+      data:
+        message: !include litter_robot_phrases.yaml
+        title: "Litter Robot"
