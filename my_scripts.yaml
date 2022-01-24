@@ -58,7 +58,7 @@ litterbox_notifications:
           - media_player.kitchen_display
           - media_player.master_bedroom_wifi
         cache: true
-        message: !include litter_robot_phrases.
+        message: !include litter_robot_phrases.yaml
     - service: notify.shield
       data:
         message: !include litter_robot_phrases.yaml
