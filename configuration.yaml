@@ -100,10 +100,6 @@ recorder:
 
 script: !include my_scripts.yaml
 sensor:
-  - platform: github
-    access_token: !secret github_token
-    repositories:
-      - path: "zybron/HomeAssistantConfig"
   - platform: template
     sensors:
       erin_location:
