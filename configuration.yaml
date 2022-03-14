@@ -2,7 +2,6 @@ homeassistant:
   external_url: !secret external_url
   allowlist_external_dirs:
     - "/config"
-    - "/config/motion"
 
 automation: !include my_automations.yaml
 binary_sensor:
