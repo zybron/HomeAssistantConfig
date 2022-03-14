@@ -16,7 +16,7 @@ jobs:
       - name: Running YAMLlint
         uses: "docker://pipelinecomponents/yamllint:latest"
         with:
-          args: yamllint .
+          args: yamllint -f parsable -d relaxed .
   remarklint:
     name: "Remarklint"
     runs-on: ubuntu-latest
