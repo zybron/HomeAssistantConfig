@@ -392,10 +392,14 @@
       entity_id: input_boolean.hold_garage_open
       from: "on"
       to: "off"
-  condition:
+  condition: and
+  conditions:
     - condition: state
       entity_id: cover.garage_door
       state: "open"
+    - condition: state
+      entity_id: input_boolean.hold_garage_open
+      state: "off"
   action:
     - choose:
       - conditions:
