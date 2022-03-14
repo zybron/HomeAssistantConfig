@@ -7,16 +7,16 @@ on:
       - master
   pull_request:
 jobs:
-  yamllint:
-    name: "Yamllint"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Getting your configuration from GitHub
-        uses: actions/checkout@v1
-      - name: Running YAMLlint
-        uses: "docker://pipelinecomponents/yamllint:latest"
-        with:
-          args: yamllint -f parsable -d relaxed .
+#  yamllint:
+#    name: "Yamllint"
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Getting your configuration from GitHub
+#        uses: actions/checkout@v1
+#      - name: Running YAMLlint
+#        uses: "docker://pipelinecomponents/yamllint:latest"
+#        with:
+#          args: yamllint -f parsable -d relaxed .
   remarklint:
     name: "Remarklint"
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
   home_assistant_stable:
     name: "Home-Assistant: Stable"
     runs-on: ubuntu-latest
-    needs: [yamllint, remarklint]
+    needs: remarklint
     steps:
       - name: Getting your configuration from GitHub
         uses: actions/checkout@v1
