@@ -56,7 +56,7 @@ jobs:
     steps:
       - name: "Make POST to HA"
         id: post_ha
-        uses: fjogeleit/http-request-action@v1
+        uses: fjogeleit/http-request-action@v1.9.1
         with:
           url: ${{ secrets.HOST }}
           method: 'POST'
