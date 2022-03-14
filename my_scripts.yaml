@@ -72,11 +72,11 @@ roombie_afternoon_routine:
         params:
           pmap_id: u2SsuVi-TXW-6sgke4hsvQ
           regions:
-            - region_id: 1
+            - region_id: '1'
               type: rid
-            - region_id: 20
+            - region_id: '20'
               type: rid
-            - region_id: 24
+            - region_id: '24'
               type: rid
 
 roombie_morning_routine:
@@ -88,15 +88,15 @@ roombie_morning_routine:
         params:
           pmap_id: u2SsuVi-TXW-6sgke4hsvQ
           regions:
-            - region_id: 2
+            - region_id: '2'
               type: rid
-            - region_id: 15
+            - region_id: '15'
               type: rid
-            - region_id: 23
+            - region_id: '23'
               type: rid
-            - region_id: 26
+            - region_id: '26'
               type: rid
-            - region_id: 28
+            - region_id: '28'
               type: rid
-            - region_id: 27
+            - region_id: '27'
               type: rid
