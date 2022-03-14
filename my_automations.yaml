@@ -339,8 +339,7 @@
       entity_id: person.nathan
       from: "not_home"
       to: "home"
-  condition: and
-  conditions:
+  condition:
     - condition: state
       entity_id: binary_sensor.car_parked
       state: "off"
@@ -396,8 +395,7 @@
       entity_id: input_boolean.hold_garage_open
       from: "on"
       to: "off"
-  condition: and
-  conditions:
+  condition:
     - condition: state
       entity_id: cover.garage_door
       state: "open"
