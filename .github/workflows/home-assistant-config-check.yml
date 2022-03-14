@@ -60,7 +60,6 @@ jobs:
         with:
           url: ${{ secrets.HOST }}
           method: POST
-          contentType: application/JSON
           data: >
             {"entity_id":"automation.pull_new_config"}
           bearerToken: ${{ secrets.HATOKEN }}
