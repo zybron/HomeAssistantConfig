@@ -6,6 +6,7 @@ on:
     branches:
       - master
   pull_request:
+  workflow_dispatch:
 jobs:
 #  yamllint:
 #    name: "Yamllint"
@@ -48,3 +49,19 @@ jobs:
         uses: "docker://homeassistant/home-assistant:stable"
         with:
           args: python -m homeassistant --config . --script check_config --info all
+  trigger_pull:
+    name: "Trigger Pull Config"
+    runs-on: ubuntu-latest
+    needs: home_assistant_stable
+    steps:
+      - name: "Make POST to HA"
+        id: post_ha
+        uses: fjogeleit/http-request-action@v1.9.1
+        with:
+          url: ${{ secrets.HOST }}
+          method: POST
+          data: >
+            {"entity_id":"automation.pull_new_config"}
+          bearerToken: ${{ secrets.HATOKEN }}
+      - name: Show Response
+        run: echo ${{ steps.post_ha.outputs.response }}
