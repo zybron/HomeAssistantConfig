@@ -7,7 +7,6 @@
 !*.mp3
 !*.py
 !*.json
-!custom_components/*
 !scenes
 !assets
 !automations
