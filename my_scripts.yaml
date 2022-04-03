@@ -79,13 +79,13 @@ roombie_afternoon_routine:
             - region_id: '24'
               type: rid
     - delay:
-        minutes: 20
+        minutes: 60
     - service: vacuum.send_command
       data:
         entity_id: vacuum.bravo
         command: start
         params:
-          pmap_id: u2SsuVi-TXW-6sgke4hsvQ
+          pmap_id: cEgsnSXwgZrXCqcjK
           regions:
             - region_id: '1'
               type: rid
@@ -102,6 +102,27 @@ roombie_morning_routine:
         command: start
         params:
           pmap_id: u2SsuVi-TXW-6sgke4hsvQ
+          regions:
+            - region_id: '2'
+              type: rid
+            - region_id: '15'
+              type: rid
+            - region_id: '23'
+              type: rid
+            - region_id: '26'
+              type: rid
+            - region_id: '28'
+              type: rid
+            - region_id: '27'
+              type: rid
+    - delay:
+        minutes: 60
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.bravo
+        command: start
+        params:
+          pmap_id: cEgsnSXwgZrXCqcjK
           regions:
             - region_id: '2'
               type: rid
